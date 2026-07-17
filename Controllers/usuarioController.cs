@@ -10,8 +10,6 @@ namespace OndeFoi.Controllers
   
   public class UsuarioController : ControllerBase
     {
-        private static List<Usuario> usuarios = new();
-
         private readonly AppDbContext _context;
 
         public UsuarioController(AppDbContext context)

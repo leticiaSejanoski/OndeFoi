@@ -15,7 +15,6 @@ namespace OndeFoi.Models
 
         public Categoria()
         {
-
         }
         
         public Categoria(string nome)

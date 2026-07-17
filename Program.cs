@@ -1,6 +1,8 @@
 using Microsoft.Extensions.Options;
 using OndeFoi.Data;
 using Microsoft.EntityFrameworkCore;
+using OndeFoi.Repositories;
+using OndeFoi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -10,6 +12,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
+builder.Services.AddScoped<CategoriaRepository>();
+builder.Services.AddScoped<CategoriaService>();
 
 // Add services to the container.
 

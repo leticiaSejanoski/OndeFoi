@@ -10,8 +10,8 @@ using OndeFoi.Data;
 namespace OndeFoi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260713220540_RenameUserTable")]
-    partial class RenameUserTable
+    [Migration("20260716164055_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,7 +61,7 @@ namespace OndeFoi.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Gastos");
+                    b.ToTable("Gasto");
                 });
 
             modelBuilder.Entity("OndeFoi.Models.Usuario", b =>

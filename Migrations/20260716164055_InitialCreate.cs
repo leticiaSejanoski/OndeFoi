@@ -30,7 +30,7 @@ namespace OndeFoi.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Usuarios",
+                name: "Usuario",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -44,12 +44,12 @@ namespace OndeFoi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Usuarios", x => x.Id);
+                    table.PrimaryKey("PK_Usuario", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Gastos",
+                name: "Gasto",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -62,30 +62,30 @@ namespace OndeFoi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Gastos", x => x.Id);
+                    table.PrimaryKey("PK_Gasto", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Gastos_Categoria_CategoriaId",
+                        name: "FK_Gasto_Categoria_CategoriaId",
                         column: x => x.CategoriaId,
                         principalTable: "Categoria",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Gastos_Usuarios_UsuarioId",
+                        name: "FK_Gasto_Usuario_UsuarioId",
                         column: x => x.UsuarioId,
-                        principalTable: "Usuarios",
+                        principalTable: "Usuario",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Gastos_CategoriaId",
-                table: "Gastos",
+                name: "IX_Gasto_CategoriaId",
+                table: "Gasto",
                 column: "CategoriaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Gastos_UsuarioId",
-                table: "Gastos",
+                name: "IX_Gasto_UsuarioId",
+                table: "Gasto",
                 column: "UsuarioId");
         }
 
@@ -93,13 +93,13 @@ namespace OndeFoi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Gastos");
+                name: "Gasto");
 
             migrationBuilder.DropTable(
                 name: "Categoria");
 
             migrationBuilder.DropTable(
-                name: "Usuarios");
+                name: "Usuario");
         }
     }
 }

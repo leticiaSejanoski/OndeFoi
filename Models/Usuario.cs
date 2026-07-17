@@ -16,6 +16,7 @@ namespace OndeFoi.Models
         public string Email { get; set; } = string.Empty;
         [Required(ErrorMessage = "Senha é obrigatória.")]
         public string SenhaHash { get; set; } = string.Empty;
+        public List<Gasto> Gastos { get; set; } = new();
     
     public Usuario() { }
     
