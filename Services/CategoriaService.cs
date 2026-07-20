@@ -19,44 +19,44 @@ namespace OndeFoi.Services
             return _repository.Listar();
         }
 
-        public Resultado Criar(string nome)
+        public Resultado<Categoria> Criar(string nome)
         {
             Categoria categoria = new Categoria(nome);
 
             var erros = ValidarCategoria(categoria);
 
-            if (erros.Any()) return Resultado.Erro(erros);
+            if (erros.Any()) return Resultado<Categoria>.Erro(erros);
 
             _repository.Adicionar(categoria);
 
-            return Resultado.Ok(categoria);
+            return Resultado<Categoria>.Ok(categoria);
         }
 
-        public Resultado Remover(int id)
+        public Resultado<Categoria> Remover(int id)
         {
             var categoria = _repository.BuscarPorId(id);
 
-            if (categoria == null) return Resultado.Erro("Categoria não encontrada.");
+            if (categoria == null) return Resultado<Categoria>.Erro("Categoria não encontrada.");
 
             _repository.Remover(categoria);
 
-            return Resultado.Ok();
+            return Resultado<Categoria>.Ok();
 
         }
 
-        public Resultado Editar(int id, string nome)
+        public Resultado<Categoria> Editar(int id, string nome)
         {
             var categoria = _repository.BuscarPorId(id);
 
-            if (categoria == null) return Resultado.Erro("Categoria não encontrada.");
+            if (categoria == null) return Resultado<Categoria>.Erro("Categoria não encontrada.");
 
             categoria.Nome = nome;
             var erros = ValidarCategoria(categoria, id);
-            if (erros.Any()) return Resultado.Erro(erros);
+            if (erros.Any()) return Resultado<Categoria>.Erro(erros);
 
             _repository.Salvar();
 
-            return Resultado.Ok(categoria);
+            return Resultado<Categoria>.Ok(categoria);
         }
 
         private List<string> ValidarCategoria(Categoria categoria, int? id = null)

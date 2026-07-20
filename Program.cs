@@ -14,6 +14,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<CategoriaRepository>();
 builder.Services.AddScoped<CategoriaService>();
+builder.Services.AddScoped<GastoRepository>();
+builder.Services.AddScoped<GastoService>();
+builder.Services.AddScoped<UsuarioRepository>();
+builder.Services.AddScoped<UsuarioService>();
 
 // Add services to the container.
 

@@ -34,7 +34,7 @@ namespace OndeFoi.Controllers
 
             if (!resultado.Sucesso) return BadRequest(resultado.Erros);
 
-            return Created($"api/categorias/{resultado.Categoria!.Id}", resultado.Categoria);
+            return Created($"api/categorias/{resultado.Dado!.Id}", resultado.Dado);
         }
 
         [HttpDelete("{id}")]

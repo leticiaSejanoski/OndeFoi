@@ -2,39 +2,39 @@ using OndeFoi.Models;
 
 namespace OndeFoi.Services
 {
-    public class Resultado
+    public class Resultado<T>
     {
         public bool Sucesso { get; set; }
         public List<string> Erros { get; set; } = new();
-        public Categoria? Categoria { get; set; }
+        public T? Dado { get; set; }
 
-        public static Resultado Ok()
+        public static Resultado<T> Ok()
         {
-            return new Resultado
+            return new Resultado<T>
             {
                 Sucesso = true
             };
         }
-        public static Resultado Ok(Categoria categoria)
+        public static Resultado<T> Ok(T dado)
         {
-            return new Resultado
+            return new Resultado<T>
             {
                 Sucesso = true,
-                Categoria = categoria
+                Dado = dado
             };
         }
 
-        public static Resultado Erro(List<string> erros)
+        public static Resultado<T> Erro(List<string> erros)
         {
-            return new Resultado
+            return new Resultado<T>
             {
                 Sucesso = false,
                 Erros = erros
             };
         }
-            public static Resultado Erro(string erro)
+            public static Resultado<T> Erro(string erro)
         {
-            return new Resultado
+            return new Resultado<T>
             {
                 Sucesso = false,
                 Erros = new List<string> {erro}
