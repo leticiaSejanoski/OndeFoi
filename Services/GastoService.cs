@@ -1,3 +1,4 @@
+using OndeFoi.DTOs;
 using OndeFoi.Models;
 using OndeFoi.Repositories;
 
@@ -18,9 +19,9 @@ namespace OndeFoi.Services
             return _repository.Listar();
         }
 
-        public Resultado<Gasto> Criar(string descricao, decimal valor, int idCategoria, int idUsuario)
+        public Resultado<Gasto> Criar(CriarGastoDto dto)
         {
-            Gasto gasto = new Gasto(descricao, valor, idCategoria, idUsuario);
+            Gasto gasto = new Gasto(dto.Descricao, dto.Valor, dto.CategoriaId, dto.UsuarioId);
             var erros = ValidarGasto(gasto);
 
             if (erros.Any()) return Resultado<Gasto>.Erro(erros);
@@ -42,16 +43,15 @@ namespace OndeFoi.Services
         }
 
 
-         public Resultado<Gasto> Editar(int id, string descricao, decimal valor, int idCategoria, int idUsuario)
+         public Resultado<Gasto> Editar(int id, EditarGastoDto dto)
         {
             var gasto = _repository.BuscarPorId(id);
 
             if (gasto == null) return Resultado<Gasto>.Erro("Gasto não Encontrado!");
 
-            gasto.Descricao = descricao;
-            gasto.Valor = valor;
-            gasto.CategoriaId = idCategoria;
-            gasto.UsuarioId = idUsuario;
+            gasto.Descricao = dto.Descricao;
+            gasto.Valor = dto.Valor;
+            gasto.CategoriaId = dto.CategoriaId;
 
             var erros = ValidarGasto(gasto);
             if (erros.Any()) return Resultado<Gasto>.Erro(erros);

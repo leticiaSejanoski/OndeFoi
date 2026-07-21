@@ -2,6 +2,7 @@ using System.Reflection.Metadata.Ecma335;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OndeFoi.Data;
+using OndeFoi.DTOs;
 using OndeFoi.Models;
 using OndeFoi.Services;
 
@@ -28,9 +29,9 @@ namespace OndeFoi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Criar(string descricao, decimal valor, int idCategoria, int idUsuario)
+        public IActionResult Criar(CriarGastoDto dto)
         {
-            var resultado = _service.Criar(descricao, valor, idCategoria, idUsuario);
+            var resultado = _service.Criar(dto);
 
             if (!resultado.Sucesso) return BadRequest(resultado.Erros);
 
@@ -48,9 +49,9 @@ namespace OndeFoi.Controllers
         }
 
         [HttpPut("id")]
-        public IActionResult Editar(int id, string descricao, decimal valor, int idCategoria, int idUsuario)
+        public IActionResult Editar(int id, EditarGastoDto dto)
         {
-            var resultado = _service.Editar(id, descricao, valor, idCategoria, idUsuario);
+            var resultado = _service.Editar(id, dto);
 
             if (!resultado.Sucesso) return BadRequest(resultado.Erros);
            

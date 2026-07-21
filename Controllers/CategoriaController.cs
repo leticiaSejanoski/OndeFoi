@@ -4,6 +4,7 @@ using OndeFoi.Models;
 using OndeFoi.Data;
 using OndeFoi.Repositories;
 using OndeFoi.Services;
+using OndeFoi.DTOs;
 
 namespace OndeFoi.Controllers
 {
@@ -28,9 +29,9 @@ namespace OndeFoi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Criar(string nome)
+        public IActionResult Criar(CriarCategoriaDto dto)
         {
-            var resultado = _service.Criar(nome);
+            var resultado = _service.Criar(dto);
 
             if (!resultado.Sucesso) return BadRequest(resultado.Erros);
 
@@ -47,9 +48,9 @@ namespace OndeFoi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Editar(int id, string nome)
+        public IActionResult Editar(int id, CriarCategoriaDto dto)
         {
-            var resultado = _service.Editar(id, nome);
+            var resultado = _service.Editar(id, dto);
             if (!resultado.Sucesso) return BadRequest(resultado.Erros);
 
             return Ok("Categoria editada com sucesso!");

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http.HttpResults;
+using OndeFoi.DTOs;
 using OndeFoi.Models;
 using OndeFoi.Repositories;
 
@@ -19,9 +20,9 @@ namespace OndeFoi.Services
             return _repository.Listar();
         }
 
-        public Resultado<Categoria> Criar(string nome)
+        public Resultado<Categoria> Criar(CriarCategoriaDto dto)
         {
-            Categoria categoria = new Categoria(nome);
+            Categoria categoria = new Categoria(dto.Nome);
 
             var erros = ValidarCategoria(categoria);
 
@@ -44,13 +45,13 @@ namespace OndeFoi.Services
 
         }
 
-        public Resultado<Categoria> Editar(int id, string nome)
+        public Resultado<Categoria> Editar(int id, CriarCategoriaDto dto)
         {
             var categoria = _repository.BuscarPorId(id);
 
             if (categoria == null) return Resultado<Categoria>.Erro("Categoria não encontrada.");
 
-            categoria.Nome = nome;
+            categoria.Nome = dto.Nome;
             var erros = ValidarCategoria(categoria, id);
             if (erros.Any()) return Resultado<Categoria>.Erro(erros);
 

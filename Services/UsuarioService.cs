@@ -1,5 +1,6 @@
 using OndeFoi.Repositories;
 using OndeFoi.Models;
+using OndeFoi.DTOs;
 
 
 namespace OndeFoi.Services
@@ -19,9 +20,9 @@ namespace OndeFoi.Services
             return resultado;
         }
 
-        public Resultado<Usuario> Cadastrar(string nome, string email, string senha)
+        public Resultado<Usuario> Cadastrar(CadastrarUsuarioDto dto)
         {
-            Usuario usuario = new Usuario(nome, email, senha);
+            Usuario usuario = new Usuario(dto.Nome, dto.Email, dto.Senha);
             var erros = validarUsuario(usuario);
 
             if (erros.Any()) return Resultado<Usuario>.Erro(erros);
@@ -41,15 +42,15 @@ namespace OndeFoi.Services
 
         }
 
-        public Resultado<Usuario> Editar(int id, string nome, string email, string senha)
+        public Resultado<Usuario> Editar(int id, EditarUsuarioDto dto)
         {
             var usuario = _repository.BuscarPorId(id);
 
             if (usuario == null) return Resultado<Usuario>.Erro("Usuário não encontrado!");
 
-            usuario.Nome = nome;
-            usuario.Email = email;
-            usuario.SenhaHash = senha;
+            usuario.Nome = dto.Nome;
+            usuario.Email = dto.Email;
+            usuario.SenhaHash = dto.Senha;
 
             var erros = validarUsuario(usuario);
             if (erros.Any()) return Resultado<Usuario>.Erro(erros);

@@ -1,6 +1,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 using OndeFoi.Data;
+using OndeFoi.DTOs;
 using OndeFoi.Models;
 using OndeFoi.Services;
 
@@ -27,9 +28,9 @@ namespace OndeFoi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Cadastrar(string nome, string email, string senha)
+        public IActionResult Cadastrar(CadastrarUsuarioDto dto)
         {
-            var resultado = _service.Cadastrar(nome, email, senha);
+            var resultado = _service.Cadastrar(dto);
 
             if (!resultado.Sucesso) return BadRequest(resultado.Erros);
             return Created($"api/usuarios/{resultado.Dado!.Id}", resultado);
@@ -45,13 +46,14 @@ namespace OndeFoi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Editar(int id, string nome, string email, string senha)
+        public IActionResult Editar(int id, EditarUsuarioDto dto)
         {
-            var resultado = _service.Editar(id, nome, email, senha);
+            var resultado = _service.Editar(id, dto);
 
             if (!resultado.Sucesso) return BadRequest(resultado.Erros);
 
             return Ok("Informações alteradas com sucesso.");
         }
+
     }
 }
