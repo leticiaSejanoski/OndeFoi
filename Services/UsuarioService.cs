@@ -64,12 +64,9 @@ namespace OndeFoi.Services
         private List<string> validarUsuario(Usuario usuario)
         {
             var erros = new List<string>();
-            if (string.IsNullOrWhiteSpace(usuario.Nome)) erros.Add("Nome é obrigatório!");
-            if (string.IsNullOrWhiteSpace(usuario.Email)) erros.Add("Email é obrigatório!");
-            if (!usuario.Email.Contains('@')) erros.Add("O e-mail deve conter '@'.");
-            if (_repository.ExisteEmail(usuario.Nome, usuario.Id)) erros.Add("Esse email já está sendo usado.");
-            if (string.IsNullOrWhiteSpace(usuario.SenhaHash)) erros.Add("Senha é obrigatória!");
 
+            if (_repository.ExisteEmail(usuario.Email, usuario.Id)) erros.Add("Esse email já está sendo usado.");
+            
             return erros;
 
         }

@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace OndeFoi.DTOs
 {
     public class CategoriaResponseDto

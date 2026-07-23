@@ -45,7 +45,7 @@ namespace OndeFoi.Services
 
         }
 
-        public Resultado<Categoria> Editar(int id, CriarCategoriaDto dto)
+        public Resultado<Categoria> Editar(int id, EditarCategoriaDto dto)
         {
             var categoria = _repository.BuscarPorId(id);
 
@@ -63,7 +63,7 @@ namespace OndeFoi.Services
         private List<string> ValidarCategoria(Categoria categoria, int? id = null)
         {
             var erros = new List<string>();
-            if (string.IsNullOrWhiteSpace(categoria.Nome)) erros.Add("Nome é obrigatório.");
+
             if (_repository.ExisteCategoriaComNome(categoria.Nome, id))
             {
                 erros.Add("Categoria já existe.");

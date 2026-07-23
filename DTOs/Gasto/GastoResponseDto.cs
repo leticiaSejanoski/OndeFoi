@@ -1,3 +1,5 @@
+
+
 namespace OndeFoi.DTOs
 {
     public class GastoResponseDto

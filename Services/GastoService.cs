@@ -65,8 +65,6 @@ namespace OndeFoi.Services
         {
             var erros = new List<string>();
 
-            if (string.IsNullOrWhiteSpace(gasto.Descricao)) erros.Add("Descrição é obrigatória.");
-            if (gasto.Valor <= 0) erros.Add("O valor inválido.");
             if (_repository.ExisteCategoria(gasto.CategoriaId)) erros.Add("Categoria não encontrada.");
             if (_repository.ExisteUsuario(gasto.UsuarioId)) erros.Add("Usuário não encontrado.");
 

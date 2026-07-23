@@ -48,7 +48,7 @@ namespace OndeFoi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Editar(int id, CriarCategoriaDto dto)
+        public IActionResult Editar(int id, EditarCategoriaDto dto)
         {
             var resultado = _service.Editar(id, dto);
             if (!resultado.Sucesso) return BadRequest(resultado.Erros);
