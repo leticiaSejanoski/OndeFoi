@@ -14,22 +14,33 @@ namespace OndeFoi.Services
             _repository = repository;
         }
 
-        public List<Usuario> Listar()
+        public IEnumerable<UsuarioResponseDto> Listar()
         {
-            var resultado = _repository.Listar();
-            return resultado;
+            return _repository.Listar().Select(u => new UsuarioResponseDto
+            {
+                Id = u.Id,
+                Nome = u.Nome,
+                Email = u.Email
+            });
         }
 
-        public Resultado<Usuario> Cadastrar(CadastrarUsuarioDto dto)
+        public Resultado<UsuarioResponseDto> Cadastrar(CadastrarUsuarioDto dto)
         {
             Usuario usuario = new Usuario(dto.Nome, dto.Email, dto.Senha);
-            var erros = validarUsuario(usuario);
+            var erros = ValidarUsuario(usuario);
 
-            if (erros.Any()) return Resultado<Usuario>.Erro(erros);
+            if (erros.Any()) return Resultado<UsuarioResponseDto>.Erro(erros);
 
             _repository.Adicionar(usuario);
 
-            return Resultado<Usuario>.Ok(usuario);
+            UsuarioResponseDto resposta = new UsuarioResponseDto
+            {
+                Id = usuario.Id,
+                Nome = usuario.Nome,
+                Email = usuario.Email
+            };
+
+            return Resultado<UsuarioResponseDto>.Ok(resposta);
 
         }
 
@@ -38,35 +49,44 @@ namespace OndeFoi.Services
             var usuario = _repository.BuscarPorId(id);
             if (usuario == null) return Resultado<Usuario>.Erro("Usuário não encontrado.");
 
+            _repository.Remover(usuario);
+
             return Resultado<Usuario>.Ok();
 
         }
 
-        public Resultado<Usuario> Editar(int id, EditarUsuarioDto dto)
+        public Resultado<UsuarioResponseDto> Editar(int id, EditarUsuarioDto dto)
         {
             var usuario = _repository.BuscarPorId(id);
 
-            if (usuario == null) return Resultado<Usuario>.Erro("Usuário não encontrado!");
+            if (usuario == null) return Resultado<UsuarioResponseDto>.Erro("Usuário não encontrado!");
 
             usuario.Nome = dto.Nome;
             usuario.Email = dto.Email;
             usuario.SenhaHash = dto.Senha;
 
-            var erros = validarUsuario(usuario);
-            if (erros.Any()) return Resultado<Usuario>.Erro(erros);
+            var erros = ValidarUsuario(usuario);
+            if (erros.Any()) return Resultado<UsuarioResponseDto>.Erro(erros);
 
             _repository.Salvar();
 
-            return Resultado<Usuario>.Ok();
+            UsuarioResponseDto resposta = new UsuarioResponseDto
+            {
+                Id = usuario.Id,
+                Nome = usuario.Nome,
+                Email = usuario.Email
+            };
+
+            return Resultado<UsuarioResponseDto>.Ok(resposta);
 
         }
 
-        private List<string> validarUsuario(Usuario usuario)
+        private List<string> ValidarUsuario(Usuario usuario)
         {
             var erros = new List<string>();
 
             if (_repository.ExisteEmail(usuario.Email, usuario.Id)) erros.Add("Esse email já está sendo usado.");
-            
+
             return erros;
 
         }

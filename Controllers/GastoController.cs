@@ -21,7 +21,7 @@ namespace OndeFoi.Controllers
         }
 
         [HttpGet]
-        public IActionResult Listar()
+        public ActionResult<IEnumerable<GastoResponseDto>> Listar()
         {
             var gastos = _service.Listar();
 
@@ -29,33 +29,33 @@ namespace OndeFoi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Criar(CriarGastoDto dto)
+        public ActionResult<GastoResponseDto> Criar(CriarGastoDto dto)
         {
             var resultado = _service.Criar(dto);
 
-            if (!resultado.Sucesso) return BadRequest(resultado.Erros);
+            if (!resultado.Sucesso) return NotFound(resultado.Erros);
 
             return Created($"api/gastos/{resultado.Dado!.Id}", resultado.Dado);
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public IActionResult Deletar(int id)
         {
             var resultado = _service.Remover(id);
 
-            if (!resultado.Sucesso) return BadRequest(resultado.Erros);
+            if (!resultado.Sucesso) return NotFound(resultado.Erros);
 
-            return Ok("Gasto removido!");
+            return NoContent();
         }
 
-        [HttpPut("id")]
-        public IActionResult Editar(int id, EditarGastoDto dto)
+        [HttpPut("{id}")]
+        public ActionResult<GastoResponseDto> Editar(int id, EditarGastoDto dto)
         {
             var resultado = _service.Editar(id, dto);
 
-            if (!resultado.Sucesso) return BadRequest(resultado.Erros);
+            if (!resultado.Sucesso) return NotFound(resultado.Erros);
            
-            return Ok("Gasto editado!");
+            return Ok(resultado.Dado);
         }
 
         

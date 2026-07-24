@@ -20,7 +20,7 @@ namespace OndeFoi.Controllers
         }
 
         [HttpGet]
-        public IActionResult Listar()
+        public ActionResult<IEnumerable<UsuarioResponseDto>> Listar()
         {
             var usuarios = _service.Listar();
 
@@ -28,31 +28,31 @@ namespace OndeFoi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Cadastrar(CadastrarUsuarioDto dto)
+        public ActionResult<UsuarioResponseDto> Cadastrar(CadastrarUsuarioDto dto)
         {
             var resultado = _service.Cadastrar(dto);
 
             if (!resultado.Sucesso) return BadRequest(resultado.Erros);
-            return Created($"api/usuarios/{resultado.Dado!.Id}", resultado);
+            return Created($"api/usuarios/{resultado.Dado!.Id}", resultado.Dado);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Deletar(int id)
         {
             var resultado = _service.Deletar(id);
-            if (!resultado.Sucesso) return BadRequest(resultado.Erros);
+            if (!resultado.Sucesso) return NotFound(resultado.Erros);
 
-            return Ok("Usuário deletado!");
+            return NoContent();
         }
 
         [HttpPut("{id}")]
-        public IActionResult Editar(int id, EditarUsuarioDto dto)
+        public ActionResult<UsuarioResponseDto> Editar(int id, EditarUsuarioDto dto)
         {
             var resultado = _service.Editar(id, dto);
 
             if (!resultado.Sucesso) return BadRequest(resultado.Erros);
 
-            return Ok("Informações alteradas com sucesso.");
+            return Ok(resultado.Dado);
         }
 
     }

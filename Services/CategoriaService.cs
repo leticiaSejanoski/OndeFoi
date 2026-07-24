@@ -15,22 +15,32 @@ namespace OndeFoi.Services
         }
 
 
-        public List<Categoria> Listar()
+        public IEnumerable<CategoriaResponseDto> Listar()
         {
-            return _repository.Listar();
+            return _repository.Listar().Select(c => new CategoriaResponseDto
+            {
+                Id = c.Id,
+                Nome = c.Nome
+            });
         }
 
-        public Resultado<Categoria> Criar(CriarCategoriaDto dto)
+        public Resultado<CategoriaResponseDto> Criar(CriarCategoriaDto dto)
         {
             Categoria categoria = new Categoria(dto.Nome);
 
             var erros = ValidarCategoria(categoria);
 
-            if (erros.Any()) return Resultado<Categoria>.Erro(erros);
+            if (erros.Any()) return Resultado<CategoriaResponseDto>.Erro(erros);
 
             _repository.Adicionar(categoria);
 
-            return Resultado<Categoria>.Ok(categoria);
+            CategoriaResponseDto resposta = new CategoriaResponseDto
+            {
+                Id = categoria.Id,
+                Nome = categoria.Nome
+            };
+
+            return Resultado<CategoriaResponseDto>.Ok(resposta);
         }
 
         public Resultado<Categoria> Remover(int id)
@@ -45,19 +55,25 @@ namespace OndeFoi.Services
 
         }
 
-        public Resultado<Categoria> Editar(int id, EditarCategoriaDto dto)
+        public Resultado<CategoriaResponseDto> Editar(int id, EditarCategoriaDto dto)
         {
             var categoria = _repository.BuscarPorId(id);
 
-            if (categoria == null) return Resultado<Categoria>.Erro("Categoria não encontrada.");
+            if (categoria == null) return Resultado<CategoriaResponseDto>.Erro("Categoria não encontrada.");
 
             categoria.Nome = dto.Nome;
             var erros = ValidarCategoria(categoria, id);
-            if (erros.Any()) return Resultado<Categoria>.Erro(erros);
+            if (erros.Any()) return Resultado<CategoriaResponseDto>.Erro(erros);
 
             _repository.Salvar();
 
-            return Resultado<Categoria>.Ok(categoria);
+            CategoriaResponseDto resposta = new CategoriaResponseDto
+            {
+                Id = categoria.Id,
+                Nome = categoria.Nome
+            };
+
+            return Resultado<CategoriaResponseDto>.Ok(resposta);
         }
 
         private List<string> ValidarCategoria(Categoria categoria, int? id = null)

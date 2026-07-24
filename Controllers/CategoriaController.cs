@@ -21,7 +21,7 @@ namespace OndeFoi.Controllers
         }
 
         [HttpGet]
-        public IActionResult Listar()
+        public ActionResult<IEnumerable<CategoriaResponseDto>> Listar()
         {
             var categorias = _service.Listar();
 
@@ -29,7 +29,7 @@ namespace OndeFoi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Criar(CriarCategoriaDto dto)
+        public ActionResult<CategoriaResponseDto> Criar(CriarCategoriaDto dto)
         {
             var resultado = _service.Criar(dto);
 
@@ -42,18 +42,18 @@ namespace OndeFoi.Controllers
         public IActionResult Remover(int id)
         {
             var resultado = _service.Remover(id);
-            if (!resultado.Sucesso) return BadRequest(resultado.Erros);
+            if (!resultado.Sucesso) return NotFound(resultado.Erros);
 
-            return Ok("Categoria removida!");
+            return NoContent();
         }
 
         [HttpPut("{id}")]
-        public IActionResult Editar(int id, EditarCategoriaDto dto)
+        public ActionResult<CategoriaResponseDto> Editar(int id, EditarCategoriaDto dto)
         {
             var resultado = _service.Editar(id, dto);
             if (!resultado.Sucesso) return BadRequest(resultado.Erros);
 
-            return Ok("Categoria editada com sucesso!");
+            return Ok(resultado.Dado);
         }
 
     }

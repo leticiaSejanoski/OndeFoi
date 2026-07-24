@@ -1,4 +1,5 @@
 using OndeFoi.Data;
+using OndeFoi.DTOs;
 using OndeFoi.Models;
 
 namespace OndeFoi.Repositories
@@ -12,7 +13,7 @@ namespace OndeFoi.Repositories
             _context = context;
         }
 
-        public List<Categoria> Listar()
+        public IEnumerable<Categoria> Listar()
         {
             return _context.Categoria
              .OrderBy(c => c.Nome)

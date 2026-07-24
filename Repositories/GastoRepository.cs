@@ -44,12 +44,12 @@ namespace OndeFoi.Repositories
 
         public bool ExisteCategoria(int categoriaId)
         {
-            return _context.Gasto.Any(g => g.CategoriaId != categoriaId);
+            return _context.Categoria.Any(c => c.Id == categoriaId);
         }
         
          public bool ExisteUsuario(int usuarioId)
         {
-            return _context.Gasto.Any(g => g.UsuarioId != usuarioId);
+            return _context.Usuario.Any(u => u.Id == usuarioId);
         }
        
     }
