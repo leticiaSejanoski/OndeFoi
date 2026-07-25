@@ -27,7 +27,7 @@ namespace OndeFoi.Controllers
             return Ok(usuarios);
         }
 
-        [HttpPost]
+        [HttpPost("cadastro")]
         public ActionResult<UsuarioResponseDto> Cadastrar(CadastrarUsuarioDto dto)
         {
             var resultado = _service.Cadastrar(dto);
@@ -55,5 +55,15 @@ namespace OndeFoi.Controllers
             return Ok(resultado.Dado);
         }
 
+
+        [HttpPost("login")]
+        public ActionResult<UsuarioResponseDto> Login(LoginDto dto)
+        {
+            var resultado = _service.Login(dto);
+
+            if (!resultado.Sucesso) return Unauthorized(resultado.Erros);
+
+            return Ok(resultado.Dado);
+        }
     }
 }

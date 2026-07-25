@@ -35,10 +35,15 @@ namespace OndeFoi.Repositories
         {
             _context.SaveChanges();
         }
-        
+
         public Usuario? BuscarPorId(int id)
         {
             return _context.Usuario.Find(id);
+        }
+        
+         public Usuario? BuscarPorEmail(string email)
+        {
+            return _context.Usuario.FirstOrDefault(u => u.Email == email);
         }
 
         public bool ExisteEmail(string email, int? id = null)

@@ -1,6 +1,7 @@
 using OndeFoi.Repositories;
 using OndeFoi.Models;
 using OndeFoi.DTOs;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace OndeFoi.Services
@@ -27,9 +28,13 @@ namespace OndeFoi.Services
         public Resultado<UsuarioResponseDto> Cadastrar(CadastrarUsuarioDto dto)
         {
             Usuario usuario = new Usuario(dto.Nome, dto.Email, dto.Senha);
+
             var erros = ValidarUsuario(usuario);
 
             if (erros.Any()) return Resultado<UsuarioResponseDto>.Erro(erros);
+
+            var hasher = new PasswordHasher<Usuario>();
+            usuario.SenhaHash = hasher.HashPassword(usuario, dto.Senha);
 
             _repository.Adicionar(usuario);
 
@@ -79,6 +84,29 @@ namespace OndeFoi.Services
 
             return Resultado<UsuarioResponseDto>.Ok(resposta);
 
+        }
+
+        public Resultado<UsuarioResponseDto> Login(LoginDto dto)
+        {
+            var usuario = _repository.BuscarPorEmail(dto.Email);;
+
+            if (usuario == null) return Resultado<UsuarioResponseDto>.Erro("E-mail ou senha inválidos.");
+
+
+            var hasher = new PasswordHasher<Usuario>();
+
+            var resultado = hasher.VerifyHashedPassword(usuario, usuario.SenhaHash, dto.Senha);
+
+            if (resultado != PasswordVerificationResult.Success) return Resultado<UsuarioResponseDto>.Erro("E-mail ou senha inválidos.");  
+
+           UsuarioResponseDto resposta = new UsuarioResponseDto
+            {
+                Id = usuario.Id,
+                Nome = usuario.Nome,
+                Email = usuario.Email
+            };
+      
+            return Resultado<UsuarioResponseDto>.Ok(resposta);
         }
 
         private List<string> ValidarUsuario(Usuario usuario)
