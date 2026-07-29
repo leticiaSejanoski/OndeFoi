@@ -14,9 +14,9 @@ namespace OndeFoi.Services
         }
 
 
-        public IEnumerable<GastoResponseDto> Listar()
+        public IEnumerable<GastoResponseDto> Listar(int usuarioId)
         {
-            return _repository.Listar().Select(g => new GastoResponseDto
+            return _repository.Listar(usuarioId).Select(g => new GastoResponseDto
             {
                 Id = g.Id,
                 Descricao = g.Descricao,
@@ -25,10 +25,10 @@ namespace OndeFoi.Services
             });
         }
 
-        public Resultado<GastoResponseDto> Criar(CriarGastoDto dto)
+        public Resultado<GastoResponseDto> Criar(CriarGastoDto dto, int usuarioId)
         {
-            Gasto gasto = new Gasto(dto.Descricao, dto.Valor, dto.CategoriaId, dto.UsuarioId);
-            var erros = ValidarGasto(gasto);
+            Gasto gasto = new Gasto(dto.Descricao, dto.Valor, dto.CategoriaId, usuarioId);
+            var erros = ValidarGasto(gasto, usuarioId);
 
             if (erros.Any()) return Resultado<GastoResponseDto>.Erro(erros);
 
@@ -45,9 +45,9 @@ namespace OndeFoi.Services
             return Resultado<GastoResponseDto>.Ok(resposta);
         }
 
-        public Resultado<Gasto> Remover(int id)
+        public Resultado<Gasto> Remover(int id, int usuarioId)
         {
-            var gasto = _repository.BuscarPorId(id);
+            var gasto = _repository.BuscarPorId(id, usuarioId);
 
             if (gasto == null) return Resultado<Gasto>.Erro("Gasto não encontrado!");
 
@@ -57,9 +57,9 @@ namespace OndeFoi.Services
         }
 
 
-        public Resultado<GastoResponseDto> Editar(int id, EditarGastoDto dto)
+        public Resultado<GastoResponseDto> Editar(int id, int usuarioId, EditarGastoDto dto)
         {
-            var gasto = _repository.BuscarPorId(id);
+            var gasto = _repository.BuscarPorId(id, usuarioId);
 
             if (gasto == null) return Resultado<GastoResponseDto>.Erro("Gasto não Encontrado!");
 
@@ -67,7 +67,7 @@ namespace OndeFoi.Services
             gasto.Valor = dto.Valor;
             gasto.CategoriaId = dto.CategoriaId;
 
-            var erros = ValidarGasto(gasto);
+            var erros = ValidarGasto(gasto, usuarioId);
             if (erros.Any()) return Resultado<GastoResponseDto>.Erro(erros);
 
             _repository.Salvar();
@@ -83,11 +83,11 @@ namespace OndeFoi.Services
             return Resultado<GastoResponseDto>.Ok(resposta);
         }
 
-        private List<string> ValidarGasto(Gasto gasto)
+        private List<string> ValidarGasto(Gasto gasto, int usuarioId)
         {
             var erros = new List<string>();
 
-            if (!_repository.ExisteCategoria(gasto.CategoriaId)) erros.Add("Categoria não encontrada.");
+            if (!_repository.ExisteCategoria(gasto.CategoriaId, usuarioId)) erros.Add("Categoria não encontrada.");
             if (!_repository.ExisteUsuario(gasto.UsuarioId)) erros.Add("Usuário não encontrado.");
 
             return erros;

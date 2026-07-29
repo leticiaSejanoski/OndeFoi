@@ -13,9 +13,10 @@ namespace OndeFoi.Repositories
             _context = context;
         }
 
-        public IEnumerable<Categoria> Listar()
+        public IEnumerable<Categoria> Listar(int usuarioId)
         {
             return _context.Categoria
+            .Where(c => c.UsuarioId == usuarioId)
              .OrderBy(c => c.Nome)
              .ToList();
         }
@@ -26,9 +27,10 @@ namespace OndeFoi.Repositories
             _context.SaveChanges();
         }
 
-        public Categoria? BuscarPorId(int id)
+        public Categoria? BuscarPorId(int id, int usuarioId)
         {
-            return _context.Categoria.Find(id);
+            return _context.Categoria
+            .FirstOrDefault(c => c.Id == id && c.UsuarioId == usuarioId);
         }
 
         public void Remover(Categoria categoria)
@@ -42,9 +44,11 @@ namespace OndeFoi.Repositories
             _context.SaveChanges();
         }
 
-        public bool ExisteCategoriaComNome(string nome, int? id = null)
+        public bool ExisteCategoriaComNome(string nome, int usuarioId, int? id = null)
         {
-            return _context.Categoria.Any(c => c.Nome.ToLower() == nome.ToLower() && (id == null || c.Id != id));
+            return _context.Categoria
+            .Where(c => c.UsuarioId == usuarioId)
+            .Any(c => c.Nome.ToLower() == nome.ToLower() && (id == null || c.Id != id));
            
         }
     }

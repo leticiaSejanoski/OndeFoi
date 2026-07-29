@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OndeFoi.Data;
 using OndeFoi.DTOs;
@@ -19,6 +20,7 @@ namespace OndeFoi.Controllers
             _service = service;
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult<IEnumerable<UsuarioResponseDto>> Listar()
         {
@@ -27,6 +29,7 @@ namespace OndeFoi.Controllers
             return Ok(usuarios);
         }
 
+        [AllowAnonymous]
         [HttpPost("cadastro")]
         public ActionResult<UsuarioResponseDto> Cadastrar(CadastrarUsuarioDto dto)
         {
@@ -36,6 +39,7 @@ namespace OndeFoi.Controllers
             return Created($"api/usuarios/{resultado.Dado!.Id}", resultado.Dado);
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult Deletar(int id)
         {
@@ -45,6 +49,7 @@ namespace OndeFoi.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public ActionResult<UsuarioResponseDto> Editar(int id, EditarUsuarioDto dto)
         {
@@ -55,9 +60,9 @@ namespace OndeFoi.Controllers
             return Ok(resultado.Dado);
         }
 
-
+        [AllowAnonymous]
         [HttpPost("login")]
-        public ActionResult<UsuarioResponseDto> Login(LoginDto dto)
+        public ActionResult<LoginResponseDto> Login(LoginDto dto)
         {
             var resultado = _service.Login(dto);
 

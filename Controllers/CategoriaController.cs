@@ -5,6 +5,8 @@ using OndeFoi.Data;
 using OndeFoi.Repositories;
 using OndeFoi.Services;
 using OndeFoi.DTOs;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace OndeFoi.Controllers
 {
@@ -20,37 +22,45 @@ namespace OndeFoi.Controllers
             _service = service;
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult<IEnumerable<CategoriaResponseDto>> Listar()
         {
-            var categorias = _service.Listar();
+            var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var categorias = _service.Listar(usuarioId);
 
             return Ok(categorias);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult<CategoriaResponseDto> Criar(CriarCategoriaDto dto)
         {
-            var resultado = _service.Criar(dto);
+            var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var resultado = _service.Criar(dto, usuarioId);
 
             if (!resultado.Sucesso) return BadRequest(resultado.Erros);
 
             return Created($"api/categorias/{resultado.Dado!.Id}", resultado.Dado);
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult Remover(int id)
         {
-            var resultado = _service.Remover(id);
+            var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var resultado = _service.Remover(id, usuarioId);
             if (!resultado.Sucesso) return NotFound(resultado.Erros);
 
             return NoContent();
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public ActionResult<CategoriaResponseDto> Editar(int id, EditarCategoriaDto dto)
         {
-            var resultado = _service.Editar(id, dto);
+            var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var resultado = _service.Editar(id, dto, usuarioId);
             if (!resultado.Sucesso) return BadRequest(resultado.Erros);
 
             return Ok(resultado.Dado);

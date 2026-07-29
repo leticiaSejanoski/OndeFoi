@@ -12,7 +12,5 @@ namespace OndeFoi.DTOs
         
         [Range(1, int.MaxValue, ErrorMessage = "Selecione uma categoria.")]
         public int CategoriaId { get; set; }
-
-        public int UsuarioId { get; set; }
     }
 }

@@ -2,6 +2,10 @@ using OndeFoi.Repositories;
 using OndeFoi.Models;
 using OndeFoi.DTOs;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
 
 
 namespace OndeFoi.Services
@@ -9,10 +13,12 @@ namespace OndeFoi.Services
     public class UsuarioService
     {
         private readonly UsuarioRepository _repository;
+        private readonly IConfiguration _configuration;
 
-        public UsuarioService(UsuarioRepository repository)
+        public UsuarioService(UsuarioRepository repository, IConfiguration configuration)
         {
             _repository = repository;
+            _configuration = configuration;
         }
 
         public IEnumerable<UsuarioResponseDto> Listar()
@@ -86,27 +92,33 @@ namespace OndeFoi.Services
 
         }
 
-        public Resultado<UsuarioResponseDto> Login(LoginDto dto)
+        public Resultado<LoginResponseDto> Login(LoginDto dto)
         {
-            var usuario = _repository.BuscarPorEmail(dto.Email);;
+            var usuario = _repository.BuscarPorEmail(dto.Email); ;
 
-            if (usuario == null) return Resultado<UsuarioResponseDto>.Erro("E-mail ou senha inválidos.");
+            if (usuario == null) return Resultado<LoginResponseDto>.Erro("E-mail ou senha inválidos.");
 
 
             var hasher = new PasswordHasher<Usuario>();
 
             var resultado = hasher.VerifyHashedPassword(usuario, usuario.SenhaHash, dto.Senha);
 
-            if (resultado != PasswordVerificationResult.Success) return Resultado<UsuarioResponseDto>.Erro("E-mail ou senha inválidos.");  
+            if (resultado != PasswordVerificationResult.Success) return Resultado<LoginResponseDto>.Erro("E-mail ou senha inválidos.");
 
-           UsuarioResponseDto resposta = new UsuarioResponseDto
+            var token = GerarToken(usuario);
+
+            var resposta = new LoginResponseDto
             {
-                Id = usuario.Id,
-                Nome = usuario.Nome,
-                Email = usuario.Email
+                Token = token,
+                Usuario = new UsuarioResponseDto
+                {
+                    Id = usuario.Id,
+                    Nome = usuario.Nome,
+                    Email = usuario.Email
+                }
             };
-      
-            return Resultado<UsuarioResponseDto>.Ok(resposta);
+
+          return Resultado<LoginResponseDto>.Ok(resposta);
         }
 
         private List<string> ValidarUsuario(Usuario usuario)
@@ -116,6 +128,34 @@ namespace OndeFoi.Services
             if (_repository.ExisteEmail(usuario.Email, usuario.Id)) erros.Add("Esse email já está sendo usado.");
 
             return erros;
+
+        }
+
+        private string GerarToken(Usuario usuario)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
+                new Claim(ClaimTypes.Name,usuario.Nome),
+                new Claim(ClaimTypes.Email, usuario.Email)
+            };//define as iformações do usuário
+
+            var key = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!)
+            ); // define a chave secreta
+
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256); //usa a chave secreta para assinar o token com o algoritmo de codificação
+
+            var token = new JwtSecurityToken(
+                issuer: _configuration["Jwt:Issuer"],
+                audience: _configuration["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddHours(2),
+                signingCredentials: credentials
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token); // converte o objeto JwtSecurityToken em uma string JWT.
+
 
         }
 

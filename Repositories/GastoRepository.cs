@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using OndeFoi.Data;
+using OndeFoi.DTOs;
 using OndeFoi.Models;
 using OndeFoi.Services;
 
@@ -13,9 +15,11 @@ namespace OndeFoi.Repositories
             _context = context;
         }
 
-        public List<Gasto> Listar()
+        public IEnumerable<Gasto> Listar(int usuarioId)
         {
             return _context.Gasto
+            .Where(g => g.UsuarioId == usuarioId)
+            .Include(g => g.Categoria)
             .OrderBy(g => g.Descricao)
             .ToList();
         }
@@ -26,9 +30,10 @@ namespace OndeFoi.Repositories
             _context.SaveChanges();
         }
 
-        public Gasto? BuscarPorId(int id)
+        public Gasto? BuscarPorId(int id, int usuarioId)
         {
-            return _context.Gasto.Find(id);
+            return _context.Gasto
+            .FirstOrDefault(g => g.UsuarioId == usuarioId && g.Id == id);
         }
 
         public void Remover(Gasto gasto)
@@ -42,9 +47,11 @@ namespace OndeFoi.Repositories
             _context.SaveChanges();
         }
 
-        public bool ExisteCategoria(int categoriaId)
+        public bool ExisteCategoria(int categoriaId, int usuarioId)
         {
-            return _context.Categoria.Any(c => c.Id == categoriaId);
+            return _context.Categoria
+            .Where(c => c.UsuarioId == usuarioId)
+            .Any(c => c.Id == categoriaId);
         }
         
          public bool ExisteUsuario(int usuarioId)

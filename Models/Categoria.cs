@@ -12,14 +12,15 @@ namespace OndeFoi.Models
         public int Id { get; set; }
         [Required(ErrorMessage = "Nome é obrogatório.")]
         public string Nome { get; set; } = string.Empty;
+        public int UsuarioId { get; set; } 
+        public Usuario Usuario { get; set; }
 
-        public Categoria()
-        {
-        }
+        public Categoria() {}
 
-        public Categoria(string nome)
+        public Categoria(string nome, int usuarioId)
         {
             this.Nome = nome;
+            this.UsuarioId = usuarioId;
         }
         
     }

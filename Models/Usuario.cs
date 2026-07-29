@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
+
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace OndeFoi.Models
 {
@@ -16,6 +14,7 @@ namespace OndeFoi.Models
         public string Email { get; set; } = string.Empty;
         [Required(ErrorMessage = "Senha é obrigatória.")]
         public string SenhaHash { get; set; } = string.Empty;
+        public List<Categoria> Categorias { get; set; } = new();
         public List<Gasto> Gastos { get; set; } = new();
     
     public Usuario() { }
