@@ -1,4 +1,5 @@
 
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OndeFoi.Data;
@@ -24,7 +25,8 @@ namespace OndeFoi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<UsuarioResponseDto>> Listar()
         {
-            var usuarios = _service.Listar();
+            var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var usuarios = _service.Listar(usuarioId);
 
             return Ok(usuarios);
         }
@@ -40,20 +42,22 @@ namespace OndeFoi.Controllers
         }
 
         [Authorize]
-        [HttpDelete("{id}")]
-        public IActionResult Deletar(int id)
+        [HttpDelete]
+        public IActionResult Deletar()
         {
-            var resultado = _service.Deletar(id);
+            var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var resultado = _service.Deletar(usuarioId);
             if (!resultado.Sucesso) return NotFound(resultado.Erros);
 
             return NoContent();
         }
 
         [Authorize]
-        [HttpPut("{id}")]
-        public ActionResult<UsuarioResponseDto> Editar(int id, EditarUsuarioDto dto)
+        [HttpPut]
+        public ActionResult<UsuarioResponseDto> Editar(EditarUsuarioDto dto)
         {
-            var resultado = _service.Editar(id, dto);
+            var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var resultado = _service.Editar(usuarioId, dto);
 
             if (!resultado.Sucesso) return BadRequest(resultado.Erros);
 

@@ -53,11 +53,6 @@ namespace OndeFoi.Repositories
             .Where(c => c.UsuarioId == usuarioId)
             .Any(c => c.Id == categoriaId);
         }
-        
-         public bool ExisteUsuario(int usuarioId)
-        {
-            return _context.Usuario.Any(u => u.Id == usuarioId);
-        }
        
     }
 }

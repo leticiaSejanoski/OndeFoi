@@ -13,7 +13,6 @@ namespace OndeFoi.Services
             _repository = repository;
         }
 
-
         public IEnumerable<GastoResponseDto> Listar(int usuarioId)
         {
             return _repository.Listar(usuarioId).Select(g => new GastoResponseDto

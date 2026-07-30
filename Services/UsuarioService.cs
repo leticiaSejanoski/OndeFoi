@@ -21,9 +21,9 @@ namespace OndeFoi.Services
             _configuration = configuration;
         }
 
-        public IEnumerable<UsuarioResponseDto> Listar()
+        public IEnumerable<UsuarioResponseDto> Listar(int usuarioId)
         {
-            return _repository.Listar().Select(u => new UsuarioResponseDto
+            return _repository.Listar(usuarioId).Select(u => new UsuarioResponseDto
             {
                 Id = u.Id,
                 Nome = u.Nome,

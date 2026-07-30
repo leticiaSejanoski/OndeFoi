@@ -12,9 +12,10 @@ namespace OndeFoi.Repositories
             _context = context;
         }
 
-        public List<Usuario> Listar()
+        public List<Usuario> Listar(int usuarioId)
         {
             return _context.Usuario
+            .Where(u => u.Id == usuarioId)
            .OrderBy(u => u.Nome)
            .ToList();
         }
