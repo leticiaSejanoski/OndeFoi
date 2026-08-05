@@ -20,13 +20,14 @@ namespace OndeFoi.Services
                 Id = g.Id,
                 Descricao = g.Descricao,
                 Valor = g.Valor,
+                Data = g.Data,
                 CategoriaId = g.CategoriaId
             });
         }
 
         public Resultado<GastoResponseDto> Criar(CriarGastoDto dto, int usuarioId)
         {
-            Gasto gasto = new Gasto(dto.Descricao, dto.Valor, dto.CategoriaId, usuarioId);
+            Gasto gasto = new Gasto(dto.Descricao, dto.Valor, dto.Data ?? DateTime.Now, dto.CategoriaId, usuarioId);
             var erros = ValidarGasto(gasto, usuarioId);
 
             if (erros.Any()) return Resultado<GastoResponseDto>.Erro(erros);
@@ -38,6 +39,7 @@ namespace OndeFoi.Services
                 Id = gasto.Id,
                 Descricao = gasto.Descricao,
                 Valor = gasto.Valor,
+                Data = gasto.Data,
                 CategoriaId = gasto.CategoriaId
             };
 
@@ -64,6 +66,7 @@ namespace OndeFoi.Services
 
             gasto.Descricao = dto.Descricao;
             gasto.Valor = dto.Valor;
+            gasto.Data = dto.Data ?? DateTime.Now;
             gasto.CategoriaId = dto.CategoriaId;
 
             var erros = ValidarGasto(gasto, usuarioId);
@@ -76,6 +79,7 @@ namespace OndeFoi.Services
                 Id = gasto.Id,
                 Descricao = gasto.Descricao,
                 Valor = gasto.Valor,
+                Data = gasto.Data,
                 CategoriaId = gasto.CategoriaId
             };
 
@@ -86,7 +90,9 @@ namespace OndeFoi.Services
         {
             var erros = new Dictionary<string, string>();
 
-            if (!_repository.ExisteCategoria(gasto.CategoriaId, usuarioId)) erros.Add("categoria","Categoria não encontrada.");
+            if (!_repository.ExisteCategoria(gasto.CategoriaId, usuarioId)) erros.Add("categoria", "Categoria não encontrada.");
+
+            if (gasto.Data.Date > DateTime.Today) erros.Add("data", "A data não pode ser futura.");
             return erros;
         }
     }

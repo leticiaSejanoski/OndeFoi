@@ -9,6 +9,7 @@ namespace OndeFoi.DTOs
 
         [Range(0.01, 999999.99, ErrorMessage = "O valor deve ser maior que zero.")]
         public decimal Valor { get; set; }
+        public DateTime? Data { get; set; }
         
         [Range(1, int.MaxValue, ErrorMessage = "Selecione uma categoria.")]
         public int CategoriaId { get; set; }
