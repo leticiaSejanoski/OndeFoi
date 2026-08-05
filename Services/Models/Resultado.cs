@@ -5,7 +5,7 @@ namespace OndeFoi.Services
     public class Resultado<T>
     {
         public bool Sucesso { get; set; }
-        public List<string> Erros { get; set; } = new();
+        public Dictionary<string, string> Erros { get; set; } = new();
         public T? Dado { get; set; }
 
         public static Resultado<T> Ok()
@@ -24,21 +24,26 @@ namespace OndeFoi.Services
             };
         }
 
-        public static Resultado<T> Erro(List<string> erros)
+        public static Resultado<T> Erro(string campo, string erro)
         {
             return new Resultado<T>
             {
                 Sucesso = false,
-                Erros = erros
+                Erros = new Dictionary<string, string>
+                {
+                    {campo, erro}
+                }
             };
         }
-            public static Resultado<T> Erro(string erro)
+
+        public static Resultado<T> Erro(Dictionary<string, string> erro)
         {
             return new Resultado<T>
             {
                 Sucesso = false,
-                Erros = new List<string> {erro}
+                Erros = erro
             };
         }
+
     }
 }

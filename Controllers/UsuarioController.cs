@@ -2,9 +2,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OndeFoi.Data;
 using OndeFoi.DTOs;
-using OndeFoi.Models;
 using OndeFoi.Services;
 
 namespace OndeFoi.Controllers

@@ -58,7 +58,7 @@ namespace OndeFoi.Services
         public Resultado<Usuario> Deletar(int id)
         {
             var usuario = _repository.BuscarPorId(id);
-            if (usuario == null) return Resultado<Usuario>.Erro("Usuário não encontrado.");
+            if (usuario == null) return Resultado<Usuario>.Erro("usuario","Usuário não encontrado.");
 
             _repository.Remover(usuario);
 
@@ -70,7 +70,7 @@ namespace OndeFoi.Services
         {
             var usuario = _repository.BuscarPorId(id);
 
-            if (usuario == null) return Resultado<UsuarioResponseDto>.Erro("Usuário não encontrado!");
+            if (usuario == null) return Resultado<UsuarioResponseDto>.Erro("usuario","Usuário não encontrado!");
 
             usuario.Nome = dto.Nome;
             usuario.Email = dto.Email;
@@ -96,14 +96,14 @@ namespace OndeFoi.Services
         {
             var usuario = _repository.BuscarPorEmail(dto.Email); ;
 
-            if (usuario == null) return Resultado<LoginResponseDto>.Erro("E-mail ou senha inválidos.");
+            if (usuario == null) return Resultado<LoginResponseDto>.Erro("geral","E-mail ou senha inválidos.");
 
 
             var hasher = new PasswordHasher<Usuario>();
 
             var resultado = hasher.VerifyHashedPassword(usuario, usuario.SenhaHash, dto.Senha);
 
-            if (resultado != PasswordVerificationResult.Success) return Resultado<LoginResponseDto>.Erro("E-mail ou senha inválidos.");
+            if (resultado != PasswordVerificationResult.Success) return Resultado<LoginResponseDto>.Erro("geral", "E-mail ou senha inválidos.");
 
             var token = GerarToken(usuario);
 
@@ -121,11 +121,11 @@ namespace OndeFoi.Services
           return Resultado<LoginResponseDto>.Ok(resposta);
         }
 
-        private List<string> ValidarUsuario(Usuario usuario)
+        private Dictionary<string, string> ValidarUsuario(Usuario usuario)
         {
-            var erros = new List<string>();
+            var erros = new Dictionary<string, string>();
 
-            if (_repository.ExisteEmail(usuario.Email, usuario.Id)) erros.Add("Esse email já está sendo usado.");
+            if (_repository.ExisteEmail(usuario.Email, usuario.Id)) erros.Add("email","Esse email já está sendo usado.");
 
             return erros;
 

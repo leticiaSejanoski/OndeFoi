@@ -48,7 +48,7 @@ namespace OndeFoi.Services
         {
             var gasto = _repository.BuscarPorId(id, usuarioId);
 
-            if (gasto == null) return Resultado<Gasto>.Erro("Gasto não encontrado!");
+            if (gasto == null) return Resultado<Gasto>.Erro("gasto", "Gasto não encontrado!");
 
             _repository.Remover(gasto);
 
@@ -60,7 +60,7 @@ namespace OndeFoi.Services
         {
             var gasto = _repository.BuscarPorId(id, usuarioId);
 
-            if (gasto == null) return Resultado<GastoResponseDto>.Erro("Gasto não Encontrado!");
+            if (gasto == null) return Resultado<GastoResponseDto>.Erro("gasto","Gasto não Encontrado!");
 
             gasto.Descricao = dto.Descricao;
             gasto.Valor = dto.Valor;
@@ -82,13 +82,11 @@ namespace OndeFoi.Services
             return Resultado<GastoResponseDto>.Ok(resposta);
         }
 
-        private List<string> ValidarGasto(Gasto gasto, int usuarioId)
+        private Dictionary<string, string> ValidarGasto(Gasto gasto, int usuarioId)
         {
-            var erros = new List<string>();
+            var erros = new Dictionary<string, string>();
 
-            if (!_repository.ExisteCategoria(gasto.CategoriaId, usuarioId)) erros.Add("Categoria não encontrada.");
-            if (!_repository.ExisteUsuario(gasto.UsuarioId)) erros.Add("Usuário não encontrado.");
-
+            if (!_repository.ExisteCategoria(gasto.CategoriaId, usuarioId)) erros.Add("categoria","Categoria não encontrada.");
             return erros;
         }
     }
