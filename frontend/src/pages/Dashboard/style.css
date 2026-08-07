@@ -1,60 +1,145 @@
-
-.container{
+.container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 100px;
+    justify-content: center;
+    flex-direction: row;
+    align-items: start;
+    padding-top: 20px;
+    background-color: blue;
 }
 
-h1{
-    color: #ffffff;
-    font-size: 30px;
-    text-align: center;
-}
-
-form{
+.bloco3{
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    padding: 30px;
+}
+
+
+.divGasto {
+    display: flex;
+    max-height: 50%;
+    height: 400px;
+    padding: 5px;
+    flex-direction: column;
+    text-align: left;
+}
+
+.gastosInfo {
+    background-color: #ffffff;
+    height: 100%;
+    padding: 20px;
     border-radius: 10px;
-    background-color: #132e2f8d;
-    max-width: 50%;
-    width: 400px;
-    margin-bottom: 20px;
+}
 
-    & button{
-        border-radius: 30px;
-        height: 40px;
-        font-weight: bold;
-        border: none;
-        cursor: pointer;
-        background-color: #50c4ca;
-    }
+.tabelaGasto {
+    border-radius: 5px 5px 0px 0px;
+    overflow: hidden;
+    margin-top: 10px;
+}
 
-    & button:hover{
-        opacity: 0.9;
-    }
+.tabelaGasto table {
+    max-width: 100%;
+    width: 450px;
+    border-collapse: collapse;
+}
 
-    & input{
-        border: 1px solid #2e5051;
-        border-radius: 30px;
-        height: 40px;
-        background-color: #2b5254;
-        color: white;
-        font-size: 16px;
-        padding-left: 10px;
+.tabelaGasto thead {
+    background-color: #cdd0d0cc;
+    border-radius: 10px;
+}
+
+.tabelaGasto tr {
+    border-bottom: 1px solid #ddd;
+}
+
+.tabelaGasto td,
+.tabelaGasto th {
+    padding: 9px;
+}
+
+.formGasto {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.formGasto h1,
+.gastosInfo h1,
+.formCategoria h1 {
+    font-size: 25px;
+    text-align: left;
+}
+
+.formGasto form, .formCategoria form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    max-width: 100%;
+    width: 300px;
+    margin-bottom: 0;
+}
+
+.formCategoria {
+    display: flex;
+    padding: 5px;
+}
+
+
+.campo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 3px;
+
+    & input {
+        width: 100%;
+        border-radius: 7px;
+        height: 25px;
+        color: black;
+        font-size: 12px;
         outline: none;
     }
 }
 
-.erro{
-    font-weight: bold;
-    margin: 0;
+.campo label{
+    width: 100%;
+    text-align: left;
 }
 
-.linkLogin{
-    text-align: center;
-    text-decoration: none;
+.categoriaData {
+    display: flex;
+    justify-content: center;
+    text-align: left;
+
+    & select {
+        border-radius: 7px;
+        height: 70%;
+        font-size: 14px;
+        outline: none;
+        cursor: pointer;
+    }
+}
+
+.categoriaData input {
+    cursor: pointer;
+    outline: none;
+}
+
+button {
+    border-radius: 7px;
+    height: 40px;
     font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.erro {
+    font-weight: bold;
+    margin: 0;
 }

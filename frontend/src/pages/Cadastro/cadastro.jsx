@@ -39,7 +39,7 @@ import { useNavigate } from 'react-router-dom';
         }
     }
     return (
-        <div className='container'>
+        <div className='cadastro'>
             <form>
                 <h1>Cadastrar-se</h1>
                 <input placeholder='Nome' type="text" value={nome} onChange={(e) => setNome(e.target.value)} />

@@ -21,7 +21,8 @@ namespace OndeFoi.Services
                 Descricao = g.Descricao,
                 Valor = g.Valor,
                 Data = g.Data,
-                CategoriaId = g.CategoriaId
+                CategoriaId = g.CategoriaId,
+                CategoriaNome = g.Categoria.Nome
             });
         }
 
@@ -40,7 +41,8 @@ namespace OndeFoi.Services
                 Descricao = gasto.Descricao,
                 Valor = gasto.Valor,
                 Data = gasto.Data,
-                CategoriaId = gasto.CategoriaId
+                CategoriaId = gasto.CategoriaId,
+                CategoriaNome = gasto.Categoria.Nome
             };
 
             return Resultado<GastoResponseDto>.Ok(resposta);
@@ -80,7 +82,9 @@ namespace OndeFoi.Services
                 Descricao = gasto.Descricao,
                 Valor = gasto.Valor,
                 Data = gasto.Data,
-                CategoriaId = gasto.CategoriaId
+                CategoriaId = gasto.CategoriaId,
+                CategoriaNome = gasto.Categoria.Nome
+
             };
 
             return Resultado<GastoResponseDto>.Ok(resposta);

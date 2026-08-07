@@ -25,7 +25,7 @@ function Login() {
             });
 
             localStorage.setItem("token", resposta.data.token);
-            navigate("/home");
+            navigate("/dashboard");
 
         } catch (erro) {
             setErros(erro.response.data);
@@ -33,7 +33,7 @@ function Login() {
 
     }
     return (
-        <div className='container'>
+        <div className='login'>
             <form>
                 <h1>Login</h1>
                 <input placeholder='Email' type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
