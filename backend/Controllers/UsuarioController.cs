@@ -72,5 +72,18 @@ namespace OndeFoi.Controllers
 
             return Ok(resultado.Dado);
         }
+
+
+        [Authorize]
+        [HttpPut("renda")]
+        public ActionResult Renda(EditarRendaDto dto)
+        {
+            var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var resultado = _service.EditarRenda(usuarioId, dto);
+
+            if (!resultado.Sucesso) return BadRequest(resultado.Erros);
+
+            return Ok(resultado.Dado);
+        }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using OndeFoi.Controllers;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,8 @@ builder.Services.AddScoped<GastoRepository>();
 builder.Services.AddScoped<GastoService>();
 builder.Services.AddScoped<UsuarioRepository>();
 builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<DashboardController>();
+builder.Services.AddScoped<DashboardService>();
 
 // Add services to the container.
 

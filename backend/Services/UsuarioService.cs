@@ -6,6 +6,9 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 
 namespace OndeFoi.Services
@@ -48,7 +51,7 @@ namespace OndeFoi.Services
             {
                 Id = usuario.Id,
                 Nome = usuario.Nome,
-                Email = usuario.Email
+                Email = usuario.Email,
             };
 
             return Resultado<UsuarioResponseDto>.Ok(resposta);
@@ -58,7 +61,7 @@ namespace OndeFoi.Services
         public Resultado<Usuario> Deletar(int id)
         {
             var usuario = _repository.BuscarPorId(id);
-            if (usuario == null) return Resultado<Usuario>.Erro("usuario","Usuário não encontrado.");
+            if (usuario == null) return Resultado<Usuario>.Erro("usuario", "Usuário não encontrado.");
 
             _repository.Remover(usuario);
 
@@ -70,7 +73,7 @@ namespace OndeFoi.Services
         {
             var usuario = _repository.BuscarPorId(id);
 
-            if (usuario == null) return Resultado<UsuarioResponseDto>.Erro("usuario","Usuário não encontrado!");
+            if (usuario == null) return Resultado<UsuarioResponseDto>.Erro("usuario", "Usuário não encontrado!");
 
             usuario.Nome = dto.Nome;
             usuario.Email = dto.Email;
@@ -92,11 +95,24 @@ namespace OndeFoi.Services
 
         }
 
+        public Resultado<bool> EditarRenda(int idUsuario, EditarRendaDto dto)
+        {
+            var usuario = _repository.BuscarPorId(idUsuario);
+            if (usuario == null) return Resultado<bool>.Erro("usuario", "Usuário não encontrado!");
+
+            usuario.Renda = dto.Renda;
+
+            _repository.Salvar();
+
+            return Resultado<bool>.Ok(true);
+
+        }
+
         public Resultado<LoginResponseDto> Login(LoginDto dto)
         {
             var usuario = _repository.BuscarPorEmail(dto.Email); ;
 
-            if (usuario == null) return Resultado<LoginResponseDto>.Erro("geral","E-mail ou senha inválidos.");
+            if (usuario == null) return Resultado<LoginResponseDto>.Erro("geral", "E-mail ou senha inválidos.");
 
 
             var hasher = new PasswordHasher<Usuario>();
@@ -118,14 +134,14 @@ namespace OndeFoi.Services
                 }
             };
 
-          return Resultado<LoginResponseDto>.Ok(resposta);
+            return Resultado<LoginResponseDto>.Ok(resposta);
         }
 
         private Dictionary<string, string> ValidarUsuario(Usuario usuario)
         {
             var erros = new Dictionary<string, string>();
 
-            if (_repository.ExisteEmail(usuario.Email, usuario.Id)) erros.Add("email","Esse email já está sendo usado.");
+            if (_repository.ExisteEmail(usuario.Email, usuario.Id)) erros.Add("email", "Esse email já está sendo usado.");
 
             return erros;
 

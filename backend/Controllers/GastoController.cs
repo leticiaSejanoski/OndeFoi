@@ -63,10 +63,9 @@ namespace OndeFoi.Controllers
             var resultado = _service.Editar(id, usuarioId, dto);
 
             if (!resultado.Sucesso) return NotFound(resultado.Erros);
-           
+
             return Ok(resultado.Dado);
         }
 
-        
     }
 }

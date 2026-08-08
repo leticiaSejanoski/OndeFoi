@@ -3,21 +3,28 @@ import api from "../../services/api.js"
 import { useEffect, useState } from "react";
 
 function Dashboard() {
+    //cria gasto
     const [descricao, setDescricao] = useState("");
     const [valor, setValor] = useState("");
     const [categoriaSelecionada, setCategoriaSelecionada] = useState("");
     const [data, setData] = useState("");
 
+    //cria categoria
     const [nome, setNome] = useState("");
 
-    const [erros, setErros] = useState({});
+    //outras funcionalidades
     const [categorias, setCategorias] = useState([]);
     const [gastos, setGastos] = useState([]);
+
+    const [dadosDashboard, setDadosDashboard] = useState([]);
+    const [editandoRenda, setEditandoRenda] = useState(false);
+    const [renda, setRenda] = useState("");
+
+    const [erros, setErros] = useState({});
 
     async function getCategorias() {
         const categorias = await api.get("/Categorias");
         setCategorias(categorias.data);
-
     }
 
     async function criaCategoria() {
@@ -31,6 +38,9 @@ function Dashboard() {
         } catch (erros) {
             setErros(erros.response.data);
         }
+
+        setNome("");
+        getCategorias();
     }
 
     async function criaGasto() {
@@ -47,102 +57,168 @@ function Dashboard() {
         } catch (erro) {
             setErros(erro.response.data);
         }
+
+        setDescricao("");
+        setValor("");
+        setCategoriaSelecionada("");
+        setData("");
+
+        getGastos();
     }
 
     async function getGastos() {
-        const gastos = await api.get("/Gastos")
+        const gastos = await api.get("/Gastos");
         setGastos(gastos.data);
         console.log(gastos);
+    }
+
+    async function resumo() {
+        const dados = await api.get("/Dashboard");
+        setDadosDashboard(dados.data);
+        setRenda(dados.data.renda);
+    }
+
+    async function salvarRenda() {
+
+        setErros({});
+
+        try {
+            await api.put("/Usuario/renda", {
+                renda: Number(renda)
+            });
+            setEditandoRenda(false);
+            resumo();
+        } catch (erros) {
+            setErros(erros.response.data)
+        }
     }
 
     useEffect(() => {
         getCategorias();
         getGastos();
+        resumo();
     }, []);
 
     return (
         <div className="container">
-            <div className="divGasto">
-                <div className="gastosInfo">
-                    <h1>Últimos gastos</h1>
-                    <div className="tabelaGasto">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Data</th>
-                                    <th>Descrição</th>
-                                    <th>Categoria</th>
-                                    <th>Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {gastos.map(gasto => (
-                                    <tr key={gasto.id}>
-                                        <td>{new Date(gasto.data).toLocaleDateString("pt-BR", {
-                                            day: "2-digit",
-                                            month: "2-digit"
-                                        })}</td>
-                                        <td>{gasto.descricao}</td>
-                                        <td>{gasto.categoriaNome}</td>
-                                        <td>R$ {gasto.valor}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+
+            <div className="bloco1">
+                <div className="renda">
+                    <h1>Renda</h1>
+                    {editandoRenda ? (
+                        <input type="number" name="renda" id="renda" value={renda} onChange={(e) => setRenda(e.target.value)} onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                salvarRenda();
+                            }
+                        }}
+                        />
+                    ) : (<h2 onClick={() => {
+                        setRenda(dadosDashboard.renda);
+                        setEditandoRenda(true);
+                    }}>
+                        R$ {dadosDashboard.renda}</h2>)
+                    }
+                </div>
+
+                <div className="totalGasto">
+                    <h1>Total dos gastos</h1>
+                    <h2>R$ {dadosDashboard.totalGastos}</h2>
+                </div>
+
+                <div className="saldo">
+                    <h1>Saldo atual</h1>
+                    <h2>R$ {dadosDashboard.saldo}</h2>
                 </div>
             </div>
 
-            <div className="bloco3">
-
-                <div className="formGasto">
-                    <form action="">
-                        <h1>+ Adicionar Novo Gasto</h1>
-
-                        <div className="campo">
-                            <label htmlFor="desc">Descrição</label>
-                            <input placeholder="Ex: Lanche" type="text" name="desc" id="desc" value={descricao} onChange={(e) => setDescricao(e.target.value)} />
-                        </div>
-
-                        <div className="campo">
-                            <label htmlFor="valor">R$</label>
-                            <input type="number" step={0.01} min={0} name="valor" id="valor" value={valor} onChange={(e) => setValor(e.target.value)} />
-                        </div>
-
-
-                        <div className="categoriaData">
-                            <div className="campo">
-                                <label htmlFor="categoria">Categoria</label>
-                                <select name="categoria" id="categoria" value={categoriaSelecionada} onChange={(e) => setCategoriaSelecionada(e.target.value)} >
-                                    <option value="" disabled>Selecione uma categoria</option>
-                                    {categorias.map(categoria => (
-                                        <option key={categoria.id} value={categoria.id}>{categoria.nome}</option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className="campo">
-                                <label htmlFor="data">Data</label>
-                                <input type="date" name="data" id="data" value={data} onChange={(e) => setData(e.target.value)} />
-                                {erros.data && <p className="erro">{erros.data}</p>}
-                            </div>
-                        </div>
-
-                        <button type="button" onClick={criaGasto}>Salvar Gasto</button>
-                    </form>
+            <div className="bloco2">
+                <div className="divGrafico">
+                    <div className="grafico">
+                        <h1>Visão Geral Por Categoria</h1>
+                    </div>
                 </div>
 
-                <div className="formCategoria">
-                    <form action="">
-                        <h1>+ Criar Categoria</h1>
-
-                        <div className="campo">
-                            <label htmlFor="nome" >Nome</label>
-                            <input placeholder="Ex: Transporte" type="text" name="nome" id="nome" value={nome} onChange={(e) => setNome(e.target.value)} />
-                            {erros.categoria && <p className="erro">{erros.categoria}</p>}
+                <div className="divGasto">
+                    <div className="gastosInfo">
+                        <h1>Últimos gastos</h1>
+                        <div className="tabelaGasto">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Descrição</th>
+                                        <th>Categoria</th>
+                                        <th>Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {gastos.map(gasto => (
+                                        <tr key={gasto.id}>
+                                            <td>{new Date(gasto.data).toLocaleDateString("pt-BR", {
+                                                day: "2-digit",
+                                                month: "2-digit"
+                                            })}</td>
+                                            <td>{gasto.descricao}</td>
+                                            <td>{gasto.categoriaNome}</td>
+                                            <td>R$ {gasto.valor}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
+                    </div>
+                </div>
 
-                        <button type="button" onClick={criaCategoria}>Criar</button>
-                    </form>
+                <div className="bloco3">
+                    <div className="formGasto">
+                        <form action="">
+                            <h1>+ Adicionar Novo Gasto</h1>
+
+                            <div className="campo">
+                                <label htmlFor="desc">Descrição</label>
+                                <input placeholder="Ex: Lanche" type="text" name="desc" id="desc" value={descricao} onChange={(e) => setDescricao(e.target.value)} />
+                            </div>
+
+                            <div className="campo">
+                                <label htmlFor="valor">R$</label>
+                                <input type="number" step={0.01} min={0} name="valor" id="valor" value={valor} onChange={(e) => setValor(e.target.value)} />
+                            </div>
+
+
+                            <div className="categoriaData">
+                                <div className="campo">
+                                    <label htmlFor="categoria">Categoria</label>
+                                    <select name="categoria" id="categoria" value={categoriaSelecionada} onChange={(e) => setCategoriaSelecionada(e.target.value)} >
+                                        <option value="" disabled>Selecione uma categoria</option>
+                                        {categorias.map(categoria => (
+                                            <option key={categoria.id} value={categoria.id}>{categoria.nome}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className="campo">
+                                    <label htmlFor="data">Data</label>
+                                    <input type="date" name="data" id="data" value={data} onChange={(e) => setData(e.target.value)} />
+                                    {erros.data && <p className="erro">{erros.data}</p>}
+                                </div>
+                            </div>
+
+                            <button type="button" onClick={criaGasto}>Salvar Gasto</button>
+                        </form>
+                    </div>
+
+                    <div className="formCategoria">
+                        <form action="">
+                            <h1>+ Criar Categoria</h1>
+
+                            <div className="campo">
+                                <label htmlFor="nome" >Nome</label>
+                                <input placeholder="Ex: Transporte" type="text" name="nome" id="nome" value={nome} onChange={(e) => setNome(e.target.value)} />
+                                {erros.categoria && <p className="erro">{erros.categoria}</p>}
+                            </div>
+
+                            <button type="button" onClick={criaCategoria}>Criar</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

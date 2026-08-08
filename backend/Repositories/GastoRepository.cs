@@ -20,7 +20,7 @@ namespace OndeFoi.Repositories
             return _context.Gasto
             .Where(g => g.UsuarioId == usuarioId)
             .Include(g => g.Categoria)
-            .OrderBy(g => g.Descricao)
+            .OrderBy(g => g.Data)
             .ToList();
         }
 
@@ -54,5 +54,11 @@ namespace OndeFoi.Repositories
             .Any(c => c.Id == categoriaId);
         }
        
+       public decimal CalcularTotalGasto(int idUsuario)
+        {
+            return _context.Gasto
+            .Where(g => g.UsuarioId == idUsuario)
+            .Sum(g => g.Valor);
+        }
     }
 }

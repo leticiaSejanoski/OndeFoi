@@ -16,6 +16,7 @@ namespace OndeFoi.Models
         public string SenhaHash { get; set; } = string.Empty;
         public List<Categoria> Categorias { get; set; } = new();
         public List<Gasto> Gastos { get; set; } = new();
+        public decimal Renda { get; set; }
     
     public Usuario() { }
     

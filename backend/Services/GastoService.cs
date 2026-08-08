@@ -64,7 +64,7 @@ namespace OndeFoi.Services
         {
             var gasto = _repository.BuscarPorId(id, usuarioId);
 
-            if (gasto == null) return Resultado<GastoResponseDto>.Erro("gasto","Gasto não Encontrado!");
+            if (gasto == null) return Resultado<GastoResponseDto>.Erro("gasto", "Gasto não Encontrado!");
 
             gasto.Descricao = dto.Descricao;
             gasto.Valor = dto.Valor;
@@ -88,6 +88,17 @@ namespace OndeFoi.Services
             };
 
             return Resultado<GastoResponseDto>.Ok(resposta);
+        }
+
+        public decimal TotalGastos(int idUsuario)
+        {
+            return _repository.CalcularTotalGasto(idUsuario);
+        }
+        
+        public decimal SaldoAtual(int idUsuario, decimal renda)
+        {
+            var despesa = _repository.CalcularTotalGasto(idUsuario);
+            return renda - despesa;
         }
 
         private Dictionary<string, string> ValidarGasto(Gasto gasto, int usuarioId)
