@@ -2,6 +2,7 @@ import "./style.css"
 import api from "../../services/api.js"
 import { useEffect, useState } from "react";
 
+
 function Dashboard() {
     //cria gasto
     const [descricao, setDescricao] = useState("");
@@ -186,7 +187,7 @@ function Dashboard() {
 
 
                             <div className="categoriaData">
-                                <div className="campo">
+                                <div className="campo campoDataCategoria" >
                                     <label htmlFor="categoria">Categoria</label>
                                     <select name="categoria" id="categoria" value={categoriaSelecionada} onChange={(e) => setCategoriaSelecionada(e.target.value)} >
                                         <option value="" disabled>Selecione uma categoria</option>
@@ -195,10 +196,10 @@ function Dashboard() {
                                         ))}
                                     </select>
                                 </div>
-                                <div className="campo">
+                                <div className="campo campoDataCategoria">
                                     <label htmlFor="data">Data</label>
                                     <input type="date" name="data" id="data" value={data} onChange={(e) => setData(e.target.value)} />
-                                    {erros.data && <p className="erro">{erros.data}</p>}
+                                   <p className="erro">{erros.data}</p>
                                 </div>
                             </div>
 
@@ -213,7 +214,7 @@ function Dashboard() {
                             <div className="campo">
                                 <label htmlFor="nome" >Nome</label>
                                 <input placeholder="Ex: Transporte" type="text" name="nome" id="nome" value={nome} onChange={(e) => setNome(e.target.value)} />
-                                {erros.categoria && <p className="erro">{erros.categoria}</p>}
+                                <p className="erro">{erros.categoria}</p>
                             </div>
 
                             <button type="button" onClick={criaCategoria}>Criar</button>

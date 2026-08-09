@@ -1,0 +1,46 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    width: 92%;
+    max-width: 1500px;
+    height: 70px;
+
+}
+
+
+.nav {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-left: 40px;
+
+
+}
+
+header .link {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 25px;
+    
+    font-size: 1em;
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.perfil {
+    height: 100%;
+    margin-left: auto;
+    /* background-color: aqua; */
+
+}

@@ -1,11 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
 import Login from "./pages/Login/login";
 import Cadastrar from "./pages/Cadastro/cadastro";
 import Dashboard from "./pages/Dashboard";
 
 function Rotas() {
     return (
-        <BrowserRouter>
+        <>
+            <Header />
+
             <Routes>
                 <Route
                     path="/"
@@ -23,8 +26,7 @@ function Rotas() {
                 />
 
             </Routes>
-
-        </BrowserRouter>
+</>
     );
 }
 
