@@ -1,5 +1,6 @@
 import "./style.css"
 import api from "../../services/api.js"
+import GraficoCategorias from "../../components/GraficoCategorias.jsx";
 import { useEffect, useState } from "react";
 
 
@@ -136,6 +137,7 @@ function Dashboard() {
                 <div className="divGrafico">
                     <div className="grafico">
                         <h1>Visão Geral Por Categoria</h1>
+                        <GraficoCategorias />
                     </div>
                 </div>
 
@@ -199,7 +201,7 @@ function Dashboard() {
                                 <div className="campo campoDataCategoria">
                                     <label htmlFor="data">Data</label>
                                     <input type="date" name="data" id="data" value={data} onChange={(e) => setData(e.target.value)} />
-                                   <p className="erro">{erros.data}</p>
+                                    <p className="erro">{erros.data}</p>
                                 </div>
                             </div>
 

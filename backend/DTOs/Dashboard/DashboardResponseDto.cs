@@ -5,5 +5,7 @@ namespace OndeFoi.DTOs
         public decimal Renda { get; set; }
         public decimal TotalGastos { get; set; }
         public decimal Saldo { get; set; }
+
+        public IEnumerable<GastoPorCategoria> TotalPorCategoria { get; set; }
     }
 }

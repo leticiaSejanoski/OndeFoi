@@ -53,12 +53,25 @@ namespace OndeFoi.Repositories
             .Where(c => c.UsuarioId == usuarioId)
             .Any(c => c.Id == categoriaId);
         }
-       
-       public decimal CalcularTotalGasto(int idUsuario)
+
+        public decimal CalcularTotalGasto(int idUsuario)
         {
             return _context.Gasto
             .Where(g => g.UsuarioId == idUsuario)
             .Sum(g => g.Valor);
+        }
+
+        public IEnumerable<GastoPorCategoria> CalcularTotalCategoria(int usuarioId)
+        {
+            return _context.Gasto
+            .Where(g => g.UsuarioId == usuarioId)
+            .GroupBy(g => g.Categoria.Nome)
+            .Select(grupo => new GastoPorCategoria
+            {
+                CategoriaNome = grupo.Key,
+                Total = grupo.Sum(g => g.Valor)
+
+            }).ToList();
         }
     }
 }

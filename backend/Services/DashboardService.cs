@@ -27,16 +27,21 @@ namespace OndeFoi.Services
             var totalGastos = _repositoryGasto.CalcularTotalGasto(usuarioId);
             var saldo = renda - totalGastos;
 
+            var totalCategoria = _repositoryGasto.CalcularTotalCategoria(usuarioId);
+
             DashboardResponseDto resposta = new DashboardResponseDto
             {
                 Renda = renda,
                 TotalGastos = totalGastos,
-                Saldo = saldo
+                Saldo = saldo,
+                TotalPorCategoria = totalCategoria
             };
 
             return Resultado<DashboardResponseDto>.Ok(resposta);
 
         }
+
+
 
     }
 }

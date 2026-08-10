@@ -49,7 +49,7 @@ namespace OndeFoi.Repositories
             return _context.Categoria
             .Where(c => c.UsuarioId == usuarioId)
             .Any(c => c.Nome.ToLower() == nome.ToLower() && (id == null || c.Id != id));
-           
+
         }
     }
 
