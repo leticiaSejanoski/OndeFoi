@@ -4,6 +4,7 @@ import GraficoCategorias from "../../components/GraficoCategorias.jsx";
 import { useEffect, useState } from "react";
 
 
+
 function Dashboard() {
     //cria gasto
     const [descricao, setDescricao] = useState("");
@@ -95,6 +96,12 @@ function Dashboard() {
         }
     }
 
+    async function excluirGasto(id) {
+        await api.delete(`/Gastos/${id}`);
+
+        getGastos();
+    }
+
     useEffect(() => {
         getCategorias();
         getGastos();
@@ -152,6 +159,7 @@ function Dashboard() {
                                         <th>Descrição</th>
                                         <th>Categoria</th>
                                         <th>Valor</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -164,6 +172,7 @@ function Dashboard() {
                                             <td>{gasto.descricao}</td>
                                             <td>{gasto.categoriaNome}</td>
                                             <td>R$ {gasto.valor}</td>
+                                            <td><img className="iconExcluirGasto" onClick={() => excluirGasto(gasto.id)} src="./../../../public/desperdicio.png" alt="exluir" /></td>
                                         </tr>
                                     ))}
                                 </tbody>
