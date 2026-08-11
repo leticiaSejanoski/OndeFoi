@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
- function Cadastrar() {
+function Cadastrar() {
 
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
@@ -42,14 +42,22 @@ import { useNavigate } from 'react-router-dom';
         <div className='cadastro'>
             <form>
                 <h1>Cadastrar-se</h1>
-                <input placeholder='Nome' type="text" value={nome} onChange={(e) => setNome(e.target.value)} />
-                {erros.usuario && <p className='erro'>{erros.usuario}</p>}
+                <div className='campoCadastro'>
+                    <input placeholder='Nome' type="text" value={nome} onChange={(e) => setNome(e.target.value)} />
+                    <p className="erro">{erros.usuario}</p>
+                </div>
 
-                <input placeholder='Email' type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                {erros.email && <p className='erro'>{erros.email}</p>}
+                <div className='campoCadastro'>
+                    <input placeholder='Email' type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <p className="erro">{erros.email}</p>
+                </div>
 
-                <input placeholder='Senha' type="password" value={senha} onChange={(e) => setSenha(e.target.value)} />
+                <div className='campoCadastro'>
+                    <input placeholder='Senha' type="password" value={senha} onChange={(e) => setSenha(e.target.value)} />
+                    <p className="erro">{erros.usuario}</p>
+                </div>
                 <button type="button" onClick={fazerCadastro}>Cadastrar</button>
+
             </form>
         </div>
     )

@@ -100,6 +100,7 @@ function Dashboard() {
         await api.delete(`/Gastos/${id}`);
 
         getGastos();
+        resumo();
     }
 
     useEffect(() => {
@@ -189,11 +190,15 @@ function Dashboard() {
                             <div className="campo">
                                 <label htmlFor="desc">Descrição</label>
                                 <input placeholder="Ex: Lanche" type="text" name="desc" id="desc" value={descricao} onChange={(e) => setDescricao(e.target.value)} />
+                                <p className="erro">{erros.data}</p>
+
                             </div>
 
                             <div className="campo">
                                 <label htmlFor="valor">R$</label>
                                 <input type="number" step={0.01} min={0} name="valor" id="valor" value={valor} onChange={(e) => setValor(e.target.value)} />
+                                <p className="erro">{erros.data}</p>
+
                             </div>
 
 
@@ -206,6 +211,7 @@ function Dashboard() {
                                             <option key={categoria.id} value={categoria.id}>{categoria.nome}</option>
                                         ))}
                                     </select>
+                                    <p className="erro">{erros.data}</p>
                                 </div>
                                 <div className="campo campoDataCategoria">
                                     <label htmlFor="data">Data</label>

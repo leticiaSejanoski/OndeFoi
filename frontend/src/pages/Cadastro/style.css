@@ -7,50 +7,63 @@
 }
 
 .cadastro h1{
-    color: #ffffff;
     font-size: 30px;
+    margin: 20px;
     text-align: center;
 }
 
 .cadastro form{
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 10px;
     padding: 30px;
     border-radius: 10px;
-    background-color: #132e2f8d;
+    background-color: #fff;
     max-width: 50%;
     width: 400px;
     margin-bottom: 20px;
 
     & button{
-        border-radius: 30px;
+        border-radius: 10px;
         height: 40px;
         font-weight: bold;
         border: none;
         cursor: pointer;
-        background-color: #50c4ca;
+        background-color: #d5d2d2;
     }
 
     & button:hover{
         opacity: 0.9;
     }
 
-    & input{
-        border: 1px solid #2e5051;
-        border-radius: 30px;
-        height: 40px;
-        background-color: #2b5254;
-        color: white;
-        font-size: 16px;
-        padding-left: 10px;
-        outline: none;
-    }
+}
+
+.campoCadastro{
+    /* background-color: #ffffff; */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.campoCadastro input{
+    border: 1px solid #000000;
+    border-radius: 10px;
+    height: 40px;
+    /* background-color: #2b5254; */
+    color: white;
+    font-size: 16px;
+    /* padding-left: 10px; */
+    outline: none;
+    width: 90%;
+
 }
 
 .erro{
     font-weight: bold;
     margin: 0;
+    /* background-color: #2b5254; */
 }
 
 .linkLogin{

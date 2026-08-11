@@ -93,6 +93,12 @@
     overflow: hidden;
     margin-top: 10px;
     height: 90%;
+    overflow-y: auto;
+    /* cursor: pointer; */
+}
+
+.tabelaGasto::-webkit-scrollbar {
+    display: none;
 }
 
 .tabelaGasto table {
@@ -101,9 +107,12 @@
 }
 
 .tabelaGasto thead {
-    background-color: #cdd0d0cc;
+    background-color: #cdd0d0;
     border-radius: 10px;
+    position: sticky;
+    top: 0;
 }
+
 
 .tabelaGasto tr {
     border-bottom: 1px solid #ddd;

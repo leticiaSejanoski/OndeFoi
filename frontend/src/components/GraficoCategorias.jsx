@@ -11,7 +11,8 @@ import { useEffect, useState } from "react";
 
 function GraficoCategorias() {
 
-    const [gastosPorCategoria, setGastosPorCategoria] = useState([]);
+    const [categorias, setCategorias] = useState([]); //dados da api
+    const [gastosPorCategoria, setGastosPorCategoria] = useState([]); //dados modificados + "outros"
 
     const cores = [
         "#8884d8",
@@ -23,28 +24,28 @@ function GraficoCategorias() {
 
     async function getTotal() {
         const dados = await api.get('/Dashboard');
-        setGastosPorCategoria(dados.data.totalPorCategoria);
+        setCategorias(dados.data.totalPorCategoria);
         console.log(dados);
     }
 
     function calculaPorcentagem() {
         let total = 0;
-        gastosPorCategoria.forEach(categoria => {
+        categorias.forEach(categoria => {
             total += categoria.total
         });
 
-        gastosPorCategoria.forEach(categoria => {
+        categorias.forEach(categoria => {
             const porcentagem = (categoria.total / total) * 100;
             console.log(categoria.categoriaNome, porcentagem);
         });
 
-        const ordenados = gastosPorCategoria.toSorted((categoriaA, categoriaB) => (
+        const ordenados = categorias.toSorted((categoriaA, categoriaB) => (
             categoriaB.total - categoriaA.total
         ));
 
-        if (gastosPorCategoria.length > 5) {
-            let principais = ordenados.slice(0, 5);
-            let resto = ordenados.slice(5);
+        if (categorias.length > 4) {
+            let principais = ordenados.slice(0, 4);
+            let resto = ordenados.slice(4);
 
             let totalResto = 0;
             resto.forEach(categoria => {
@@ -57,21 +58,21 @@ function GraficoCategorias() {
                 total: totalResto
             };
 
-            const dadosGrafico = [...principais, outros];
+            const dadosGrafico = [...principais, outros].map((categoria, index) => ({
+                ...categoria,
+                fill: cores[index % cores.length]
+            }));
+
             setGastosPorCategoria(dadosGrafico);
+        }else{
+            const dadosGrafico = categorias.map((categoria, index) => ({
+                ...categoria,
+                fill: cores[index % cores.length]
+            }));
 
-            console.log("TotalResto: " + totalResto);
+            setGastosPorCategoria(dadosGrafico);
         }
-    }
 
-    function desenharSetor(props) {
-        const { index } = props;
-        return (
-            <Sector
-                {...props}
-                fill={cores[index % cores.length]}
-            />
-        );
     }
 
     useEffect(() => {
@@ -80,13 +81,12 @@ function GraficoCategorias() {
 
     useEffect(() => {
         calculaPorcentagem();
-    }, [gastosPorCategoria]);
+    }, [categorias]);
 
     return (
         <PieChart width={500} height={300}>
             <Pie
                 data={gastosPorCategoria}
-                shape={desenharSetor}
                 dataKey={"total"}
                 nameKey={"categoriaNome"}
                 cx="50%"
