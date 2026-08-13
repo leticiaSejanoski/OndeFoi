@@ -15,7 +15,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     width: 100%;
-
 }
 
 .bloco1 div {
@@ -80,12 +79,10 @@
 
 .gastosInfo {
     background-color: #ffffff;
-    height: 100%;
     padding: 20px;
     border-radius: 10px;
     max-height: 70%;
     height: 100%;
-
 }
 
 .tabelaGasto {

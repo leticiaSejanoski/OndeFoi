@@ -36,9 +36,13 @@ function Login() {
         <div className='login'>
             <form>
                 <h1>Login</h1>
-                <input placeholder='Email' type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <div className='divInput'>
+                    <input placeholder='Email' type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                </div>
 
-                <input placeholder='Senha' type="password" name="senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
+                <div className='divInput'>
+                    <input placeholder='Senha' type="password" name="senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
+                </div>
 
                 {erros.geral && <p className='erro'>{erros.geral}</p>}
 

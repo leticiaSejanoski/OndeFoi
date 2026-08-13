@@ -1,0 +1,79 @@
+.containerEditar {
+    /* background-color: aliceblue; */
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    width: 92%;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding-top: 20px;
+    /* gap: 20px; */
+}
+
+.editarBloco1 {
+    /* background-color: aqua; */
+    height: 700px;
+    padding: 20px;
+}
+
+.editarBloco2 {
+    /* background-color: rgb(255, 225, 0); */
+    height: 450px;
+    padding: 20px;
+}
+
+
+.editarGastos, .editarCategorias {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    max-height: 70%;
+    height: 100%;
+}
+
+
+
+.tabelaCategorias {
+    width: 100%;
+    height: 90%;
+    border-collapse: collapse;
+    border-radius: 5px 5px 0px 0px;
+    overflow: hidden;
+    margin-top: 10px;
+    overflow-y: auto;
+}
+
+
+.tabelaCategorias::-webkit-scrollbar {
+    display: none;
+}
+
+
+.tabelaCategorias table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabelaCategorias thead {
+    background-color: #cdd0d0;
+    border-radius: 10px;
+    position: sticky;
+    top: 0;
+}
+
+
+.tabelaCategorias tr {
+    border-bottom: 1px solid #ddd;
+}
+
+.tabelaCategorias td,
+.tabelaCategorias th {
+    padding: 9px;
+} 
+
+
+
+.tabelaCategorias {
+    width: 100%;
+    height: 90%;
+    overflow: hidden;
+}
