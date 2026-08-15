@@ -22,38 +22,56 @@
 }
 
 
-.editarGastos, .editarCategorias {
+.editarGastos,
+.editarCategorias {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
     max-height: 70%;
     height: 100%;
+    text-align: left;
+
 }
 
+.tabelaGasto table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
 
+.tabelaGasto input{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+}
 
-.tabelaCategorias {
+.tabelaCategoria {
     width: 100%;
     height: 90%;
     border-collapse: collapse;
     border-radius: 5px 5px 0px 0px;
-    overflow: hidden;
     margin-top: 10px;
     overflow-y: auto;
 }
 
+.tabelaCategoria input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+}
 
-.tabelaCategorias::-webkit-scrollbar {
+.tabelaCategoria::-webkit-scrollbar {
     display: none;
 }
 
 
-.tabelaCategorias table {
+.tabelaCategoria table {
     width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
 }
 
-.tabelaCategorias thead {
+.tabelaCategoria thead {
     background-color: #cdd0d0;
     border-radius: 10px;
     position: sticky;
@@ -61,19 +79,44 @@
 }
 
 
-.tabelaCategorias tr {
+.tabelaCategoria tr {
     border-bottom: 1px solid #ddd;
+
 }
 
-.tabelaCategorias td,
-.tabelaCategorias th {
+.tabelaCategoria td,
+.tabelaCategoria th {
     padding: 9px;
-} 
+}
 
-
-
-.tabelaCategorias {
-    width: 100%;
-    height: 90%;
+.tabelaCategoria td,
+.tabelaGasto td {
+    height: 40px;
     overflow: hidden;
+}
+
+
+.btnEditarExcluir {
+    cursor: pointer;
+}
+
+.colunaIcone {
+    width: 80px;
+    padding: 9px 4px;
+}
+
+.colunaDado {
+    width: 20%;
+}
+
+.TituloTabela{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.TituloTabela p{
+    width: 40%;
 }

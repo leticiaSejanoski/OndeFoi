@@ -33,6 +33,7 @@ namespace OndeFoi.Repositories
         public Gasto? BuscarPorId(int id, int usuarioId)
         {
             return _context.Gasto
+            .Include(g => g.Categoria)
             .FirstOrDefault(g => g.UsuarioId == usuarioId && g.Id == id);
         }
 

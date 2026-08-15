@@ -118,6 +118,7 @@
 .tabelaGasto td,
 .tabelaGasto th {
     padding: 9px;
+    height: 10px;
 }
 
 .formGasto {

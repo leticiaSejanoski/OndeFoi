@@ -4,7 +4,6 @@ import GraficoCategorias from "../../components/GraficoCategorias.jsx";
 import { useEffect, useState } from "react";
 
 
-
 function Dashboard() {
     //cria gasto
     const [descricao, setDescricao] = useState("");
@@ -52,19 +51,19 @@ function Dashboard() {
 
         try {
             await api.post("/Gastos", {
+                data,
                 descricao,
                 valor: Number(valor),
-                categoriaId: Number(categoriaSelecionada),
-                data
+                categoriaId: Number(categoriaSelecionada)
             });
         } catch (erro) {
             setErros(erro.response.data);
         }
 
+        setData("");
         setDescricao("");
         setValor("");
         setCategoriaSelecionada("");
-        setData("");
 
         getGastos();
     }
