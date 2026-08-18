@@ -197,7 +197,6 @@ function Dashboard() {
                                 <label htmlFor="valor">R$</label>
                                 <input type="number" step={0.01} min={0} name="valor" id="valor" value={valor} onChange={(e) => setValor(e.target.value)} />
                                 <p className="erro">{erros.data}</p>
-
                             </div>
 
 

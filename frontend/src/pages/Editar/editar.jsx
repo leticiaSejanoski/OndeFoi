@@ -32,7 +32,7 @@ function Editar() {
 
     async function salvarGasto(id) {
 
-          setErros({});
+        setErros({});
 
         try {
             await api.put(`/Gastos/${id}`, {
@@ -94,7 +94,10 @@ function Editar() {
         <div className="containerEditar">
             <div className="editarBloco1">
                 <div className="editarGastos">
-                    <h1>Gastos</h1>
+                    <div className="TituloTabela">
+                        <h1>Gastos</h1>
+                        <p className="erro">{erros.data}</p>
+                    </div>
                     <div className="tabelaGasto">
                         <table>
                             <thead>
@@ -174,8 +177,8 @@ function Editar() {
                                         {categoriaEditando === categoria.id ? (
                                             <>
                                                 <td><input type="text" value={nome} onChange={(e) => setNome(e.target.value)} /></td>
-                                                <td><button type="button" onClick={()=>(salvarCategoria(categoria.id), setCategoriaEditando(null))}>Salvar</button></td>
-                                                <td><button type="button" onClick={()=>setCategoriaEditando(null)}>Cancelar</button></td>
+                                                <td><button type="button" onClick={() => (salvarCategoria(categoria.id), setCategoriaEditando(null))}>Salvar</button></td>
+                                                <td><button type="button" onClick={() => setCategoriaEditando(null)}>Cancelar</button></td>
                                             </>
                                         ) : (
                                             <>

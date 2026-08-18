@@ -2,6 +2,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using OndeFoi.Data;
 using OndeFoi.DTOs;
@@ -66,6 +67,18 @@ namespace OndeFoi.Controllers
 
             return Ok(resultado.Dado);
         }
+
+        [Authorize]
+        [HttpGet("historico")]
+        public async Task<ActionResult<IEnumerable<GastoResponseDto>>> Historico()
+        {
+            var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
+            var resultado = await _service.GastosUltimosTresMeses(usuarioId);
+
+            return Ok(resultado);
+        }
+
 
     }
 }

@@ -62,6 +62,20 @@ namespace OndeFoi.Repositories
             .Sum(g => g.Valor);
         }
 
+        public async Task<IEnumerable<Gasto>> ObterUltimosTresMeses(int idUsuario)
+        {
+            var hoje = DateTime.Now;
+            var dataAtual = new DateTime(hoje.Year, hoje.Month, 1);
+            var dataInicial = dataAtual.AddMonths(-3);
+
+            return await _context.Gasto
+            .Include(g => g.Categoria)
+            .Where(g => g.UsuarioId == idUsuario &&
+             g.Data >= dataInicial &&
+             g.Data < dataAtual)
+            .ToListAsync();
+        }
+
         public IEnumerable<GastoPorCategoria> CalcularTotalCategoria(int usuarioId)
         {
             return _context.Gasto

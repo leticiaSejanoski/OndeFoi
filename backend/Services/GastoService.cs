@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using OndeFoi.DTOs;
 using OndeFoi.Models;
 using OndeFoi.Repositories;
@@ -94,11 +95,41 @@ namespace OndeFoi.Services
         {
             return _repository.CalcularTotalGasto(idUsuario);
         }
-        
+
         public decimal SaldoAtual(int idUsuario, decimal renda)
         {
             var despesa = _repository.CalcularTotalGasto(idUsuario);
             return renda - despesa;
+        }
+
+
+        public async Task<IEnumerable<GastosPorMesResponseDto>> GastosUltimosTresMeses(int idUsuario)
+        {
+            var gastos = await _repository.ObterUltimosTresMeses(idUsuario);
+
+            var resposta = gastos.GroupBy(g => new
+            {
+                g.Data.Year,
+                g.Data.Month
+            })
+            .Select(gp => new GastosPorMesResponseDto
+            {
+                Ano = gp.Key.Year,
+                Mes = gp.Key.Month,
+
+                Gastos = gp.Select(g => new GastoResponseDto
+                {
+                    Id = g.Id,
+                    Descricao = g.Descricao,
+                    Valor = g.Valor,
+                    Data = g.Data,
+                    CategoriaId = g.CategoriaId,
+                    CategoriaNome = g.Categoria.Nome
+
+                }).ToList()
+            });
+
+            return resposta;
         }
 
         private Dictionary<string, string> ValidarGasto(Gasto gasto, int usuarioId)

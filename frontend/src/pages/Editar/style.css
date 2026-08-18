@@ -6,7 +6,6 @@
     max-width: 1500px;
     margin: 0 auto;
     padding-top: 20px;
-    /* gap: 20px; */
 }
 
 .editarBloco1 {
@@ -39,7 +38,7 @@
     border-collapse: collapse;
 }
 
-.tabelaGasto input{
+.tabelaGasto input, .tabelaGasto select{
     width: 100%;
     box-sizing: border-box;
     padding: 5px;
