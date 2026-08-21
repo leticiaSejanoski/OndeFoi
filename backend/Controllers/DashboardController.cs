@@ -19,12 +19,12 @@ namespace OndeFoi.Controllers
 
         [Authorize]
         [HttpGet]
-        public ActionResult<DashboardResponseDto> Resumo()
+        public async Task<ActionResult<DashboardResponseDto>> Resumo()
         {
             var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-            var resultado = _service.Resumo(usuarioId);
+            var resultado = await _service.Resumo(usuarioId);
 
-            return Ok(resultado.Dado);
+            return Ok(resultado);
         }
     }
 

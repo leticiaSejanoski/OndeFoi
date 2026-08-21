@@ -91,21 +91,9 @@ namespace OndeFoi.Services
             return Resultado<GastoResponseDto>.Ok(resposta);
         }
 
-        public decimal TotalGastos(int idUsuario)
+        public async Task<IEnumerable<GastosPorMesResponseDto>> GastosAgrupados(int idUsuario)
         {
-            return _repository.CalcularTotalGasto(idUsuario);
-        }
-
-        public decimal SaldoAtual(int idUsuario, decimal renda)
-        {
-            var despesa = _repository.CalcularTotalGasto(idUsuario);
-            return renda - despesa;
-        }
-
-
-        public async Task<IEnumerable<GastosPorMesResponseDto>> GastosUltimosTresMeses(int idUsuario)
-        {
-            var gastos = await _repository.ObterUltimosTresMeses(idUsuario);
+            var gastos = await _repository.BuscarGastosMes(idUsuario);
 
             var resposta = gastos.GroupBy(g => new
             {
@@ -126,7 +114,9 @@ namespace OndeFoi.Services
                     CategoriaId = g.CategoriaId,
                     CategoriaNome = g.Categoria.Nome
 
-                }).ToList()
+                }).ToList(),
+
+                Total = gp.Sum(g => g.Valor)
             });
 
             return resposta;

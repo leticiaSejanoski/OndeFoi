@@ -24,8 +24,8 @@ function GraficoCategorias() {
 
     async function getTotal() {
         const dados = await api.get('/Dashboard');
-        setCategorias(dados.data.totalPorCategoria);
-        console.log(dados);
+        setCategorias(dados.data.dado.totalPorCategoria);
+        console.log(dados.data);
     }
 
     function calculaPorcentagem() {

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 function Editar() {
 
-    const [gastos, setGastos] = useState([]);
+    const [gastosAgrupados, setGastosAgrupados] = useState([]);
     const [categorias, setCategorias] = useState([]);
 
     const [data, setData] = useState("");
@@ -20,8 +20,8 @@ function Editar() {
     const [erros, setErros] = useState({});
 
     async function getGastos() {
-        const gastos = await api.get("/Gastos");
-        setGastos(gastos.data);
+        const resposta = await api.get("/Gastos/historico");
+        setGastosAgrupados(resposta.data);
     }
 
     async function getCategorias() {
@@ -111,7 +111,7 @@ function Editar() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {gastos.map(gasto => (
+                                {gastosAgrupados[0]?.gastos.map(gasto => (
                                     <tr key={gasto.id}>
                                         {gastoEditando === gasto.id ? (
                                             <>

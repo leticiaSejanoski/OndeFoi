@@ -4,104 +4,70 @@ import { useEffect, useState } from 'react';
 
 function Historico() {
 
-    const [gastos, setGastos] = useState([]);
-    // const [gastosMes3, setGastosMes3] = useState([]);
-    // const [gastosMes2, setGastosMes2] = useState([]);
-    // const [gastosMes1, setGastosMes1] = useState([]);
-
-    // let dataAtual = Date.now();
-   
-
+    const [grupoGastos, setGrupoGastos] = useState([]);
+    const meses = [
+        "Janeiro",
+        "Fevereiro",
+        "Março",
+        "Abriu",
+        "Maio",
+        "Junho",
+        "Julho",
+        "Agosto",
+        "Setembro",
+        "Outubro",
+        "Novembro",
+        "Dezembro"
+    ];
 
     async function getGastosHistorico() {
-        const gastos = await api.get("/Gastos/historico");
-        setGastos(gastos);
+        const resposta = await api.get("/Gastos/historico");
+        setGrupoGastos(resposta.data);
+        console.log(resposta.data);
     }
-
-    // function separaGastos(){
-    //     gastos.forEach(gasto => {
-    //         if(gasto.data )
-    //     });
-    // }
-
 
     useEffect(() => {
         getGastosHistorico();
     }, []);
 
+    <h1>TESTE</h1>
 
     return (
         <div className='containerHistorico'>
             <div className='divBlocos'>
-                <div className='divHistoricos'>
-                    <h1>3 meses atras</h1>
-                    <div className="tabelaHistorico">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Data</th>
-                                    <th>Descrição</th>
-                                    <th>Categoria</th>
-                                    <th>Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div className='divHistoricos'>
-                    <h1>2 meses atras</h1>
-                    <div className='tabelaHistorico'>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Data</th>
-                                    <th>Descrição</th>
-                                    <th>Categoria</th>
-                                    <th>Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div className='divHistoricos'>
-                    <h1>1 mes atras</h1>
-                    <div className="tabelaHistorico">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Data</th>
-                                    <th>Descrição</th>
-                                    <th>Categoria</th>
-                                    <th>Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                {grupoGastos.slice(1, 4).map(grupo => (
+                        <div key={`${grupo.mes}-${grupo.ano}`} className='divHistoricos'>
+                            <h1>
+                               {`${meses[grupo.mes-1]}/${grupo.ano}`}
+                            </h1>
+                            <div className="tabelaHistorico">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Data</th>
+                                            <th>Descrição</th>
+                                            <th>Categoria</th>
+                                            <th>Valor</th>
+                                         
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {grupo.gastos.map(gasto => (
+                                            <tr key={gasto.id}>
+                                                <td>{new Date(gasto.data).toLocaleString("pt-BR", {
+                                                    day: "2-digit",
+                                                    month: "2-digit"
+                                                })}</td>
+                                                <td>{gasto.descricao}</td>
+                                                <td>{gasto.categoriaNome}</td>
+                                                <td>{gasto.valor}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                ))}
             </div>
         </div>
     );

@@ -23,8 +23,12 @@
     margin: 5px;
     padding: 20px;
     border-radius: 10px;
-    height: 80%;
+    max-height: 80%;
+    height: 100%;
+    text-align: left;
 }
+
+
 
 .tabelaHistorico {
     width: 100%;
@@ -35,6 +39,10 @@
     overflow-y: auto;
 }
 
+.tabelaHistorico::-webkit-scrollbar {
+    display: none;
+}
+
 .tabelaHistorico table {
     width: 100%;
     table-layout: fixed;
@@ -43,6 +51,16 @@
 
 .tabelaHistorico tr {
     border-bottom: 1px solid #ccc;
+}
+
+.tabelaHistorico td,
+.tabelaHistorico th {
+    padding: 9px;
+}
+
+.tabelaGasto td {
+    height: 40px;
+    overflow: hidden;
 }
 
 .tabelaHistorico thead {

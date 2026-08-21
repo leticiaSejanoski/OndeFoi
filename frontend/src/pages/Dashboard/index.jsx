@@ -16,7 +16,7 @@ function Dashboard() {
 
     //outras funcionalidades
     const [categorias, setCategorias] = useState([]);
-    const [gastos, setGastos] = useState([]);
+    const [gastosAgrupados, setGastosAgrupados] = useState([]);
 
     const [dadosDashboard, setDadosDashboard] = useState([]);
     const [editandoRenda, setEditandoRenda] = useState(false);
@@ -65,19 +65,25 @@ function Dashboard() {
         setValor("");
         setCategoriaSelecionada("");
 
-        getGastos();
+        gastosAgrupados();
     }
 
-    async function getGastos() {
-        const gastos = await api.get("/Gastos");
-        setGastos(gastos.data);
-        console.log(gastos);
+    // async function getGastos() {
+    //     const gastos = await api.get("/Gastos");
+    //     setGastos(gastos.data);
+    //     console.log(gastos);
+    // }
+
+    async function getGastosAgrupados() {
+        const resposta = await api.get("/Gastos/historico");
+        setGastosAgrupados(resposta.data);
+        console.log(resposta.data)
     }
 
     async function resumo() {
         const dados = await api.get("/Dashboard");
-        setDadosDashboard(dados.data);
-        setRenda(dados.data.renda);
+        setDadosDashboard(dados.data.dado);
+        setRenda(dados.data.dado);
     }
 
     async function salvarRenda() {
@@ -98,13 +104,13 @@ function Dashboard() {
     async function excluirGasto(id) {
         await api.delete(`/Gastos/${id}`);
 
-        getGastos();
+        getGastosAgrupados();
         resumo();
     }
 
     useEffect(() => {
         getCategorias();
-        getGastos();
+        getGastosAgrupados();
         resumo();
     }, []);
 
@@ -131,7 +137,7 @@ function Dashboard() {
 
                 <div className="totalGasto">
                     <h1>Total dos gastos</h1>
-                    <h2>R$ {dadosDashboard.totalGastos}</h2>
+                    <h2>R$ {dadosDashboard.totalGastosMesAtual}</h2>
                 </div>
 
                 <div className="saldo">
@@ -149,36 +155,37 @@ function Dashboard() {
                 </div>
 
                 <div className="divGasto">
-                    <div className="gastosInfo">
-                        <h1>Últimos gastos</h1>
-                        <div className="tabelaGasto">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Data</th>
-                                        <th>Descrição</th>
-                                        <th>Categoria</th>
-                                        <th>Valor</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {gastos.map(gasto => (
-                                        <tr key={gasto.id}>
-                                            <td>{new Date(gasto.data).toLocaleDateString("pt-BR", {
-                                                day: "2-digit",
-                                                month: "2-digit"
-                                            })}</td>
-                                            <td>{gasto.descricao}</td>
-                                            <td>{gasto.categoriaNome}</td>
-                                            <td>R$ {gasto.valor}</td>
-                                            <td><img className="iconExcluirGasto" onClick={() => excluirGasto(gasto.id)} src="./../../../public/desperdicio.png" alt="exluir" /></td>
+                        <div className="gastosInfo">
+                            <h1>Últimos gastos</h1>
+                            <div className="tabelaGasto">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Data</th>
+                                            <th>Descrição</th>
+                                            <th>Categoria</th>
+                                            <th>Valor</th>
+                                            <th></th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {gastosAgrupados[0]?.gastos.map(gasto => (
+                                            <tr key={gasto.id}>
+                                                <td>{new Date(gasto.data).toLocaleDateString("pt-BR", {
+                                                    day: "2-digit",
+                                                    month: "2-digit"
+                                                })}</td>
+                                                <td>{gasto.descricao}</td>
+                                                <td>{gasto.categoriaNome}</td>
+                                                <td>R$ {gasto.valor}</td>
+                                                <td><img className="iconExcluirGasto" onClick={() => excluirGasto(gasto.id)} src="./../../../public/desperdicio.png" alt="exluir" /></td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
+           
                 </div>
 
                 <div className="bloco3">
@@ -190,7 +197,6 @@ function Dashboard() {
                                 <label htmlFor="desc">Descrição</label>
                                 <input placeholder="Ex: Lanche" type="text" name="desc" id="desc" value={descricao} onChange={(e) => setDescricao(e.target.value)} />
                                 <p className="erro">{erros.data}</p>
-
                             </div>
 
                             <div className="campo">

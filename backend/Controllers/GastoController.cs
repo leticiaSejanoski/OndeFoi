@@ -74,7 +74,7 @@ namespace OndeFoi.Controllers
         {
             var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
-            var resultado = await _service.GastosUltimosTresMeses(usuarioId);
+            var resultado = await _service.GastosAgrupados(usuarioId);
 
             return Ok(resultado);
         }
