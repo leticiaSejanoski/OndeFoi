@@ -1,0 +1,110 @@
+.containerPerfil {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 92%;
+    max-width: 85vw;
+    padding-top: 20px;
+    margin: 0 auto;
+}
+
+.divPerfil {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+
+.infosEditar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    border: 1px solid #b9b8b8;
+    width: 65%;
+    height: 20rem;
+    margin-bottom: 20px;
+}
+
+.infosEditar h2{
+    padding-left: 20px;
+}
+
+.infosEditar form {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    width: 90%;
+    height: 100%;
+    padding: 20px;
+
+    & input {
+        width: 70%;
+        border-radius: 7px;
+        max-height: 100%;
+        height: 30px;
+        color: black;
+        font-size: 14px;
+        outline: none;
+        margin-bottom: 20px;
+    }
+
+    & button {
+        width: 25%;
+        height: 35px;
+        margin-top: 10px;
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
+
+.opcoesConta {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    width: 65%;
+    border: 1px solid #b9b8b8;
+    padding: 30px;
+    gap: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.botoesConta {
+    display: flex;
+    gap: 20px;
+
+    & button {
+        width: 15%;
+    }
+}
+
+.btnSair {
+    outline: 1px solid #f4a300;
+    font-weight: normal;
+    color: #f4a300;
+    background-color: #ffffff;
+    font-size: 0.9rem;
+
+}
+
+.btnSair:hover {
+    box-shadow: 1px 1px 5px 1px #f4a30094;
+}
+
+.btnExcluir {
+    font-weight: normal;
+    color: #ba0202;
+    background-color: #ffffff;
+    font-size: 0.9rem;
+}
+
+.btnExcluir:hover {
+    outline: 1px solid #ff0000;
+    color: #ba0202;
+
+}

@@ -1,5 +1,4 @@
 .containerHistorico {
-    /* background-color: aliceblue; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,9 +11,7 @@
 
 .divBlocos {
     display: grid;
-    /* grid-template-columns: 1fr 1fr 1fr; */
     width: 100%;
-    /* background-color: aqua; */
     height: 100%;
     grid-template-columns: repeat(auto-fit, minmax(25rem, 0.4fr));
 }
@@ -85,10 +82,8 @@
 .totalMes {
     margin-top: auto;
     background-color: #ccc;
-    /* height: 40px; */
     border-bottom: 1px solid #ccc;
     border-radius: 0px 0px 5px 5px;
-
     padding: 8px;
     text-align: right;
     font-weight: bold;

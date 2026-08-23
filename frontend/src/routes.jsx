@@ -5,6 +5,7 @@ import Cadastrar from "./pages/Cadastro/cadastro";
 import Dashboard from "./pages/Dashboard";
 import Editar from "./pages/Editar/editar";
 import Historico from "./pages/Histórico/historico";
+import Perfil from "./pages/Perfil/perfil";
 
 function Rotas() {
     return (
@@ -35,6 +36,11 @@ function Rotas() {
                 <Route
                     path="/editar"
                     element={<Editar />}
+                />
+
+                 <Route
+                    path="/perfil"
+                    element={<Perfil />}
                 />
 
             </Routes>

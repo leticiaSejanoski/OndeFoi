@@ -142,7 +142,7 @@ function Editar() {
                                                 <td className="colunaDado">{gasto.categoriaNome}</td>
                                                 <td className="colunaDado">R$ {gasto.valor}</td>
                                                 <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/editar.png" alt="Editar-gasto" onClick={() => (editarGasto(gasto), setGastoEditando(gasto.id))} /></td>
-                                                <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/desperdicio.png" alt="Excluir-gasto" onClick={() => excluirGasto(gasto.id)} />
+                                                <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/excluir.png" alt="Excluir-gasto" onClick={() => excluirGasto(gasto.id)} />
                                                 </td>
 
                                             </>
@@ -184,7 +184,7 @@ function Editar() {
                                             <>
                                                 <td>{categoria.nome}</td>
                                                 <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/editar.png" alt="Editar-gasto" onClick={() => (editarCategoria(categoria), setCategoriaEditando(categoria.id))} /></td>
-                                                <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/desperdicio.png" alt="Excluir-gasto" onClick={() => (
+                                                <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/excluir.png" alt="Excluir-gasto" onClick={() => (
                                                     excluirCategoria(categoria.id)
                                                 )} /></td>
                                             </>

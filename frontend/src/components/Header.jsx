@@ -14,7 +14,7 @@ function Header() {
                     <Link className='link' to={"/editar"}>Editar</Link>
                 </nav>
                 <div className='perfil'>
-                    <Link className='link' to={"/"}>Perfil</Link>
+                    <Link className='link' to={"/perfil"}>Perfil</Link>
                 </div>
             </div>
         </header>
