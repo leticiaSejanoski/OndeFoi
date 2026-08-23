@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     width: 92%;
-    max-width: 1500px;
+    max-width: 85vw;
     margin: 0 auto;
     padding-top: 20px;
 }

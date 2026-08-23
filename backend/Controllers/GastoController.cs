@@ -56,6 +56,19 @@ namespace OndeFoi.Controllers
 
             return NoContent();
         }
+
+        [Authorize]
+        [HttpDelete("historico/mes")]
+        public async Task<IActionResult>  Deletar(int mes, int ano)
+        {
+            var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var resultado = await _service.ExcluirGastosAgrupados(usuarioId, mes, ano);
+
+            if (!resultado.Sucesso) return NotFound(resultado.Erros);
+
+            return NoContent();
+        }
+
         [Authorize]
         [HttpPut("{id}")]
         public ActionResult<GastoResponseDto> Editar(int id, EditarGastoDto dto)
@@ -78,7 +91,5 @@ namespace OndeFoi.Controllers
 
             return Ok(resultado);
         }
-
-
     }
 }

@@ -65,7 +65,8 @@ function Dashboard() {
         setValor("");
         setCategoriaSelecionada("");
 
-        gastosAgrupados();
+        getGastosAgrupados();
+        // resumo();
     }
 
     // async function getGastos() {
@@ -149,7 +150,7 @@ function Dashboard() {
             <div className="bloco2">
                 <div className="divGrafico">
                     <div className="grafico">
-                        <h1>Visão Geral Por Categoria</h1>
+                        <h1>Visão Geral Por Categoria (Mês)</h1>
                         <GraficoCategorias />
                     </div>
                 </div>
@@ -178,7 +179,7 @@ function Dashboard() {
                                                 <td>{gasto.descricao}</td>
                                                 <td>{gasto.categoriaNome}</td>
                                                 <td>R$ {gasto.valor}</td>
-                                                <td><img className="iconExcluirGasto" onClick={() => excluirGasto(gasto.id)} src="./../../../public/desperdicio.png" alt="exluir" /></td>
+                                                <td><img className="iconExcluirGasto" onClick={() => excluirGasto(gasto.id)} src="./../../../public/excluir.png" alt="exluir" /></td>
                                             </tr>
                                         ))}
                                     </tbody>

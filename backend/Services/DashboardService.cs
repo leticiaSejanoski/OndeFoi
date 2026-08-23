@@ -32,8 +32,6 @@ namespace OndeFoi.Services
 
             var totalCategoriaAgrupado = await CalcularTotalCategoriaGrupo(usuarioId);
 
-
-
             DashboardResponseDto resposta = new DashboardResponseDto
             {
                 Renda = renda,
@@ -54,6 +52,8 @@ namespace OndeFoi.Services
                 g.Data.Year,
                 g.Data.Month
             })
+            .OrderByDescending(grupo => grupo.Key.Year)
+            .ThenByDescending(grupo => grupo.Key.Month)
             .Select(grupo => grupo.Sum(g => g.Valor));
 
             return resposta;

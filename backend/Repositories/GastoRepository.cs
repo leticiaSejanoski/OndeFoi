@@ -74,11 +74,22 @@ namespace OndeFoi.Repositories
             .ToListAsync();
         }
 
-        public async Task<IEnumerable<Gasto>> BuscarGastosMes(int idUsuario)
+        public async Task<IEnumerable<Gasto>> BuscarGastosTodosOsMeses(int idUsuario)
         {
             return await _context.Gasto
             .Include(g => g.Categoria)
             .Where(g => g.UsuarioId == idUsuario)
+            .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Gasto>> BuscarGastosMes(int idUsuario, int mes, int ano)
+        {
+            return await _context.Gasto
+            .Include(g => g.Categoria)
+            .Where(g =>
+            g.UsuarioId == idUsuario
+            && g.Data.Month == mes
+            && g.Data.Year == ano)
             .ToListAsync();
         }
 
@@ -94,5 +105,10 @@ namespace OndeFoi.Repositories
 
             }).ToList();
         }
+
+        // public void ExcluirGastosAgrupados(int usuarioId)
+        // {
+        //     return _context.Gasto.Remove()
+        // }
     }
 }

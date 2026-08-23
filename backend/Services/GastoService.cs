@@ -93,13 +93,15 @@ namespace OndeFoi.Services
 
         public async Task<IEnumerable<GastosPorMesResponseDto>> GastosAgrupados(int idUsuario)
         {
-            var gastos = await _repository.BuscarGastosMes(idUsuario);
+            var gastos = await _repository.BuscarGastosTodosOsMeses(idUsuario);
 
             var resposta = gastos.GroupBy(g => new
             {
                 g.Data.Year,
                 g.Data.Month
             })
+            .OrderByDescending(grupo => grupo.Key.Year)
+            .ThenByDescending(grupo => grupo.Key.Month)
             .Select(gp => new GastosPorMesResponseDto
             {
                 Ano = gp.Key.Year,
@@ -121,6 +123,19 @@ namespace OndeFoi.Services
 
             return resposta;
         }
+
+        public async Task<Resultado<Gasto>> ExcluirGastosAgrupados(int idUsuario, int mesGrupo, int anoGrupo)
+        {
+            var gastos = await _repository.BuscarGastosMes(idUsuario, mesGrupo, anoGrupo);
+
+            foreach (var gasto in gastos)
+            {
+                _repository.Remover(gasto);
+            }
+
+            return Resultado<Gasto>.Ok();
+        }
+
 
         private Dictionary<string, string> ValidarGasto(Gasto gasto, int usuarioId)
         {

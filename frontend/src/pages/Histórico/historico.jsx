@@ -9,7 +9,7 @@ function Historico() {
         "Janeiro",
         "Fevereiro",
         "Março",
-        "Abriu",
+        "Abril",
         "Maio",
         "Junho",
         "Julho",
@@ -26,47 +26,68 @@ function Historico() {
         console.log(resposta.data);
     }
 
+    async function excluirMesHistorico(mes, ano) {
+        try{
+            await api.delete("/Gastos/historico/mes", {
+
+                params: {
+                    mes,
+                    ano
+                }
+            });
+            getGastosHistorico();
+
+        }catch(erro){
+            console.log(erro.response.data);
+        }
+
+    }
+
     useEffect(() => {
         getGastosHistorico();
     }, []);
 
-    <h1>TESTE</h1>
-
     return (
         <div className='containerHistorico'>
             <div className='divBlocos'>
-                {grupoGastos.slice(1, 4).map(grupo => (
-                        <div key={`${grupo.mes}-${grupo.ano}`} className='divHistoricos'>
+                {grupoGastos.slice(1).map(grupo => (
+                    <div key={`${grupo.mes}-${grupo.ano}`} className='divHistoricos'>
+                        <div className='cabeçalhoDivMes'>
                             <h1>
-                               {`${meses[grupo.mes-1]}/${grupo.ano}`}
+                                {`${meses[grupo.mes - 1]}/${grupo.ano}`}
                             </h1>
-                            <div className="tabelaHistorico">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Data</th>
-                                            <th>Descrição</th>
-                                            <th>Categoria</th>
-                                            <th>Valor</th>
-                                         
+                            <p><img title="Excluir gastos" src="./../../../public/desperdicio.png" alt='Botão "Excluir histórico"' onClick={() => excluirMesHistorico(grupo.mes, grupo.ano)}/></p>
+                        </div>
+                        <div className="tabelaHistorico">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Descrição</th>
+                                        <th>Categoria</th>
+                                        <th>Valor</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {grupo.gastos.map(gasto => (
+                                        <tr key={gasto.id}>
+                                            <td>{new Date(gasto.data).toLocaleString("pt-BR", {
+                                                day: "2-digit",
+                                                month: "2-digit"
+                                            })}</td>
+                                            <td>{gasto.descricao}</td>
+                                            <td>{gasto.categoriaNome}</td>
+                                            <td>{gasto.valor}</td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {grupo.gastos.map(gasto => (
-                                            <tr key={gasto.id}>
-                                                <td>{new Date(gasto.data).toLocaleString("pt-BR", {
-                                                    day: "2-digit",
-                                                    month: "2-digit"
-                                                })}</td>
-                                                <td>{gasto.descricao}</td>
-                                                <td>{gasto.categoriaNome}</td>
-                                                <td>{gasto.valor}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <div className="totalMes">
+                                <p>Total: R$ {grupo.total}</p>
                             </div>
                         </div>
+                    </div>
                 ))}
             </div>
         </div>
