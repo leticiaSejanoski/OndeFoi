@@ -11,8 +11,7 @@ namespace OndeFoi.DTOs
         [EmailAddress(ErrorMessage = "Insira um e-mail válido.")]
         public string Email { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "A senha é obrigatória.")]
         [MinLength(8, ErrorMessage = "A senha precisa conter pelo menos 8 caracteres.")]
-        public string Senha { get; set; } = string.Empty;
+        public string? Senha { get; set; } 
     }
 }

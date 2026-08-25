@@ -32,7 +32,7 @@ function Cadastrar() {
             });
 
             localStorage.setItem("token", login.data.token);
-            navigate("/");
+            navigate("/dashboard");
 
         } catch (erro) {
             setErros(erro.response.data);

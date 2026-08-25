@@ -56,7 +56,7 @@ function Historico() {
                             <h1>
                                 {`${meses[grupo.mes - 1]}/${grupo.ano}`}
                             </h1>
-                            <p><img title="Excluir gastos" src="./../../../public/desperdicio.png" alt='Botão "Excluir histórico"' onClick={() => excluirMesHistorico(grupo.mes, grupo.ano)}/></p>
+                            <p><img title="Excluir gastos" src="./../../../public/excluir.png" alt='Botão "Excluir histórico"' onClick={() => excluirMesHistorico(grupo.mes, grupo.ano)}/></p>
                         </div>
                         <div className="tabelaHistorico">
                             <table>

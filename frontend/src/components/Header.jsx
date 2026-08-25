@@ -14,7 +14,7 @@ function Header() {
                     <Link className='link' to={"/editar"}>Editar</Link>
                 </nav>
                 <div className='perfil'>
-                    <Link className='link' to={"/perfil"}>Perfil</Link>
+                   <Link className='link' to={"/perfil"}><img src="./../../../public/perfil.png" alt="" /> </Link>
                 </div>
             </div>
         </header>

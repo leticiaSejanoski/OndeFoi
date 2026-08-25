@@ -75,9 +75,17 @@ namespace OndeFoi.Services
 
             if (usuario == null) return Resultado<UsuarioResponseDto>.Erro("usuario", "Usuário não encontrado!");
 
+            var hasher = new PasswordHasher<Usuario>();
+
             usuario.Nome = dto.Nome;
             usuario.Email = dto.Email;
-            usuario.SenhaHash = dto.Senha;
+
+            if (!string.IsNullOrEmpty(dto.Senha))
+            {
+            usuario.SenhaHash = hasher.HashPassword(usuario, dto.Senha);
+            }
+
+            // usuario.SenhaHash = dto.Senha;
 
             var erros = ValidarUsuario(usuario);
             if (erros.Any()) return Resultado<UsuarioResponseDto>.Erro(erros);
