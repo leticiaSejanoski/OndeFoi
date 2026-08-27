@@ -44,7 +44,7 @@ function Login() {
                     <input placeholder='Senha' type="password" name="senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
                 </div>
 
-                {erros.geral && <p className='erro'>{erros.geral}</p>}
+                <p className='erroLogin'>{erros.Geral}</p>
 
                 <button type='button' onClick={fazerLogin}>Entrar</button>
 

@@ -44,17 +44,17 @@ function Cadastrar() {
                 <h1>Cadastrar-se</h1>
                 <div className='campoCadastro'>
                     <input placeholder='Nome' type="text" value={nome} onChange={(e) => setNome(e.target.value)} />
-                    <p className="erro">{erros.usuario}</p>
+                    <p className="erroCadastro">{erros.Nome}</p>
                 </div>
 
                 <div className='campoCadastro'>
                     <input placeholder='Email' type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                    <p className="erro">{erros.email}</p>
+                    <p className="erroCadastro">{erros.Email}</p>
                 </div>
 
                 <div className='campoCadastro'>
                     <input placeholder='Senha' type="password" value={senha} onChange={(e) => setSenha(e.target.value)} />
-                    <p className="erro">{erros.usuario}</p>
+                    <p className="erroCadastro">{erros.Senha}</p>
                 </div>
                 <button type="button" onClick={fazerCadastro}>Cadastrar</button>
 

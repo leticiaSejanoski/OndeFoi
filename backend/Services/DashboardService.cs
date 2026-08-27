@@ -22,7 +22,7 @@ namespace OndeFoi.Services
         {
             var usuario = _repositoryUsuario.BuscarPorId(usuarioId);
 
-            if (usuario == null) return Resultado<DashboardResponseDto>.Erro("usuario", "Usuário não encontrado!");
+            if (usuario == null) return Resultado<DashboardResponseDto>.Erro("Usuario", "Usuário não encontrado!");
 
             var renda = usuario.Renda;
             var totalGastos = await CalcularTotalGrupo(usuarioId);

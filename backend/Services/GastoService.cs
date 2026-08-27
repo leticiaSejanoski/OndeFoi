@@ -29,12 +29,16 @@ namespace OndeFoi.Services
 
         public Resultado<GastoResponseDto> Criar(CriarGastoDto dto, int usuarioId)
         {
-            Gasto gasto = new Gasto(dto.Descricao, dto.Valor, dto.Data ?? DateTime.Now, dto.CategoriaId, usuarioId);
+            Gasto gasto = new Gasto(dto.Descricao, dto.Valor, dto.Data ?? DateTime.Now, dto.CategoriaId, usuarioId); 
             var erros = ValidarGasto(gasto, usuarioId);
 
             if (erros.Any()) return Resultado<GastoResponseDto>.Erro(erros);
 
             _repository.Adicionar(gasto);
+
+            gasto = _repository.BuscarPorId(gasto.Id, usuarioId);
+            Console.WriteLine(gasto.Categoria == null);
+
 
             GastoResponseDto resposta = new GastoResponseDto
             {
@@ -46,6 +50,7 @@ namespace OndeFoi.Services
                 CategoriaNome = gasto.Categoria.Nome
             };
 
+
             return Resultado<GastoResponseDto>.Ok(resposta);
         }
 
@@ -53,7 +58,7 @@ namespace OndeFoi.Services
         {
             var gasto = _repository.BuscarPorId(id, usuarioId);
 
-            if (gasto == null) return Resultado<Gasto>.Erro("gasto", "Gasto não encontrado!");
+            if (gasto == null) return Resultado<Gasto>.Erro("Gasto", "Gasto não encontrado!");
 
             _repository.Remover(gasto);
 
@@ -65,7 +70,7 @@ namespace OndeFoi.Services
         {
             var gasto = _repository.BuscarPorId(id, usuarioId);
 
-            if (gasto == null) return Resultado<GastoResponseDto>.Erro("gasto", "Gasto não Encontrado!");
+            if (gasto == null) return Resultado<GastoResponseDto>.Erro("Gasto", "Gasto não Encontrado!");
 
             gasto.Descricao = dto.Descricao;
             gasto.Valor = dto.Valor;
@@ -141,9 +146,9 @@ namespace OndeFoi.Services
         {
             var erros = new Dictionary<string, string>();
 
-            if (!_repository.ExisteCategoria(gasto.CategoriaId, usuarioId)) erros.Add("categoria", "Categoria não encontrada.");
+            if (!_repository.ExisteCategoria(gasto.CategoriaId, usuarioId)) erros.Add("Categoria", "Categoria não encontrada.");
 
-            if (gasto.Data.Date > DateTime.Today) erros.Add("data", "A data não pode ser futura.");
+            if (gasto.Data.Date > DateTime.Today) erros.Add("Data", "A data não pode ser futura.");
             return erros;
         }
     }

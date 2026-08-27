@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using OndeFoi.DTOs;
 using OndeFoi.Models;
 using OndeFoi.Repositories;
@@ -47,7 +49,7 @@ namespace OndeFoi.Services
         {
             var categoria = _repository.BuscarPorId(id, usuarioId);
 
-            if (categoria == null) return Resultado<Categoria>.Erro("categoria","Categoria não encontrada.");
+            if (categoria == null) return Resultado<Categoria>.Erro("Categoria","Categoria não encontrada.");
 
             _repository.Remover(categoria);
 
@@ -60,7 +62,7 @@ namespace OndeFoi.Services
 
             var categoria = _repository.BuscarPorId(id, usuarioId);
 
-            if (categoria == null) return Resultado<CategoriaResponseDto>.Erro("categoria","Categoria não encontrada.");
+            if (categoria == null) return Resultado<CategoriaResponseDto>.Erro("Categoria","Categoria não encontrada.");
 
             categoria.Nome = dto.Nome;
             var erros = ValidarCategoria(categoria, usuarioId, id);
@@ -83,9 +85,11 @@ namespace OndeFoi.Services
 
             if (_repository.ExisteCategoriaComNome(categoria.Nome, usuarioId, id))
             {
-                erros.Add("categoria", "Categoria já existe.");
+                erros.Add("Categoria", "Categoria já existe.");
             }
             return erros;
         }
+
+      
     }
 }

@@ -37,8 +37,11 @@ namespace OndeFoi.Controllers
         [HttpPost]
         public ActionResult<GastoResponseDto> Criar(CriarGastoDto dto)
         {
+            if (!ModelState.IsValid) return BadRequest(ObterErrosModelState());
+
             var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
             var resultado = _service.Criar(dto, usuarioId);
+
 
             if (!resultado.Sucesso) return NotFound(resultado.Erros);
 
@@ -73,6 +76,8 @@ namespace OndeFoi.Controllers
         [HttpPut("{id}")]
         public ActionResult<GastoResponseDto> Editar(int id, EditarGastoDto dto)
         {
+            if (!ModelState.IsValid) return BadRequest(ObterErrosModelState());
+
             var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
             var resultado = _service.Editar(id, usuarioId, dto);
 
@@ -90,6 +95,15 @@ namespace OndeFoi.Controllers
             var resultado = await _service.GastosAgrupados(usuarioId);
 
             return Ok(resultado);
+        }
+
+        private Dictionary<string, string> ObterErrosModelState()
+        {
+            return ModelState
+            .Where(x => x.Value.Errors.Count > 0)
+            .ToDictionary(
+            x => x.Key,
+            x => x.Value.Errors.First().ErrorMessage);
         }
     }
 }

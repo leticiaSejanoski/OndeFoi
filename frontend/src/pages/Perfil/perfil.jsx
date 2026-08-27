@@ -76,17 +76,17 @@ function Perfil() {
                             <>
                                 <label htmlFor="nome">Nome</label>
                                 <input value={nome} type="text" name="nome" id="nome" onChange={(e) => setNome(e.target.value)} />
-                                <p className="erro">{erros.data}</p>
+                                <p className="erro">{erros.Nome}</p>
 
 
                                 <label htmlFor="nome">Email</label>
                                 <input value={email} type="email" name="email" id="email" onChange={(e) => setEmail(e.target.value)} />
-                                <p className="erro">{erros.email}</p>
+                                <p className="erro">{erros.Email}</p>
 
 
                                 <label htmlFor="senha">Senha</label>
                                 <input type="password" name="senha" id="senha" onChange={(e) => setSenha(e.target.value)} />
-                                <p className="erro">{erros.data}</p>
+                                <p className="erro">{erros.Senha}</p>
 
 
                                 <div className='botoes'>
@@ -96,7 +96,7 @@ function Perfil() {
                                             setEditandoPerfil(false)
                                     }
                                     } >Salvar</button>
-                                    <button onClick={() => setEditandoPerfil(false)} type="button">Cancelar</button>
+                                    <button onClick={() => {setEditandoPerfil(false); setErros({})}} type="button">Cancelar</button>
                                 </div>
                             </>
                         ) : (

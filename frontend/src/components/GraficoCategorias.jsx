@@ -3,7 +3,6 @@ import {
     Pie,
     Tooltip,
     Legend,
-    Sector
 } from "recharts";
 
 import api from "../services/api";

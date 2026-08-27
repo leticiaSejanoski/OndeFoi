@@ -9,7 +9,7 @@ function Dashboard() {
     const [descricao, setDescricao] = useState("");
     const [valor, setValor] = useState("");
     const [categoriaSelecionada, setCategoriaSelecionada] = useState("");
-    const [data, setData] = useState("");
+    const [data, setData] = useState(null);
 
     //cria categoria
     const [nome, setNome] = useState("");
@@ -45,9 +45,11 @@ function Dashboard() {
         getCategorias();
     }
 
+
     async function criaGasto() {
 
         setErros({});
+
 
         try {
             await api.post("/Gastos", {
@@ -56,16 +58,17 @@ function Dashboard() {
                 valor: Number(valor),
                 categoriaId: Number(categoriaSelecionada)
             });
+
+            setData(null);
+            setDescricao("");
+            setValor("");
+            setCategoriaSelecionada("");
+
+            getGastosAgrupados();
+
         } catch (erro) {
             setErros(erro.response.data);
         }
-
-        setData("");
-        setDescricao("");
-        setValor("");
-        setCategoriaSelecionada("");
-
-        getGastosAgrupados();
         // resumo();
     }
 
@@ -156,37 +159,37 @@ function Dashboard() {
                 </div>
 
                 <div className="divGasto">
-                        <div className="gastosInfo">
-                            <h1>Últimos gastos</h1>
-                            <div className="tabelaGasto">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Data</th>
-                                            <th>Descrição</th>
-                                            <th>Categoria</th>
-                                            <th>Valor</th>
-                                            <th></th>
+                    <div className="gastosInfo">
+                        <h1>Últimos gastos</h1>
+                        <div className="tabelaGasto">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Descrição</th>
+                                        <th>Categoria</th>
+                                        <th>Valor</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {gastosAgrupados[0]?.gastos.map(gasto => (
+                                        <tr key={gasto.id}>
+                                            <td>{new Date(gasto.data).toLocaleDateString("pt-BR", {
+                                                day: "2-digit",
+                                                month: "2-digit"
+                                            })}</td>
+                                            <td>{gasto.descricao}</td>
+                                            <td>{gasto.categoriaNome}</td>
+                                            <td>R$ {gasto.valor}</td>
+                                            <td><img className="iconExcluirGasto" onClick={() => excluirGasto(gasto.id)} src="./../../../public/excluir.png" alt="exluir" /></td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {gastosAgrupados[0]?.gastos.map(gasto => (
-                                            <tr key={gasto.id}>
-                                                <td>{new Date(gasto.data).toLocaleDateString("pt-BR", {
-                                                    day: "2-digit",
-                                                    month: "2-digit"
-                                                })}</td>
-                                                <td>{gasto.descricao}</td>
-                                                <td>{gasto.categoriaNome}</td>
-                                                <td>R$ {gasto.valor}</td>
-                                                <td><img className="iconExcluirGasto" onClick={() => excluirGasto(gasto.id)} src="./../../../public/excluir.png" alt="exluir" /></td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
-           
+                    </div>
+
                 </div>
 
                 <div className="bloco3">
@@ -197,13 +200,13 @@ function Dashboard() {
                             <div className="campo">
                                 <label htmlFor="desc">Descrição</label>
                                 <input placeholder="Ex: Lanche" type="text" name="desc" id="desc" value={descricao} onChange={(e) => setDescricao(e.target.value)} />
-                                <p className="erro">{erros.data}</p>
+                                <p className="erro">{erros.Descricao}</p>
                             </div>
 
                             <div className="campo">
                                 <label htmlFor="valor">R$</label>
                                 <input type="number" step={0.01} min={0} name="valor" id="valor" value={valor} onChange={(e) => setValor(e.target.value)} />
-                                <p className="erro">{erros.data}</p>
+                                <p className="erro">{erros.Valor}</p>
                             </div>
 
 
@@ -216,12 +219,12 @@ function Dashboard() {
                                             <option key={categoria.id} value={categoria.id}>{categoria.nome}</option>
                                         ))}
                                     </select>
-                                    <p className="erro">{erros.data}</p>
+                                    <p className="erro">{erros.CategoriaId}</p>
                                 </div>
                                 <div className="campo campoDataCategoria">
                                     <label htmlFor="data">Data</label>
-                                    <input type="date" name="data" id="data" value={data} onChange={(e) => setData(e.target.value)} />
-                                    <p className="erro">{erros.data}</p>
+                                    <input type="date" name="data" id="data" value={data ?? ""} onChange={(e) => setData(e.target.value || null)} />
+                                    <p className="erro">{erros.Data}</p>
                                 </div>
                             </div>
 
@@ -236,7 +239,7 @@ function Dashboard() {
                             <div className="campo">
                                 <label htmlFor="nome" >Nome</label>
                                 <input placeholder="Ex: Transporte" type="text" name="nome" id="nome" value={nome} onChange={(e) => setNome(e.target.value)} />
-                                <p className="erro">{erros.categoria}</p>
+                                <p className="erro">{erros.Nome || erros.Categoria}</p>
                             </div>
 
                             <button type="button" onClick={criaCategoria}>Criar</button>

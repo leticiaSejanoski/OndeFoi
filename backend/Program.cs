@@ -32,7 +32,12 @@ builder.Services.AddScoped<DashboardService>();
 builder.Services.AddControllers(options =>
 {
     options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
-});
+
+})
+  .ConfigureApiBehaviorOptions(options =>
+    {
+        options.SuppressModelStateInvalidFilter = true;
+    });
 
 
 builder.Services.AddAuthentication(options =>

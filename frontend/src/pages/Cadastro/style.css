@@ -15,21 +15,24 @@
 .cadastro form{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    justify-content: center;
     padding: 30px;
     border-radius: 10px;
-    background-color: #fff;
+    background-color: #ffffff;
     max-width: 50%;
     width: 400px;
+    min-height: 350px;
     margin-bottom: 20px;
 
     & button{
         border-radius: 10px;
+        margin: 20px 6px;
         height: 40px;
+        width: 98%;
         font-weight: bold;
         border: none;
         cursor: pointer;
-        background-color: #d5d2d2;
+        background-color: #ccc;
     }
 
     & button:hover{
@@ -39,31 +42,29 @@
 }
 
 .campoCadastro{
-    /* background-color: #ffffff; */
-    margin: 0;
-    display: flex;
+   display: flex;
+   flex-direction: column;
+    /* align-items: center; */
     justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    margin: 5px 10px 10px;
+    text-align: left;
 }
 
 .campoCadastro input{
-    border: 1px solid #000000;
+    border: 1px solid #0b0b0b;
     border-radius: 10px;
     height: 40px;
-    /* background-color: #2b5254; */
-    color: black;
+    width: 98%;
     font-size: 16px;
     padding-left: 10px;
     outline: none;
-    width: 90%;
 
 }
 
-.erro{
-    font-weight: bold;
+.erroCadastro{
+   font-weight: bold;
     margin: 0;
-    /* background-color: #2b5254; */
+    min-height: 20px;
 }
 
 .linkLogin{

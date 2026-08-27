@@ -96,7 +96,7 @@ function Editar() {
                 <div className="editarGastos">
                     <div className="TituloTabela">
                         <h1>Gastos</h1>
-                        <p className="erro">{erros.data}</p>
+                        <p className="erro">{erros.Data}</p>
                     </div>
                     <div className="tabelaGasto">
                         <table>
@@ -160,7 +160,7 @@ function Editar() {
                 <div className="editarCategorias">
                     <div className="TituloTabela">
                         <h1>Categorias</h1>
-                        <p className="erro">{erros.categoria}</p>
+                        <p className="erro">{erros.Categoria}</p>
                     </div>
                     <div className="tabelaCategoria">
                         <table>

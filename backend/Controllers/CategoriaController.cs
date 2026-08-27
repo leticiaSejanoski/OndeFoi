@@ -36,6 +36,9 @@ namespace OndeFoi.Controllers
         [HttpPost]
         public ActionResult<CategoriaResponseDto> Criar(CriarCategoriaDto dto)
         {
+
+            if (!ModelState.IsValid) return BadRequest(ObterErrosModelState());
+
             var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
             var resultado = _service.Criar(dto, usuarioId);
 
@@ -59,6 +62,8 @@ namespace OndeFoi.Controllers
         [HttpPut("{id}")]
         public ActionResult<CategoriaResponseDto> Editar(int id, EditarCategoriaDto dto)
         {
+            if (!ModelState.IsValid) return BadRequest(ObterErrosModelState());
+
             var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
             var resultado = _service.Editar(id, dto, usuarioId);
             if (!resultado.Sucesso) return BadRequest(resultado.Erros);
@@ -66,5 +71,14 @@ namespace OndeFoi.Controllers
             return Ok(resultado.Dado);
         }
 
+
+        private Dictionary<string, string> ObterErrosModelState()
+        {
+            return ModelState
+            .Where(x => x.Value.Errors.Count > 0)
+            .ToDictionary(
+                x => x.Key,
+                x => x.Value.Errors.First().ErrorMessage);
+        }
     }
 }

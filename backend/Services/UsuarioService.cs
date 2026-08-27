@@ -61,7 +61,7 @@ namespace OndeFoi.Services
         public Resultado<Usuario> Deletar(int id)
         {
             var usuario = _repository.BuscarPorId(id);
-            if (usuario == null) return Resultado<Usuario>.Erro("usuario", "Usuário não encontrado.");
+            if (usuario == null) return Resultado<Usuario>.Erro("Usuario", "Usuário não encontrado.");
 
             _repository.Remover(usuario);
 
@@ -73,7 +73,7 @@ namespace OndeFoi.Services
         {
             var usuario = _repository.BuscarPorId(id);
 
-            if (usuario == null) return Resultado<UsuarioResponseDto>.Erro("usuario", "Usuário não encontrado!");
+            if (usuario == null) return Resultado<UsuarioResponseDto>.Erro("Usuario", "Usuário não encontrado!");
 
             var hasher = new PasswordHasher<Usuario>();
 
@@ -106,7 +106,7 @@ namespace OndeFoi.Services
         public Resultado<bool> EditarRenda(int idUsuario, EditarRendaDto dto)
         {
             var usuario = _repository.BuscarPorId(idUsuario);
-            if (usuario == null) return Resultado<bool>.Erro("usuario", "Usuário não encontrado!");
+            if (usuario == null) return Resultado<bool>.Erro("Usuario", "Usuário não encontrado!");
 
             usuario.Renda = dto.Renda;
 
@@ -120,14 +120,14 @@ namespace OndeFoi.Services
         {
             var usuario = _repository.BuscarPorEmail(dto.Email); ;
 
-            if (usuario == null) return Resultado<LoginResponseDto>.Erro("geral", "E-mail ou senha inválidos.");
+            if (usuario == null) return Resultado<LoginResponseDto>.Erro("Geral", "E-mail ou senha inválidos.");
 
 
             var hasher = new PasswordHasher<Usuario>();
 
             var resultado = hasher.VerifyHashedPassword(usuario, usuario.SenhaHash, dto.Senha);
 
-            if (resultado != PasswordVerificationResult.Success) return Resultado<LoginResponseDto>.Erro("geral", "E-mail ou senha inválidos.");
+            if (resultado != PasswordVerificationResult.Success) return Resultado<LoginResponseDto>.Erro("Geral", "E-mail ou senha inválidos.");
 
             var token = GerarToken(usuario);
 
@@ -149,7 +149,7 @@ namespace OndeFoi.Services
         {
             var erros = new Dictionary<string, string>();
 
-            if (_repository.ExisteEmail(usuario.Email, usuario.Id)) erros.Add("email", "Esse email já está sendo usado.");
+            if (_repository.ExisteEmail(usuario.Email, usuario.Id)) erros.Add("Email", "Esse email já está sendo usado.");
 
             return erros;
 
