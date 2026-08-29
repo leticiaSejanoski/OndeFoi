@@ -47,6 +47,12 @@ function Perfil() {
         }
     }
 
+    async function logout() {
+        localStorage.removeItem("token");
+        localStorage.removeItem("refreshToken");
+        navigate("/");
+    }
+
     async function excluirConta() {
         await api.delete("/Usuario");
 
@@ -127,7 +133,7 @@ function Perfil() {
                 <div className='opcoesConta'>
                     <h2>Gerenciar conta</h2>
                     <div className='botoes'>
-                        <button className='btnSair' type="button">Sair da conta</button>
+                        <button className='btnSair' type="button" onClick={logout}>Sair da conta</button>
                         {/* <div className='divBotãoExcluirConta'> */}
                         <button className='btnExcluir' type="button" onClick={() => excluirConta()}>Excluir conta</button>
                         {/* </div> */}
