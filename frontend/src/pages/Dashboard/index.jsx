@@ -22,6 +22,8 @@ function Dashboard() {
     const [editandoRenda, setEditandoRenda] = useState(false);
     const [renda, setRenda] = useState("");
 
+    const [atualizarGrafico, setAtualizarGrafico] = useState(0);
+
     const [erros, setErros] = useState({});
 
     async function getCategorias() {
@@ -64,7 +66,10 @@ function Dashboard() {
             setValor("");
             setCategoriaSelecionada("");
 
+            setAtualizarGrafico(prev => prev + 1);
+
             getGastosAgrupados();
+            resumo();
 
         } catch (erro) {
             setErros(erro.response.data);
@@ -108,9 +113,12 @@ function Dashboard() {
     async function excluirGasto(id) {
         await api.delete(`/Gastos/${id}`);
 
+        setAtualizarGrafico(prev => prev + 1);
         getGastosAgrupados();
         resumo();
     }
+
+
 
     useEffect(() => {
         getCategorias();
@@ -135,18 +143,18 @@ function Dashboard() {
                         setRenda(dadosDashboard.renda);
                         setEditandoRenda(true);
                     }}>
-                        R$ {dadosDashboard.renda}</h2>)
+                        R$ {Number(dadosDashboard.renda).toFixed(2)}</h2>)
                     }
                 </div>
 
                 <div className="totalGasto">
                     <h1>Total dos gastos</h1>
-                    <h2>R$ {dadosDashboard.totalGastosMesAtual}</h2>
+                    <h2>R$ {Number(dadosDashboard.totalGastosMesAtual).toFixed(2)}</h2>
                 </div>
 
                 <div className="saldo">
                     <h1>Saldo atual</h1>
-                    <h2>R$ {dadosDashboard.saldo}</h2>
+                    <h2>R$ {Number(dadosDashboard.saldo).toFixed(2)}</h2>
                 </div>
             </div>
 
@@ -154,7 +162,7 @@ function Dashboard() {
                 <div className="divGrafico">
                     <div className="grafico">
                         <h1>Visão Geral Por Categoria (Mês)</h1>
-                        <GraficoCategorias />
+                        <GraficoCategorias atualizar={atualizarGrafico}/>
                     </div>
                 </div>
 
@@ -181,7 +189,7 @@ function Dashboard() {
                                             })}</td>
                                             <td>{gasto.descricao}</td>
                                             <td>{gasto.categoriaNome}</td>
-                                            <td>R$ {gasto.valor}</td>
+                                            <td>R$ {Number(gasto.valor).toFixed(2)}</td>
                                             <td><img className="iconExcluirGasto" onClick={() => excluirGasto(gasto.id)} src="./../../../public/excluir.png" alt="exluir" /></td>
                                         </tr>
                                     ))}

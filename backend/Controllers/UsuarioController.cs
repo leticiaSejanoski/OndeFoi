@@ -96,7 +96,6 @@ namespace OndeFoi.Controllers
         [HttpPost("refresh")]
         public IActionResult Refresh(string refreshToken)
         {
-            // var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
             var resultado = _service.RenovarToken(refreshToken);
 
             if (!resultado.Sucesso) return Unauthorized(resultado.Erros);

@@ -140,7 +140,7 @@ function Editar() {
                                                 })}</td>
                                                 <td className="colunaDado">{gasto.descricao}</td>
                                                 <td className="colunaDado">{gasto.categoriaNome}</td>
-                                                <td className="colunaDado">R$ {gasto.valor}</td>
+                                                <td className="colunaDado">R$ {Number(gasto.valor).toFixed(2)}</td>
                                                 <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/editar.png" alt="Editar-gasto" onClick={() => (editarGasto(gasto), setGastoEditando(gasto.id))} /></td>
                                                 <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/excluir.png" alt="Excluir-gasto" onClick={() => excluirGasto(gasto.id)} />
                                                 </td>

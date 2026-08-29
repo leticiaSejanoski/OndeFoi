@@ -62,7 +62,7 @@ namespace OndeFoi.Controllers
 
         [Authorize]
         [HttpDelete("historico/mes")]
-        public async Task<IActionResult>  Deletar(int mes, int ano)
+        public async Task<IActionResult>  DeletarHistorico(int mes, int ano)
         {
             var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
             var resultado = await _service.ExcluirGastosAgrupados(usuarioId, mes, ano);

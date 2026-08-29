@@ -26,7 +26,7 @@ namespace OndeFoi.Services
 
             var renda = usuario.Renda;
             var totalGastos = await CalcularTotalGrupo(usuarioId);
-            var totalMesAtual = totalGastos.FirstOrDefault();
+            var totalMesAtual = totalGastos;
             var saldo = renda - totalMesAtual;
 
 
@@ -43,25 +43,16 @@ namespace OndeFoi.Services
             return Resultado<DashboardResponseDto>.Ok(resposta);
         }
 
-        public async Task<IEnumerable<decimal>> CalcularTotalGrupo(int idUsuario)
+        public async Task<decimal> CalcularTotalGrupo(int idUsuario)
         {
-            var gastos = await _repositoryGasto.BuscarGastosMesAtual(idUsuario);
+            var gastos = await _repositoryGasto.BuscarGastosUltimoMes(idUsuario);
 
-            var resposta = gastos.GroupBy(g => new
-            {
-                g.Data.Year,
-                g.Data.Month
-            })
-            .OrderByDescending(grupo => grupo.Key.Year)
-            .ThenByDescending(grupo => grupo.Key.Month)
-            .Select(grupo => grupo.Sum(g => g.Valor));
-
-            return resposta;
+            return gastos.Sum(g => g.Valor); ;
         }
 
         public async Task<IEnumerable<GastoPorCategoria>> CalcularTotalCategoriaGrupo(int idUsuario)
         {
-            var gastos = await _repositoryGasto.BuscarGastosMesAtual(idUsuario);
+            var gastos = await _repositoryGasto.BuscarGastosUltimoMes(idUsuario);
 
             var resposta = gastos
             .GroupBy(g => new

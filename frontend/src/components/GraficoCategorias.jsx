@@ -8,7 +8,7 @@ import {
 import api from "../services/api";
 import { useEffect, useState } from "react";
 
-function GraficoCategorias() {
+function GraficoCategorias({ atualizar }) {
 
     const [categorias, setCategorias] = useState([]); //dados da api
     const [gastosPorCategoria, setGastosPorCategoria] = useState([]); //dados modificados + "outros"
@@ -27,15 +27,11 @@ function GraficoCategorias() {
         console.log(dados.data);
     }
 
-    function calculaPorcentagem() {
+
+    function prepararDadosGrafico() {
         let total = 0;
         categorias.forEach(categoria => {
             total += categoria.total
-        });
-
-        categorias.forEach(categoria => {
-            const porcentagem = (categoria.total / total) * 100;
-            console.log(categoria.categoriaNome, porcentagem);
         });
 
         const ordenados = categorias.toSorted((categoriaA, categoriaB) => (
@@ -63,23 +59,23 @@ function GraficoCategorias() {
             }));
 
             setGastosPorCategoria(dadosGrafico);
-        }else{
+        } else {
             const dadosGrafico = categorias.map((categoria, index) => ({
                 ...categoria,
+                porcentagem: (categoria.total / total) * 100,
                 fill: cores[index % cores.length]
             }));
 
             setGastosPorCategoria(dadosGrafico);
         }
-
     }
 
     useEffect(() => {
         getTotal();
-    }, []);
+    }, [atualizar]);
 
     useEffect(() => {
-        calculaPorcentagem();
+        prepararDadosGrafico();
     }, [categorias]);
 
     return (
@@ -94,7 +90,15 @@ function GraficoCategorias() {
                 outerRadius={120}
             />
 
-            <Tooltip />
+            <Tooltip
+                formatter={(valor) => (
+                    `R$${Number(valor).toLocaleString("pt-BR", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    })}`
+                )}
+            />
+
             <Legend
                 iconType="circle"
                 layout="vertical"
@@ -102,6 +106,13 @@ function GraficoCategorias() {
                 iconSize={18}
                 width={200}
                 height={140}
+                formatter={(categoriaNome, dadosCategoria) => {
+                    return `${categoriaNome} (${Number(dadosCategoria.payload.porcentagem).toLocaleString("pt-BR", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    })}%)`;
+                }}
+
 
             />
 

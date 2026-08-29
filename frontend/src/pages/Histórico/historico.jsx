@@ -78,13 +78,13 @@ function Historico() {
                                             })}</td>
                                             <td>{gasto.descricao}</td>
                                             <td>{gasto.categoriaNome}</td>
-                                            <td>{gasto.valor}</td>
+                                            <td>{Number(gasto.valor).toFixed(2)}</td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
                             <div className="totalMes">
-                                <p>Total: R$ {grupo.total}</p>
+                                <p>Total: R$ {Number(grupo.total).toFixed(2)}</p>
                             </div>
                         </div>
                     </div>
