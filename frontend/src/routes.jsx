@@ -6,42 +6,21 @@ import Dashboard from "./pages/Dashboard";
 import Editar from "./pages/Editar/editar";
 import Historico from "./pages/Histórico/historico";
 import Perfil from "./pages/Perfil/perfil";
+import Layout from "./components/Layout";
 
 function Rotas() {
     return (
         <>
-            <Header />
-
             <Routes>
-                <Route
-                    path="/"
-                    element={<Login />}
-                />
+                <Route element={<Layout />}>
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/historico" element={<Historico />} />
+                    <Route path="/editar" element={<Editar />} />
+                    <Route path="/perfil" element={<Perfil />} />
+                </Route>
 
-                <Route
-                    path="/cadastro"
-                    element={<Cadastrar />}
-                />
-
-                <Route
-                    path="/dashboard"
-                    element={<Dashboard />}
-                />
-
-                <Route
-                    path="/historico"
-                    element={<Historico />}
-                />
-
-                <Route
-                    path="/editar"
-                    element={<Editar />}
-                />
-
-                 <Route
-                    path="/perfil"
-                    element={<Perfil />}
-                />
+                <Route path="/" element={<Login />} />
+                <Route path="/cadastro" element={<Cadastrar />} />
 
             </Routes>
         </>
