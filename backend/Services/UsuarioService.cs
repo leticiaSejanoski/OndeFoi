@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http.HttpResults;
+using System.Security.Cryptography;
 
 
 namespace OndeFoi.Services
@@ -131,9 +132,19 @@ namespace OndeFoi.Services
 
             var token = GerarToken(usuario);
 
+            var refreshToken = new RefreshToken
+            {
+                Token = GerarRefreshToken(),
+                Expiracao = DateTime.UtcNow.AddDays(7),
+                UsuarioId = usuario.Id
+            };
+
+            _repository.AdicionarRefreshToken(refreshToken);
+
             var resposta = new LoginResponseDto
             {
                 Token = token,
+                RefreshToken = refreshToken.Token,
                 Usuario = new UsuarioResponseDto
                 {
                     Id = usuario.Id,
@@ -143,6 +154,17 @@ namespace OndeFoi.Services
             };
 
             return Resultado<LoginResponseDto>.Ok(resposta);
+        }
+
+        public Resultado<string> RenovarToken(string refreshToken)
+        {
+            var token = _repository.BuscarRefreshToken(refreshToken);
+
+            if (token == null) return Resultado<string>.Erro("Geral", "Refresh token inválido.");
+            if (token.Expiracao < DateTime.UtcNow) return Resultado<string>.Erro("Geral", "Refresh token expirado.");
+
+            var novoToken = GerarToken(token.Usuario);
+            return Resultado<string>.Ok(novoToken);
         }
 
         private Dictionary<string, string> ValidarUsuario(Usuario usuario)
@@ -179,8 +201,11 @@ namespace OndeFoi.Services
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token); // converte o objeto JwtSecurityToken em uma string JWT.
+        }
 
-
+        private string GerarRefreshToken()
+        {
+            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
         }
 
 

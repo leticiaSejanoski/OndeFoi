@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OndeFoi.Data;
 
@@ -10,9 +11,11 @@ using OndeFoi.Data;
 namespace OndeFoi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260828175036_AdicionaRefreshToken")]
+    partial class AdicionaRefreshToken
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,12 +112,12 @@ namespace OndeFoi.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("UsuarioId")
+                    b.Property<int>("usuarioId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("usuarioId");
 
                     b.ToTable("RefreshToken");
                 });
@@ -153,7 +156,7 @@ namespace OndeFoi.Migrations
                 {
                     b.HasOne("OndeFoi.Models.Usuario", "Usuario")
                         .WithMany()
-                        .HasForeignKey("UsuarioId")
+                        .HasForeignKey("usuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

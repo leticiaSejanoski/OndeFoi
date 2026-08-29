@@ -25,6 +25,7 @@ function Login() {
             });
 
             localStorage.setItem("token", resposta.data.token);
+            localStorage.setItem("refreshToken", resposta.data.refreshToken);
             navigate("/dashboard");
 
         } catch (erro) {

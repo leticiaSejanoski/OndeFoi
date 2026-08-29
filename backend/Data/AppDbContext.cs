@@ -10,6 +10,7 @@ namespace OndeFoi.Data
         public DbSet<Categoria> Categoria { get; set; }
         public DbSet<Gasto> Gasto { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<RefreshToken> RefreshToken { get; set; }
         
         public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)

@@ -38,7 +38,7 @@ namespace OndeFoi.Controllers
             var resultado = _service.Cadastrar(dto);
 
             if (!resultado.Sucesso) return BadRequest(resultado.Erros);
-            
+
             return Created($"api/usuarios/{resultado.Dado!.Id}", resultado.Dado);
         }
 
@@ -88,6 +88,18 @@ namespace OndeFoi.Controllers
             var resultado = _service.EditarRenda(usuarioId, dto);
 
             if (!resultado.Sucesso) return BadRequest(resultado.Erros);
+
+            return Ok(resultado.Dado);
+        }
+
+
+        [HttpPost("refresh")]
+        public IActionResult Refresh(string refreshToken)
+        {
+            // var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var resultado = _service.RenovarToken(refreshToken);
+
+            if (!resultado.Sucesso) return Unauthorized(resultado.Erros);
 
             return Ok(resultado.Dado);
         }

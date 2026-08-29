@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using OndeFoi.Data;
 using OndeFoi.Models;
 
@@ -50,6 +51,19 @@ namespace OndeFoi.Repositories
         public bool ExisteEmail(string email, int? id = null)
         {
             return _context.Usuario.Any(e => e.Email.ToLower() == email.ToLower() && (id == null || e.Id != id));
+        }
+
+        public RefreshToken? BuscarRefreshToken(string refreshToken)
+        {
+            return _context.RefreshToken
+            .Include(r => r.Usuario)
+            .FirstOrDefault(r => r.Token == refreshToken);   
+        }
+
+        public void AdicionarRefreshToken(RefreshToken refreshToken)
+        {
+            _context.Add(refreshToken);
+            _context.SaveChanges();
         }
     }
 }
