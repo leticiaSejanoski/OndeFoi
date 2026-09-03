@@ -1,10 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+    --fonte-titulo: "Sora", sans-serif;
+    --fonte-corpo: "Inter", sans-serif;
+}
 *{
     margin: 0;
-    /* color: aliceblue; */
 }
 
 body{
-    background-color: #dedede;
-
+    background-color: #111113;
 }
     

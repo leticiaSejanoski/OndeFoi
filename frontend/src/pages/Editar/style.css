@@ -1,21 +1,19 @@
 .containerEditar {
-    /* background-color: aliceblue; */
     display: grid;
     grid-template-columns: 2fr 1fr;
     width: 92%;
     max-width: 85vw;
     margin: 0 auto;
     padding-top: 20px;
+    font-family: var(--fonte-corpo);
 }
 
 .editarBloco1 {
-    /* background-color: aqua; */
     height: 700px;
     padding: 20px;
 }
 
 .editarBloco2 {
-    /* background-color: rgb(255, 225, 0); */
     height: 450px;
     padding: 20px;
 }
@@ -23,13 +21,19 @@
 
 .editarGastos,
 .editarCategorias {
-    background-color: #ffffff;
+    background-color: #17172b;
+    outline: 1px solid #1A4350;
     padding: 20px;
     border-radius: 10px;
     max-height: 70%;
     height: 100%;
     text-align: left;
 
+    & h1 {
+        color: #F8FAFC;
+        font-family: var(--fonte-titulo);
+        font-weight: normal;
+    }
 }
 
 .tabelaGasto table {
@@ -38,10 +42,29 @@
     border-collapse: collapse;
 }
 
-.tabelaGasto input, .tabelaGasto select{
+.tabelaGasto thead{
+     text-transform: uppercase;
+}
+
+.tabelaGasto input,
+.tabelaGasto select {
     width: 100%;
+    border-radius: 7px;
     box-sizing: border-box;
     padding: 5px;
+    background-color: transparent;
+    border: 1px solid #2a2e50;
+    color: #F8FAFC;
+}
+
+.tabelaGasto input :focus,
+.tabelaGasto select:focus {
+    border: 1px solid #7b7f9f;
+}
+
+.tabelaGasto option{
+    background-color: #17172b;
+
 }
 
 .tabelaCategoria {
@@ -71,21 +94,23 @@
 }
 
 .tabelaCategoria thead {
-    background-color: #cdd0d0;
     border-radius: 10px;
     position: sticky;
     top: 0;
+
+    text-transform: uppercase;
 }
 
 
 .tabelaCategoria tr {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #8f98a814;
 
 }
 
 .tabelaCategoria td,
 .tabelaCategoria th {
     padding: 9px;
+    color: #8F98A8;
 }
 
 .tabelaCategoria td,
@@ -108,7 +133,7 @@
     width: 20%;
 }
 
-.TituloTabela{
+.TituloTabela {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -116,6 +141,6 @@
 
 }
 
-.TituloTabela p{
+.TituloTabela p {
     width: 40%;
 }

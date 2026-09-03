@@ -102,7 +102,7 @@ function Perfil() {
                                             setEditandoPerfil(false)
                                     }
                                     } >Salvar</button>
-                                    <button onClick={() => {setEditandoPerfil(false); setErros({})}} type="button">Cancelar</button>
+                                    <button onClick={() => { setEditandoPerfil(false); setErros({}) }} type="button">Cancelar</button>
                                 </div>
                             </>
                         ) : (

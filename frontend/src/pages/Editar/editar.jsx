@@ -95,7 +95,7 @@ function Editar() {
             <div className="editarBloco1">
                 <div className="editarGastos">
                     <div className="TituloTabela">
-                        <h1>Gastos</h1>
+                        <h1>Gas<span style={{color: "#FDBB33"}}>tos</span></h1>
                         <p className="erro">{erros.Data}</p>
                     </div>
                     <div className="tabelaGasto">
@@ -138,9 +138,9 @@ function Editar() {
                                                     day: "2-digit",
                                                     month: "2-digit"
                                                 })}</td>
-                                                <td className="colunaDado">{gasto.descricao}</td>
+                                                <td className="colunaDado" style={{color: "#F8FAFC"}}>{gasto.descricao}</td>
                                                 <td className="colunaDado">{gasto.categoriaNome}</td>
-                                                <td className="colunaDado">R$ {Number(gasto.valor).toFixed(2)}</td>
+                                                <td className="colunaDado" style={{color: "#FDBB33"}}>R$ {Number(gasto.valor).toFixed(2)}</td>
                                                 <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/editar.png" alt="Editar-gasto" onClick={() => (editarGasto(gasto), setGastoEditando(gasto.id))} /></td>
                                                 <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/excluir.png" alt="Excluir-gasto" onClick={() => excluirGasto(gasto.id)} />
                                                 </td>
@@ -156,10 +156,9 @@ function Editar() {
                 </div>
             </div>
             <div className="editarBloco2">
-
                 <div className="editarCategorias">
                     <div className="TituloTabela">
-                        <h1>Categorias</h1>
+                        <h1>Catego<span style={{color: "#F05BA1"}}>rias</span></h1>
                         <p className="erro">{erros.Categoria}</p>
                     </div>
                     <div className="tabelaCategoria">
@@ -182,7 +181,7 @@ function Editar() {
                                             </>
                                         ) : (
                                             <>
-                                                <td>{categoria.nome}</td>
+                                                <td style={{color: "#F8FAFC"}}>{categoria.nome}</td>
                                                 <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/editar.png" alt="Editar-gasto" onClick={() => (editarCategoria(categoria), setCategoriaEditando(categoria.id))} /></td>
                                                 <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/excluir.png" alt="Excluir-gasto" onClick={() => (
                                                     excluirCategoria(categoria.id)

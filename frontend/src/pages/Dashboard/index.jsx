@@ -187,9 +187,9 @@ function Dashboard() {
                                                 day: "2-digit",
                                                 month: "2-digit"
                                             })}</td>
-                                            <td>{gasto.descricao}</td>
+                                            <td style={{color: "#FFFFFF"}}>{gasto.descricao}</td>
                                             <td>{gasto.categoriaNome}</td>
-                                            <td>R$ {Number(gasto.valor).toFixed(2)}</td>
+                                            <td style={{color: "#70EB7B"}}>R$ {Number(gasto.valor).toFixed(2)}</td>
                                             <td><img className="iconExcluirGasto" onClick={() => excluirGasto(gasto.id)} src="./../../../public/excluir.png" alt="exluir" /></td>
                                         </tr>
                                     ))}
@@ -203,7 +203,7 @@ function Dashboard() {
                 <div className="bloco3">
                     <div className="formGasto">
                         <form action="">
-                            <h1>+ Adicionar Novo Gasto</h1>
+                            <h1><span style={{ color: "#FDBB33" }} >+</span> Adicionar Novo Gasto</h1>
 
                             <div className="campo">
                                 <label htmlFor="desc">Descrição</label>
@@ -242,7 +242,7 @@ function Dashboard() {
 
                     <div className="formCategoria">
                         <form action="">
-                            <h1>+ Criar Categoria</h1>
+                            <h1><span style={{color: "#F05BA1"}}>+</span> Criar Categoria</h1>
 
                             <div className="campo">
                                 <label htmlFor="nome" >Nome</label>

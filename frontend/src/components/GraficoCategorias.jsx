@@ -14,11 +14,11 @@ function GraficoCategorias({ atualizar }) {
     const [gastosPorCategoria, setGastosPorCategoria] = useState([]); //dados modificados + "outros"
 
     const cores = [
-        "#8884d8",
-        "#82ca9d",
-        "#ffc658",
-        "#ff8042",
-        "#0088FE"
+        "#4BE1FC",
+        "#FDBB33",
+        "#F05BA1",
+        "#70EB7B",
+        "#C574FB"
     ];
 
     async function getTotal() {

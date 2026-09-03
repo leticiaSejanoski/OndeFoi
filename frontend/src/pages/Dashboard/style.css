@@ -1,3 +1,4 @@
+
 .container {
     display: flex;
     justify-content: center;
@@ -7,18 +8,23 @@
     width: 92%;
     max-width: 85vw;
     margin: 0 auto;
-    /* background-color: blue; */
+    font-family: var(--fonte-corpo); 
 }
 
 .bloco1 {
-    /* background-color: aqua; */
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     width: 100%;
 }
 
 .bloco1 div {
-    background-color: #ffffff;
+    background-color: #17172b;
+    border: 1px solid #22d3ee66;
+    box-shadow:
+        0 0 0 1px #22d3ee1a,
+        0 0 12px #22d3ee59,
+        0 0 24px #22d3ee26;
+    transition: box-shadow 0.3s ease;
     margin: 5px;
     border-radius: 10px;
 }
@@ -27,11 +33,17 @@
     font-weight: normal;
     font-size: 15px;
     text-transform: uppercase;
+    color: #7e889d;
+    font-family: var(--fonte-titulo);
 }
 
 .bloco1 h2 {
     font-size: 1.7em;
     text-transform: uppercase;
+    color: #4BE1FC;
+    font-family: var(--fonte-titulo);
+    font-weight: normal;
+
 }
 
 .totalGasto,
@@ -50,12 +62,11 @@
     display: grid;
     grid-template-columns: 1fr 1.15fr 0.8fr;
     width: 100%;
-    /* background-color: antiquewhite; */
+    margin-top: 20px;
 }
 
 .bloco3 {
     display: grid;
-    /* flex-direction: column; */
 }
 
 .divGrafico {
@@ -63,10 +74,11 @@
 }
 
 .grafico {
-    background-color: #ffffff;
+    background-color: #17172b;
+    outline: 1px solid #1A4350;
     border-radius: 10px;
     padding: 20px;
-    height: 480px;
+    height: 460px;
 }
 
 .divGasto {
@@ -78,11 +90,14 @@
 }
 
 .gastosInfo {
-    background-color: #ffffff;
+    background-color: #17172b;
+     outline: 1px solid #1A4350;
     padding: 20px;
     border-radius: 10px;
     max-height: 70%;
     height: 100%;
+    color: #F8FAFC;
+
 }
 
 .tabelaGasto {
@@ -91,7 +106,6 @@
     margin-top: 10px;
     height: 90%;
     overflow-y: auto;
-    /* cursor: pointer; */
 }
 
 .tabelaGasto::-webkit-scrollbar {
@@ -104,7 +118,6 @@
 }
 
 .tabelaGasto thead {
-    background-color: #cdd0d0;
     border-radius: 10px;
     position: sticky;
     top: 0;
@@ -112,12 +125,13 @@
 
 
 .tabelaGasto tr {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #8f98a814;
 }
 
 .tabelaGasto td,
 .tabelaGasto th {
     padding: 9px;
+    color: #8F98A8;
     height: 10px;
 }
 
@@ -127,12 +141,15 @@
     padding: 5px;
 }
 
+
+
 .formGasto h1,
 .gastosInfo h1,
 .formCategoria h1,
 .divGrafico h1 {
     font-size: 25px;
     text-align: left;
+    color: #F8FAFC;
 }
 
 .formGasto form,
@@ -142,7 +159,8 @@
     gap: 10px;
     padding: 20px;
     border-radius: 10px;
-    background-color: #ffffff;
+    background-color: #17172b;
+    outline: 1px solid #1A4350;
     width: 100%;
     margin-bottom: 0;
 }
@@ -161,24 +179,34 @@
     margin: 0 3px;
 
     & input {
+        background-color: transparent;
+        border: 1px solid #2a2e50;
         width: 98%;
         border-radius: 7px;
         max-height: 100%;
         height: 30px;
-        color: black;
+        color: #F8FAFC;
         font-size: 14px;
+        padding: 3px;
         outline: none;
     }
+}
+
+.campo input:focus{
+    border: 1px solid #7b7f9f;
+
 }
 
 .campo label {
     width: 100%;
     text-align: left;
+    color: #8F98A8;
 }
 
 .categoriaData {
     display: flex;
     justify-content: space-evenly;
+    flex-direction: column;
     text-align: left;
     margin: 0;
 
@@ -189,11 +217,23 @@
         height: 35px;
         font-size: 14px;
         outline: none;
+        color: #F8FAFC;
         cursor: pointer;
+        background-color: transparent;
+        border: 1px solid #2a2e50;
     }
 }
 
-.campoDataCategoria{
+.categoriaData select:focus{
+    border: 1px solid #7b7f9f;
+}
+
+.categoriaData option{
+    background-color: #17172b;
+}
+
+
+.campoDataCategoria {
     width: 100%;
 }
 
@@ -203,16 +243,25 @@
 }
 
 button {
-    border-radius: 7px;
+    border-radius: 10px;
     max-height: 100%;
     height: 40px;
     font-weight: bold;
-    border: none;
+    border: 1px solid #317b91;
     cursor: pointer;
+    color: #4BE1FC;
+    background-color: #183e4940;
+
 }
 
 button:hover {
+    border: 1px solid #3cb5cbe9;
     opacity: 0.9;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); 
+  cursor: pointer;
 }
 
 input[type="number"]::-webkit-outer-spin-button,
@@ -227,14 +276,16 @@ input[type="number"] {
 
 
 .erro {
+    color: #F8FAFC;
     font-weight: bold;
     margin: 3px;
     width: 100%;
     height: 20px;
     font-size: 0.9rem;
     text-align: left;
+    font-weight: normal;
 }
 
-.iconExcluirGasto{
+.iconExcluirGasto {
     cursor: pointer;
 }

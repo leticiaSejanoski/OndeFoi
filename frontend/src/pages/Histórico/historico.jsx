@@ -54,7 +54,7 @@ function Historico() {
                     <div key={`${grupo.mes}-${grupo.ano}`} className='divHistoricos'>
                         <div className='cabeçalhoDivMes'>
                             <h1>
-                                {`${meses[grupo.mes - 1]}/${grupo.ano}`}
+                                {meses[grupo.mes - 1]}{<span style={{color: "#70EB7B"}}>/{grupo.ano}</span>}
                             </h1>
                             <p><img title="Excluir gastos" src="./../../../public/excluir.png" alt='Botão "Excluir histórico"' onClick={() => excluirMesHistorico(grupo.mes, grupo.ano)}/></p>
                         </div>
@@ -76,15 +76,15 @@ function Historico() {
                                                 day: "2-digit",
                                                 month: "2-digit"
                                             })}</td>
-                                            <td>{gasto.descricao}</td>
+                                            <td style={{color: "#F8FAFC"}}>{gasto.descricao}</td>
                                             <td>{gasto.categoriaNome}</td>
-                                            <td>{Number(gasto.valor).toFixed(2)}</td>
+                                            <td style={{color: "#70EB7B"}}>{Number(gasto.valor).toFixed(2)}</td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
                             <div className="totalMes">
-                                <p>Total: R$ {Number(grupo.total).toFixed(2)}</p>
+                                <p>Total: <span style={{color:"#70EB7B"}}>R$ {Number(grupo.total).toFixed(2)}</span></p>
                             </div>
                         </div>
                     </div>
