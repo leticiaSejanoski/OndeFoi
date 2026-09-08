@@ -71,6 +71,7 @@
 
 .tabelaGasto thead {
     text-transform: uppercase;
+    background-color: #20203c;
 }
 
 .tabelaGasto input,
@@ -133,7 +134,7 @@
     border-radius: 10px;
     position: sticky;
     top: 0;
-
+    background-color: #20203c;
     text-transform: uppercase;
     font-weight: normal;
 }

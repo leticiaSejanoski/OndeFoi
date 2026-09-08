@@ -38,6 +38,8 @@ function Perfil() {
                 dados
             );
 
+            await getUsuario();
+
             return true;
 
         } catch (erro) {
@@ -63,7 +65,7 @@ function Perfil() {
     function editarDados(usuario) {
         setNome(usuario.nome)
         setEmail(usuario.email);
-        setSenha(usuario.senha);
+        setSenha("");
     }
 
     useEffect(() => {
@@ -98,8 +100,10 @@ function Perfil() {
                                 <div className='botoes'>
                                     <button type="button" onClick={async () => {
                                         const sucesso = await salvarAlteracoes();
-                                        if (sucesso)
-                                            setEditandoPerfil(false)
+                                        if (sucesso) {
+                                            editarDados(usuario[0]);
+                                            setEditandoPerfil(false);
+                                        }
                                     }
                                     } >Salvar</button>
                                     <button onClick={() => { setEditandoPerfil(false); setErros({}) }} type="button">Cancelar</button>

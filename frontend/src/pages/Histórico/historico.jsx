@@ -53,6 +53,9 @@ function Historico() {
                 <h1>Histórico</h1>
                 <p>Acompanhe seus gastos ao longo dos meses</p>
             </div>
+
+            {grupoGastos.length > 1 ? (
+            
             <div className='divBlocos'>
                 {grupoGastos.slice(1).map(grupo => (
                     <div key={`${grupo.mes}-${grupo.ano}`} className='divHistoricos'>
@@ -94,6 +97,11 @@ function Historico() {
                     </div>
                 ))}
             </div>
+            ) : (
+                <div className='semHistorico'>
+                    <h2>Você ainda não possui nenhum histórico :(</h2>
+                </div>
+            )}
         </div>
     );
 }

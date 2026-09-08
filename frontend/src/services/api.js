@@ -27,7 +27,8 @@ api.interceptors.response.use(
 
         if (erro.response?.status === 401 &&
             !requisicaoOriginal.jaTentouRefresh &&
-            !requisicaoOriginal.url.includes("/Usuario/refresh")
+            !requisicaoOriginal.url.includes("/Usuario/refresh") &&
+            !requisicaoOriginal.url.includes("/Usuario/login")
         ) {
 
             requisicaoOriginal.jaTentouRefresh = true;
@@ -37,6 +38,8 @@ api.interceptors.response.use(
             if (!refreshToken) {
                 localStorage.removeItem("token");
                 localStorage.removeItem("refreshToken");
+
+                window.location.href = "/";
 
                 return Promise.reject(erro);
             }
@@ -61,6 +64,8 @@ api.interceptors.response.use(
             } catch (erro) {
                 localStorage.removeItem("token");
                 localStorage.removeItem("refreshToken");
+
+                window.location.href = "/";
 
                 return Promise.reject(erro);
 

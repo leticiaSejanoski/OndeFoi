@@ -10,20 +10,20 @@
     font-family: var(--fonte-corpo);
 }
 
-.tituloHistorico{
+.tituloHistorico {
     margin: 20px 0px;
     padding: 10px;
 }
 
 
-.tituloHistorico h1{
+.tituloHistorico h1 {
     color: #4BE1FC;
     text-shadow: 0px 0px 20px #4be1fc6a;
     font-family: var(--fonte-titulo);
     font-weight: normal;
 }
 
-.tituloHistorico p{
+.tituloHistorico p {
     color: #F8FAFC;
     font-family: var(--fonte-corpo);
     /* font-weight: normal; */
@@ -107,6 +107,7 @@
     position: sticky;
     top: 0;
     text-transform: uppercase;
+    background-color: #20203c;
 }
 
 .cabeçalhoDivMes {
@@ -129,4 +130,17 @@
     text-transform: uppercase;
     position: sticky;
     bottom: 0;
+}
+
+
+.semHistorico {
+    text-align: center;
+    margin: 5rem;
+}
+
+.semHistorico h2 {
+    font-family: var(--fonte-corpo);
+    font-weight: normal;
+    color: #70EB7B;
+    text-shadow: 0px 0px 20px #70eb7a68;
 }

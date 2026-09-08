@@ -72,8 +72,8 @@ function GraficoCategorias({ atualizar }) {
     }, [categorias]);
 
     return (
-        <ResponsiveContainer width="100%" height={430}>
-            <PieChart height={350}>
+        <ResponsiveContainer width="100%" height="80%">
+            <PieChart>
                 <Pie
                     data={gastosPorCategoria}
                     dataKey={"total"}
@@ -81,7 +81,7 @@ function GraficoCategorias({ atualizar }) {
                     cx="50%"
                     cy="37%"
                     innerRadius={70}
-                    outerRadius={120}
+                    outerRadius={110}
                 />
 
                 <Tooltip

@@ -94,7 +94,8 @@
     outline: 1px solid #1A4350;
     border-radius: 10px;
     padding: 20px;
-    height: 460px;
+    height: 500px;
+    overflow: hidden;
 }
 
 .divGasto {
@@ -137,6 +138,7 @@
     border-radius: 10px;
     position: sticky;
     top: 0;
+    background-color: #20203c;
 }
 
 
@@ -172,13 +174,13 @@
     color: #F8FAFC;
     font-family: var(--fonte-titulo);
     font-weight: normal;
+    margin-bottom: 15px;
 }
 
 .formGasto form,
 .formCategoria form {
     display: flex;
     flex-direction: column;
-    /* gap: 10px; */
     padding: 20px;
     border-radius: 10px;
     background-color: #17172b;
