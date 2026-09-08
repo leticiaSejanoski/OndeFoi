@@ -40,6 +40,8 @@ function Cadastrar() {
     }
     return (
         <div className='cadastro'>
+            <img src="./../../logo.png" alt="OndeFoi" className="logoCadastro" />
+
             <form>
                 <h1>Cadastrar-se</h1>
                 <div className='campoCadastro'>

@@ -3,6 +3,7 @@ import {
     Pie,
     Tooltip,
     Legend,
+    ResponsiveContainer
 } from "recharts";
 
 import api from "../services/api";
@@ -38,7 +39,9 @@ function GraficoCategorias({ atualizar }) {
             categoriaB.total - categoriaA.total
         ));
 
-        if (categorias.length > 4) {
+        let dadosBase = ordenados;
+
+        if (categorias.length > 5) {
             let principais = ordenados.slice(0, 4);
             let resto = ordenados.slice(4);
 
@@ -47,27 +50,17 @@ function GraficoCategorias({ atualizar }) {
                 totalResto += categoria.total;
             });
 
-            const outros =
-            {
-                categoriaNome: "Outros",
-                total: totalResto
-            };
-
-            const dadosGrafico = [...principais, outros].map((categoria, index) => ({
-                ...categoria,
-                fill: cores[index % cores.length]
-            }));
-
-            setGastosPorCategoria(dadosGrafico);
-        } else {
-            const dadosGrafico = categorias.map((categoria, index) => ({
-                ...categoria,
-                porcentagem: (categoria.total / total) * 100,
-                fill: cores[index % cores.length]
-            }));
-
-            setGastosPorCategoria(dadosGrafico);
+            dadosBase = [...principais, { categoriaNome: "Outros", total: totalResto }]
         }
+
+
+        const dadosGrafico = dadosBase.map((categoria, index) => ({
+            ...categoria,
+            porcentagem: (categoria.total / total) * 100,
+            fill: cores[index % cores.length]
+        }));
+
+        setGastosPorCategoria(dadosGrafico)
     }
 
     useEffect(() => {
@@ -79,44 +72,48 @@ function GraficoCategorias({ atualizar }) {
     }, [categorias]);
 
     return (
-        <PieChart width={500} height={300}>
-            <Pie
-                data={gastosPorCategoria}
-                dataKey={"total"}
-                nameKey={"categoriaNome"}
-                cx="50%"
-                cy="50%"
-                innerRadius={70}
-                outerRadius={120}
-            />
+        <ResponsiveContainer width="100%" height={430}>
+            <PieChart height={350}>
+                <Pie
+                    data={gastosPorCategoria}
+                    dataKey={"total"}
+                    nameKey={"categoriaNome"}
+                    cx="50%"
+                    cy="37%"
+                    innerRadius={70}
+                    outerRadius={120}
+                />
 
-            <Tooltip
-                formatter={(valor) => (
-                    `R$${Number(valor).toLocaleString("pt-BR", {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                    })}`
-                )}
-            />
+                <Tooltip
+                    formatter={(valor) => (
+                        `R$${Number(valor).toLocaleString("pt-BR", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        })}`
+                    )}
+                />
 
-            <Legend
-                iconType="circle"
-                layout="vertical"
-                position={"insideBottomLeft"}
-                iconSize={18}
-                width={200}
-                height={140}
-                formatter={(categoriaNome, dadosCategoria) => {
-                    return `${categoriaNome} (${Number(dadosCategoria.payload.porcentagem).toLocaleString("pt-BR", {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                    })}%)`;
-                }}
+                <Legend
+                    iconType="circle"
+                    layout="vertical"
+                    position="insideBottomLeft"
+                    width={260}
+                    height={100}
+                    iconSize={18}
+                    wrapperStyle={{ whiteSpace: 'nowrap' }}
+                    labelStyle={{ fontSize: 14 }}
+                    formatter={(categoriaNome, dadosCategoria) => {
+                        return `${categoriaNome} (${Number(dadosCategoria.payload.porcentagem).toLocaleString("pt-BR", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        })}%)`;
+                    }}
 
 
-            />
+                />
 
-        </PieChart>
+            </PieChart>
+        </ResponsiveContainer>
     );
 }
 

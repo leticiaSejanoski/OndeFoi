@@ -1,14 +1,27 @@
-
 .container {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    align-items: center;
     padding-top: 20px;
     width: 92%;
     max-width: 85vw;
     margin: 0 auto;
-    font-family: var(--fonte-corpo); 
+    font-family: var(--fonte-corpo);
+}
+
+
+.tituloDashboard {
+    text-align: left;
+    color: #F8FAFC;
+    font-family: var(--fonte-titulo);
+    font-weight: normal;
+    margin: 20px 0px;
+    padding: 10px;
+}
+
+.tituloDashboard span {
+    color: #4BE1FC;
+    text-shadow: 0px 0px 20px #4be1fc6a;
 }
 
 .bloco1 {
@@ -34,7 +47,7 @@
     font-size: 15px;
     text-transform: uppercase;
     color: #7e889d;
-    font-family: var(--fonte-titulo);
+    font-family: var(--fonte-corpo);
 }
 
 .bloco1 h2 {
@@ -43,7 +56,6 @@
     color: #4BE1FC;
     font-family: var(--fonte-titulo);
     font-weight: normal;
-
 }
 
 .totalGasto,
@@ -56,6 +68,9 @@
     border: none;
     outline: none;
     font-size: 25px;
+    background-color: transparent;
+    border-bottom: 1px solid #1A4350;
+    color: #F8FAFC;
 }
 
 .bloco2 {
@@ -63,6 +78,7 @@
     grid-template-columns: 1fr 1.15fr 0.8fr;
     width: 100%;
     margin-top: 20px;
+    gap: 5px;
 }
 
 .bloco3 {
@@ -91,7 +107,7 @@
 
 .gastosInfo {
     background-color: #17172b;
-     outline: 1px solid #1A4350;
+    outline: 1px solid #1A4350;
     padding: 20px;
     border-radius: 10px;
     max-height: 70%;
@@ -135,6 +151,10 @@
     height: 10px;
 }
 
+.tabelaGasto th {
+    font-weight: normal;
+}
+
 .formGasto {
     display: flex;
     align-items: center;
@@ -150,13 +170,15 @@
     font-size: 25px;
     text-align: left;
     color: #F8FAFC;
+    font-family: var(--fonte-titulo);
+    font-weight: normal;
 }
 
 .formGasto form,
 .formCategoria form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    /* gap: 10px; */
     padding: 20px;
     border-radius: 10px;
     background-color: #17172b;
@@ -192,7 +214,7 @@
     }
 }
 
-.campo input:focus{
+.campo input:focus {
     border: 1px solid #7b7f9f;
 
 }
@@ -224,11 +246,11 @@
     }
 }
 
-.categoriaData select:focus{
+.categoriaData select:focus {
     border: 1px solid #7b7f9f;
 }
 
-.categoriaData option{
+.categoriaData option {
     background-color: #17172b;
 }
 
@@ -260,8 +282,8 @@ button:hover {
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1); 
-  cursor: pointer;
+    filter: invert(1);
+    cursor: pointer;
 }
 
 input[type="number"]::-webkit-outer-spin-button,
@@ -276,12 +298,11 @@ input[type="number"] {
 
 
 .erro {
-    color: #F8FAFC;
-    font-weight: bold;
-    margin: 3px;
+    color: #f05b6f;
+    margin: 5px;
     width: 100%;
     height: 20px;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     text-align: left;
     font-weight: normal;
 }

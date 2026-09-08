@@ -35,6 +35,7 @@ function Login() {
     }
     return (
         <div className='login'>
+            <img src="./../../logo.png" alt="OndeFoi" className="logoLogin" />
             <form>
                 <h1>Login</h1>
                 <div className='divInput'>

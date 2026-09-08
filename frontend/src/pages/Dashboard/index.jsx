@@ -14,6 +14,9 @@ function Dashboard() {
     //cria categoria
     const [nome, setNome] = useState("");
 
+    //dados usuario
+    const [usuario, setUsuario] = useState("");
+
     //outras funcionalidades
     const [categorias, setCategorias] = useState([]);
     const [gastosAgrupados, setGastosAgrupados] = useState([]);
@@ -74,19 +77,19 @@ function Dashboard() {
         } catch (erro) {
             setErros(erro.response.data);
         }
-        // resumo();
-    }
 
-    // async function getGastos() {
-    //     const gastos = await api.get("/Gastos");
-    //     setGastos(gastos.data);
-    //     console.log(gastos);
-    // }
+    }
 
     async function getGastosAgrupados() {
         const resposta = await api.get("/Gastos/historico");
         setGastosAgrupados(resposta.data);
-        console.log(resposta.data)
+    }
+
+    async function getUsuario() {
+        const resposta = await api.get("/Usuario");
+        setUsuario(resposta.data);
+        console.log(resposta.data);
+        
     }
 
     async function resumo() {
@@ -123,12 +126,13 @@ function Dashboard() {
     useEffect(() => {
         getCategorias();
         getGastosAgrupados();
+        getUsuario();
         resumo();
     }, []);
 
     return (
         <div className="container">
-
+                <h1 className="tituloDashboard">Olá, <span>{usuario[0]?.nome}</span>!</h1>
             <div className="bloco1">
                 <div className="renda">
                     <h1>Renda</h1>

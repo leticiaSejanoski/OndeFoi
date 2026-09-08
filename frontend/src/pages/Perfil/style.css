@@ -26,6 +26,8 @@ body {
     text-shadow: 0px 0px 20px #4be1fc6a;
     font-family: var(--fonte-titulo);
     font-weight: normal;
+    margin: 20px 0px;
+    padding: 10px;
 }
 
 
@@ -69,7 +71,8 @@ body {
         max-height: 100%;
         height: 30px;
         color: #F8FAFC;
-        font-size: 14px;
+        font-size: 1em;
+        padding: 3px;
         background-color: #17172b;
     }
 

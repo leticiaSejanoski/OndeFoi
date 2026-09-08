@@ -92,110 +92,115 @@ function Editar() {
 
     return (
         <div className="containerEditar">
-            <div className="editarBloco1">
-                <div className="editarGastos">
-                    <div className="TituloTabela">
-                        <h1>Gas<span style={{color: "#FDBB33"}}>tos</span></h1>
-                        <p className="erro">{erros.Data}</p>
-                    </div>
-                    <div className="tabelaGasto">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th className="colunaDado">Data</th>
-                                    <th className="colunaDado">Descrição</th>
-                                    <th className="colunaDado">Categoria</th>
-                                    <th className="colunaDado">Valor</th>
-                                    <th className="colunaIcone"></th>
-                                    <th className="colunaIcone"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {gastosAgrupados[0]?.gastos.map(gasto => (
-                                    <tr key={gasto.id}>
-                                        {gastoEditando === gasto.id ? (
-                                            <>
-                                                <td><input type="date" name="data" id="data" value={data} onChange={(e) => setData(e.target.value)} /></td>
-                                                <td><input type="text" value={descricao} onChange={(e) => (setDescricao(gasto.descricao),
-                                                    setDescricao(e.target.value))} /></td>
-                                                <td>
-                                                    <select name="categorias" value={categoriaSelecionada} onChange={(e) => (
-                                                        setCategoriaSelecionada(e.target.value)
-                                                    )} >
-                                                        {categorias.map(categoria =>
-                                                            <option key={categoria.id} value={categoria.id}>{categoria.nome}</option>
-                                                        )}
-                                                    </select>
-                                                </td>
-                                                <td><input type="number" value={valor} onChange={(e) => (setValor(e.target.value))} /></td>
-
-                                                <td><button type="button" onClick={() => (salvarGasto(gasto.id), setGastoEditando(null))}>Salvar</button></td>
-                                                <td><button type="button" onClick={() => setGastoEditando(null)}>Cancelar</button></td>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <td className="colunaDado">{new Date(gasto.data).toLocaleDateString("pt-BR", {
-                                                    day: "2-digit",
-                                                    month: "2-digit"
-                                                })}</td>
-                                                <td className="colunaDado" style={{color: "#F8FAFC"}}>{gasto.descricao}</td>
-                                                <td className="colunaDado">{gasto.categoriaNome}</td>
-                                                <td className="colunaDado" style={{color: "#FDBB33"}}>R$ {Number(gasto.valor).toFixed(2)}</td>
-                                                <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/editar.png" alt="Editar-gasto" onClick={() => (editarGasto(gasto), setGastoEditando(gasto.id))} /></td>
-                                                <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/excluir.png" alt="Excluir-gasto" onClick={() => excluirGasto(gasto.id)} />
-                                                </td>
-
-                                            </>
-                                        )}
+            <div className="tituloEditar">
+                <h1>Editar</h1>
+                <p>Edite seus gastos e organize suas categorias</p>
+            </div>
+            <div className="divEditar">
+                <div className="editarBloco1">
+                    <div className="editarGastos">
+                        <div className="TituloTabela">
+                            <h1>Gas<span className="spanGastos" style={{ color: "#FDBB33" }}>tos</span></h1>
+                            <p className="erro">{erros.Data}</p>
+                        </div>
+                        <div className="tabelaGasto">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th className="colunaDado">Data</th>
+                                        <th className="colunaDado">Descrição</th>
+                                        <th className="colunaDado">Categoria</th>
+                                        <th className="colunaDado">Valor</th>
+                                        <th className="colunaIcone"></th>
+                                        <th className="colunaIcone"></th>
                                     </tr>
-                                ))}
+                                </thead>
+                                <tbody>
+                                    {gastosAgrupados[0]?.gastos.map(gasto => (
+                                        <tr key={gasto.id}>
+                                            {gastoEditando === gasto.id ? (
+                                                <>
+                                                    <td><input type="date" name="data" id="data" value={data} onChange={(e) => setData(e.target.value)} /></td>
+                                                    <td><input type="text" value={descricao} onChange={(e) => (setDescricao(gasto.descricao),
+                                                        setDescricao(e.target.value))} /></td>
+                                                    <td>
+                                                        <select name="categorias" value={categoriaSelecionada} onChange={(e) => (
+                                                            setCategoriaSelecionada(e.target.value)
+                                                        )} >
+                                                            {categorias.map(categoria =>
+                                                                <option key={categoria.id} value={categoria.id}>{categoria.nome}</option>
+                                                            )}
+                                                        </select>
+                                                    </td>
+                                                    <td><input type="number" value={valor} onChange={(e) => (setValor(e.target.value))} /></td>
 
-                            </tbody>
-                        </table>
+                                                    <td><button type="button" onClick={() => (salvarGasto(gasto.id), setGastoEditando(null))}>Salvar</button></td>
+                                                    <td><button type="button" onClick={() => setGastoEditando(null)}>Cancelar</button></td>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <td className="colunaDado">{new Date(gasto.data).toLocaleDateString("pt-BR", {
+                                                        day: "2-digit",
+                                                        month: "2-digit"
+                                                    })}</td>
+                                                    <td className="colunaDado" style={{ color: "#F8FAFC" }}>{gasto.descricao}</td>
+                                                    <td className="colunaDado">{gasto.categoriaNome}</td>
+                                                    <td className="colunaDado" style={{ color: "#FDBB33" }}>R$ {Number(gasto.valor).toFixed(2)}</td>
+                                                    <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/editar.png" alt="Editar-gasto" onClick={() => (editarGasto(gasto), setGastoEditando(gasto.id))} /></td>
+                                                    <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/excluir.png" alt="Excluir-gasto" onClick={() => excluirGasto(gasto.id)} />
+                                                    </td>
+
+                                                </>
+                                            )}
+                                        </tr>
+                                    ))}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div className="editarBloco2">
+                    <div className="editarCategorias">
+                        <div className="TituloTabela">
+                            <h1>Catego<span className="spanCategorias" style={{ color: "#F05BA1" }}>rias</span></h1>
+                            <p className="erro">{erros.Categoria}</p>
+                        </div>
+                        <div className="tabelaCategoria">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th className="colunaIcone"></th>
+                                        <th className="colunaIcone"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {categorias.map(categoria => (
+                                        <tr key={categoria.id}>
+                                            {categoriaEditando === categoria.id ? (
+                                                <>
+                                                    <td><input type="text" value={nome} onChange={(e) => setNome(e.target.value)} /></td>
+                                                    <td><button type="button" onClick={() => (salvarCategoria(categoria.id), setCategoriaEditando(null))}>Salvar</button></td>
+                                                    <td><button type="button" onClick={() => setCategoriaEditando(null)}>Cancelar</button></td>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <td style={{ color: "#F8FAFC" }}>{categoria.nome}</td>
+                                                    <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/editar.png" alt="Editar-gasto" onClick={() => (editarCategoria(categoria), setCategoriaEditando(categoria.id))} /></td>
+                                                    <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/excluir.png" alt="Excluir-gasto" onClick={() => (
+                                                        excluirCategoria(categoria.id)
+                                                    )} /></td>
+                                                </>
+                                            )}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="editarBloco2">
-                <div className="editarCategorias">
-                    <div className="TituloTabela">
-                        <h1>Catego<span style={{color: "#F05BA1"}}>rias</span></h1>
-                        <p className="erro">{erros.Categoria}</p>
-                    </div>
-                    <div className="tabelaCategoria">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th className="colunaIcone"></th>
-                                    <th className="colunaIcone"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {categorias.map(categoria => (
-                                    <tr key={categoria.id}>
-                                        {categoriaEditando === categoria.id ? (
-                                            <>
-                                                <td><input type="text" value={nome} onChange={(e) => setNome(e.target.value)} /></td>
-                                                <td><button type="button" onClick={() => (salvarCategoria(categoria.id), setCategoriaEditando(null))}>Salvar</button></td>
-                                                <td><button type="button" onClick={() => setCategoriaEditando(null)}>Cancelar</button></td>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <td style={{color: "#F8FAFC"}}>{categoria.nome}</td>
-                                                <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/editar.png" alt="Editar-gasto" onClick={() => (editarCategoria(categoria), setCategoriaEditando(categoria.id))} /></td>
-                                                <td className="colunaIcone"><img className="btnEditarExcluir" src="./../../../public/excluir.png" alt="Excluir-gasto" onClick={() => (
-                                                    excluirCategoria(categoria.id)
-                                                )} /></td>
-                                            </>
-                                        )}
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
         </div>
     );
 }

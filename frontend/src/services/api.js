@@ -18,37 +18,56 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
 
     (resposta) => {
-        // console.log("Entrou no interceptor de sucesso");
+
         return resposta;
     },
 
     async (erro) => {
-        // console.log("Entrou no interceptor de erro");
-        if (erro.response?.status === 401) {
-            // console.log("Token inválido");
+        const requisicaoOriginal = erro.config;
+
+        if (erro.response?.status === 401 &&
+            !requisicaoOriginal.jaTentouRefresh &&
+            !requisicaoOriginal.url.includes("/Usuario/refresh")
+        ) {
+
+            requisicaoOriginal.jaTentouRefresh = true;
 
             const refreshToken = localStorage.getItem("refreshToken");
 
-            // console.log(refreshToken);
+            if (!refreshToken) {
+                localStorage.removeItem("token");
+                localStorage.removeItem("refreshToken");
 
-            const resposta = await api.post("/Usuario/refresh",
-                null,
-                {
-                    params: {
-                        refreshToken: refreshToken
+                return Promise.reject(erro);
+            }
+
+            try {
+
+                const resposta = await api.post("/Usuario/refresh",
+                    null,
+                    {
+                        params: {
+                            refreshToken: refreshToken
+                        }
                     }
-                }
-            );
+                );
 
-            const novoToken = resposta.data;
-            localStorage.setItem("token", novoToken);
+                const novoToken = resposta.data;
+                localStorage.setItem("token", novoToken);
 
-            return api(erro.config);
+                requisicaoOriginal.headers.Authorization = `Bearer ${novoToken}`;
+
+                return api(requisicaoOriginal);
+            } catch (erro) {
+                localStorage.removeItem("token");
+                localStorage.removeItem("refreshToken");
+
+                return Promise.reject(erro);
+
+            }
         }
-
         return Promise.reject(erro);
     }
-
 )
 
 export default api

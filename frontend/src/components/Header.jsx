@@ -1,12 +1,12 @@
 import './style.css';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function Header() {
     return (
         <header>
             <div className='links'>
                 <div className='logo'>
-                    <h1>OndeFoi</h1>
+                   <a href="/dashboard"><img src="./../../logo.png" alt="logotipo OndeFoi" /></a> 
                 </div>
                 <nav className='nav'>
                     <NavLink className= {({isActive}) => isActive ? 'link active': 'link'}  to="/dashboard">Dashboard</NavLink>

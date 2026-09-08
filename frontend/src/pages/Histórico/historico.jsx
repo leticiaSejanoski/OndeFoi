@@ -49,6 +49,10 @@ function Historico() {
 
     return (
         <div className='containerHistorico'>
+            <div className='tituloHistorico'>
+                <h1>Histórico</h1>
+                <p>Acompanhe seus gastos ao longo dos meses</p>
+            </div>
             <div className='divBlocos'>
                 {grupoGastos.slice(1).map(grupo => (
                     <div key={`${grupo.mes}-${grupo.ano}`} className='divHistoricos'>

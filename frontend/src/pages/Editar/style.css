@@ -1,21 +1,48 @@
 .containerEditar {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 92%;
     max-width: 85vw;
     margin: 0 auto;
     padding-top: 20px;
+}
+
+.tituloEditar {
+    margin: 10px 0px;
+    padding: 20px;
+}
+
+.tituloEditar h1 {
+    color: #4BE1FC;
+    text-shadow: 0px 0px 20px #4be1fc6a;
+    font-family: var(--fonte-titulo);
+    font-weight: normal;
+}
+
+.tituloEditar p {
+    color: #F8FAFC;
     font-family: var(--fonte-corpo);
+
+}
+
+.divEditar {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    width: 100%;
+    font-family: var(--fonte-corpo);
+    margin: 0 auto;
+
 }
 
 .editarBloco1 {
     height: 700px;
-    padding: 20px;
+    padding: 10px;
 }
 
 .editarBloco2 {
     height: 450px;
-    padding: 20px;
+    padding: 10px;
 }
 
 
@@ -42,13 +69,15 @@
     border-collapse: collapse;
 }
 
-.tabelaGasto thead{
-     text-transform: uppercase;
+.tabelaGasto thead {
+    text-transform: uppercase;
 }
 
 .tabelaGasto input,
 .tabelaGasto select {
     width: 100%;
+    height: 35px;
+    font-size: 1em;
     border-radius: 7px;
     box-sizing: border-box;
     padding: 5px;
@@ -58,11 +87,12 @@
 }
 
 .tabelaGasto input :focus,
-.tabelaGasto select:focus {
+.tabelaGasto select:focus,
+.tabelaCategoria input:focus {
     border: 1px solid #7b7f9f;
 }
 
-.tabelaGasto option{
+.tabelaGasto option {
     background-color: #17172b;
 
 }
@@ -78,8 +108,14 @@
 
 .tabelaCategoria input {
     width: 100%;
+    height: 35px;
+    font-size: 1em;
     box-sizing: border-box;
     padding: 5px;
+    background-color: transparent;
+    border: 1px solid #2a2e50;
+    color: #F8FAFC;
+    border-radius: 7px;
 }
 
 .tabelaCategoria::-webkit-scrollbar {
@@ -99,6 +135,7 @@
     top: 0;
 
     text-transform: uppercase;
+    font-weight: normal;
 }
 
 
@@ -111,6 +148,10 @@
 .tabelaCategoria th {
     padding: 9px;
     color: #8F98A8;
+}
+
+.tabelaCategoria th {
+    font-weight: normal;
 }
 
 .tabelaCategoria td,
@@ -131,6 +172,7 @@
 
 .colunaDado {
     width: 20%;
+    font-weight: normal;
 }
 
 .TituloTabela {
@@ -139,6 +181,14 @@
     justify-content: space-between;
     align-items: center;
 
+}
+
+.spanGastos {
+    text-shadow: 0px 0px 20px #fdba3356;
+}
+
+.spanCategorias {
+    text-shadow: 0px 0px 20px #f05ba060
 }
 
 .TituloTabela p {

@@ -5,9 +5,23 @@
     padding-top: 100px;
 }
 
+.logoLogin {
+    width: 200px;
+    height: auto;
+    margin-bottom: 30px;
+}
+.logoLogin img{
+    width: 100%;
+    width: 100%;
+}
+
 .login h1 {
     font-size: 30px;
     text-align: center;
+    color: #C574FB;
+    text-shadow: 0px 0px 20px #c574fb53;
+    font-family: var(--fonte-titulo);
+    font-weight: normal;
 }
 
 .login form {
@@ -16,7 +30,8 @@
     justify-content: center;
     padding: 30px;
     border-radius: 10px;
-    background-color: #ffffff;
+    background-color: #17172b;
+    outline: 1px solid #1A4350;
     max-width: 50%;
     width: 400px;
     min-height: 350px;
@@ -27,12 +42,15 @@
         margin: 20px 20px;
         height: 40px;
         font-weight: bold;
-        border: none;
+        font-family: var(--fonte-corpo);
+        border: 1px solid #317b91;
         cursor: pointer;
-        background-color: #ccc;
+        color: #4BE1FC;
+        background-color: #183e4940;
     }
 
     & button:hover {
+        border: 1px solid #3cb5cbe9;
         opacity: 0.9;
     }
 }
@@ -42,26 +60,48 @@
     align-items: center;
     justify-content: center;
     margin: 20px 10px 10px;
+
 }
 
 .divInput input {
-    border: 1px solid #0b0b0b;
+    font-family: var(--fonte-corpo);
+    background-color: transparent;
+    border: 1px solid #2a2e50;
     border-radius: 10px;
     height: 40px;
     width: 90%;
     font-size: 16px;
     padding-left: 10px;
     outline: none;
+    color: #F8FAFC;
+
+}
+
+.divInput input::placeholder {
+    text-transform: uppercase;
+    font-family: var(--fonte-corpo);
+    font-size: 0.8em;
+}
+
+.divInput input:focus {
+    background-color: transparent;
+    border: 1px solid #F8FAFC;
 }
 
 .erroLogin {
     font-weight: bold;
     margin: 0px 25px;
     min-height: 20px;
+    color: #F8FAFC;
+    font-weight: normal;
+    font-size: 0.8em;
 }
 
 .linkLogin {
     text-align: center;
     text-decoration: none;
     font-weight: bold;
+    color: #714490;
+    font-family: var(--fonte-corpo);
+
 }
