@@ -98,7 +98,7 @@ Também é recomendado utilizar o **MySQL Workbench** para facilitar o gerenciam
 ## 1. Clone o repositório
 
 ```bash
-git clone https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git
+git clone https://github.com/leticiaSejanoski/OndeFoi.git
 ```
 
 Entre na pasta do projeto:
