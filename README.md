@@ -35,14 +35,25 @@ O sistema permite cadastrar categorias e gastos, visualizar informações financ
 ## 🖥️ Demonstração
 
 ### Login
+![Tela de Login](docs/login.png)
 
 ### Cadastro
+![Tela de Cadastro](docs/cadastro.png)
 
 ### Dashboard
+![Dashboard](docs/dashboard.png)
 
-### Gerenciamento de gastos
+### Histórico
 
-> Os nomes dos arquivos podem ser alterados de acordo com os screenshots adicionados à pasta `public` do frontend.
+![Histórico de Gastos](docs/historico.png)
+
+### Editar
+
+![Editar](docs/editar.png)
+
+### Perfil
+
+![Perfil](docs/perfil.png)
 
 ---
 
