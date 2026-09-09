@@ -270,6 +270,7 @@ button {
     border-radius: 10px;
     max-height: 100%;
     height: 40px;
+    font-size: 1em;
     font-weight: bold;
     border: 1px solid #317b91;
     cursor: pointer;
